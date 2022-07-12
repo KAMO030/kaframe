@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="222">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/Advice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/Advisor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/AdvisorRegister.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/After.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/Warehouse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/WarehouseAlarm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/WarehouseAlarmVO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/WarehouseIn.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/WarehouseInVO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]/WarehouseType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/Advice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/Advisor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/AdvisorRegister.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/After.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/Warehouse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/WarehouseAlarm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/WarehouseAlarmVO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[变更]1/WarehouseType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.en.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kaframe/kamo/context/annotation/AbstractScanner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kaframe/kamo/factory/After.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kaframe/kamo/proxy/Advisor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kaframe/kamo/proxy/AdvisorRegister.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kaframe/kamo/proxy/annotation/After.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/bean/Warehouse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/bean/WarehouseAlarm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/bean/WarehouseIn.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/bean/WarehouseType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/vo/WarehouseAlarmVO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/kaframe/cn/com/hamster/vo/WarehouseInVO.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="org" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Bp5UmfpOpPsaLre7zlE6Qe8j1I" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KAMO-NO-NP/IdeaProjects/kaframe&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.Test" />
+      <module name="kaframe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.Test" />
+        <item itemvalue="应用程序.Test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\KAMO-NO-NP\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="" />
+      <created>1657590203394</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657590203394</updated>
+      <workItem from="1657590205638" duration="241000" />
+      <workItem from="1657592873976" duration="1728000" />
+      <workItem from="1657594831000" duration="2680000" />
+      <workItem from="1657598476187" duration="346000" />
+    </task>
+    <task id="LOCAL-00001" summary="55">
+      <created>1657590233333</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1657590233333</updated>
+    </task>
+    <task id="LOCAL-00002" summary="1">
+      <created>1657593328678</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1657593328678</updated>
+    </task>
+    <task id="LOCAL-00003" summary="424342">
+      <created>1657596579486</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1657596579486</updated>
+    </task>
+    <task id="LOCAL-00004" summary="222">
+      <created>1657596733450</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1657596733450</updated>
+    </task>
+    <task id="LOCAL-00005" summary="2223">
+      <created>1657596769744</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1657596769744</updated>
+    </task>
+    <task id="LOCAL-00006" summary="222">
+      <created>1657596792189</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1657596792189</updated>
+    </task>
+    <task id="LOCAL-00007" summary="222">
+      <created>1657596828755</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1657596828755</updated>
+    </task>
+    <task id="LOCAL-00008" summary="222">
+      <created>1657597287173</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1657597287173</updated>
+    </task>
+    <task id="LOCAL-00009" summary="222">
+      <created>1657597312090</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1657597312090</updated>
+    </task>
+    <task id="LOCAL-00010" summary="222">
+      <created>1657597336855</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1657597336855</updated>
+    </task>
+    <task id="LOCAL-00011" summary="222">
+      <created>1657597401981</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1657597401981</updated>
+    </task>
+    <task id="LOCAL-00012" summary="222">
+      <created>1657597441777</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1657597441777</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="7cb16de4-6b34-4aff-a08a-2791b5d9eb8d">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="9c5fa0a9-3832-4f2b-8cca-c1d02a08ccf8">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1" />
+    <MESSAGE value="1.0" />
+    <MESSAGE value="1.1" />
+    <MESSAGE value="1.2" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;1.2" />
+    <MESSAGE value="&#10;1.2" />
+    <MESSAGE value="1.22" />
+    <MESSAGE value="55" />
+    <MESSAGE value="1.3" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'23131" />
+    <MESSAGE value="424342" />
+    <MESSAGE value="2223" />
+    <MESSAGE value="222" />
+    <option name="LAST_COMMIT_MESSAGE" value="222" />
+  </component>
+</project>
