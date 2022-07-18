@@ -1,6 +1,6 @@
 package test;
 
-import kamo.context.annotation.AnnotationConfigApplicationContext;
+import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 
 import java.lang.reflect.InvocationTargetException;
 

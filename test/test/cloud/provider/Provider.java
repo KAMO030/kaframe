@@ -1,9 +1,9 @@
 package test.cloud.provider;
 
 
-import kamo.cloud.Protocol;
-import kamo.cloud.ProtocolFactory;
-import kamo.cloud.URL;
+import com.kamo.cloud.Protocol;
+import com.kamo.cloud.ProtocolFactory;
+import com.kamo.cloud.URL;
 import test.cloud.common.service.TestService;
 import test.cloud.provider.serviceimp.TestServiceImp;
 import test.cloud.provider.serviceimp.TestServiceImp1;

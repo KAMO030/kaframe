@@ -1,12 +1,15 @@
 package test;
 
 
-import kamo.context.annotation.Autowired;
-import kamo.context.annotation.Component;
-import proxy.Service;
+import basedao_test.dao.CinfoDao;
+import com.kamo.context.annotation.Autowired;
+import com.kamo.context.annotation.Component;
+
 
 @Component
 public class MyClassLoader implements B {
+    @Autowired
+    private CinfoDao cinfoDao;
 //    @Autowired
 //    private B d;
 //    @Autowired
@@ -17,12 +20,11 @@ public class MyClassLoader implements B {
     //    public void test() {
 //        System.out.println(d);
 //    }
-    @Autowired
-    private Service serviceImp;
 
     @Override
     public void t() {
-        System.out.println(serviceImp);
-        serviceImp.test("11");
+        cinfoDao.count(null);
+//        System.out.println(serviceImp);
+//        serviceImp.test("11");
     }
 }

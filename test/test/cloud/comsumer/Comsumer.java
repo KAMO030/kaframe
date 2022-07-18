@@ -1,6 +1,6 @@
 package test.cloud.comsumer;
 
-import kamo.cloud.RpcProxyFactory;
+import com.kamo.cloud.RpcProxyFactory;
 
 import test.cloud.common.service.TestService;
 

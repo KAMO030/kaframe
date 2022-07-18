@@ -1,9 +1,9 @@
 package test;
 
 import cn.com.hamster.bean.UserInfo;
-import kamo.datasource.IzumiDataSourceFactory;
-import kamo.jdbc.JDBCTemplate;
-import kamo.jdbc.RowMapper;
+import com.kamo.datasource.IzumiDataSourceFactory;
+import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.RowMapper;
 
 import java.io.FileReader;
 import java.io.IOException;

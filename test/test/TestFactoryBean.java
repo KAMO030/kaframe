@@ -1,6 +1,6 @@
 package test;
 
-import kamo.context.FactoryBean;
+import com.kamo.context.FactoryBean;
 
 //@Component
 public class TestFactoryBean implements FactoryBean<RemoteTest> {
