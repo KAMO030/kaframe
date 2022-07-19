@@ -10,6 +10,7 @@ import java.beans.Introspector;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -387,7 +388,7 @@ public abstract class AbstractApplicationContext implements ApplicationContext, 
             }
         }
         if (bean == null) {
-            throw new NoSuchBeanDefinitionException("找不到ID为: " + name + " 的 Bean");
+            throw new NoSuchBeanDefinitionException("找到了多个类型为: "+requiredType.getName()+" 的bean:"+ Arrays.toString(matchNames)+" 而当前需要的名字为:"+name);
         }
         return bean;
     }

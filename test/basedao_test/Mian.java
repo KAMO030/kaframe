@@ -1,9 +1,6 @@
 package basedao_test;
 
-import basedao_test.pojo.Cinfo;
-import basedao_test.service.CinfoService;
 import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.AbstractScanner;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 import com.kamo.jdbc.BeanPropertyRowMapper;
 import com.kamo.jdbc.JDBCTemplate;
@@ -22,9 +19,7 @@ import java.util.List;
 //basedao和BFactoryBean演示demo
 public class Mian {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-//        ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-//
-//        CinfoService cinfoServiceImp = (CinfoService) context.getBean("cinfoServiceImp");
+        ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 //        Cinfo cinfo = new Cinfo();
 //        cinfo.setcName("可");
 //        System.out.println(cinfoServiceImp.service(cinfo));
@@ -32,12 +27,9 @@ public class Mian {
 //        CinfoDao baseDao = baseDaoFactory.getBaseDao(CinfoDao.class);
 //        Cinfo cinfo = new Cinfo();
 //        cinfo.setcName("可乐");
-//        System.out.println(baseDao.u(cinfo));
+//
 //        System.out.println(baseDao.selectCinfoVoList(cinfo));
-//        Long l = new Long("111");
-//        Integer.valueOf(Math.toIntExact(l));
-//        System.out.println(Integer.class.getDeclaredField("TYPE").get(null));
-//        System.out.println(List.class.isAssignableFrom(ArrayList.class));
+
 //        Properties props = new Properties();
 //        System.out.println("可乐");
 //        try {

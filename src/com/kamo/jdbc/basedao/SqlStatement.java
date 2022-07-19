@@ -30,7 +30,7 @@ public class SqlStatement {
         this.isQuery = isQuery;
         this.isDefaultReturnType = isDefaultReturnType;
         this.returnType = returnType;
-        //如果此sql是sql
+        //如果此sql是查询sql
         if (this.isQuery) {
             //判断返回类型是不是八大原始型或其包装类,如果是则采用简单映射器,否则才用Bean的属性映射器
             this.mapper =ReflectUtils.isPrimitive(returnType)?

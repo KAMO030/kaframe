@@ -1,9 +1,9 @@
 package basedao_test.vo;
 
 
-import basedao_test.pojo.Cinfo;
-import basedao_test.pojo.Ctype;
-import basedao_test.pojo.Cunit;
+import basedao_test.service.pojo.Cinfo;
+import basedao_test.service.pojo.Ctype;
+import basedao_test.service.pojo.Cunit;
 
 public class CinfoVO {
     private String cId;

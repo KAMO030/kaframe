@@ -9,7 +9,7 @@ import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BaseDaoFactory implements FactoryBean {
+public class BaseDaoFactory {
     //数据源
     private DataSource dataSource;
 
@@ -44,17 +44,5 @@ public class BaseDaoFactory implements FactoryBean {
         return (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{daoClass}, baseDaoHandler);
     }
 
-    @Override
-    public Object getObject(Class daoClass) {
-        if (!BaseDao.class.isAssignableFrom(daoClass)) {
-            throw new IllegalArgumentException(daoClass +" 类型没有继承于: "+BaseDao.class);
-        }
-        return getBaseDao( daoClass);
-    }
 
-
-    @Override
-    public Class getObjectType() {
-        return BaseDao.class;
-    }
 }

@@ -1,7 +1,7 @@
 package basedao_test.service.imp;
 
 import basedao_test.dao.CinfoDao;
-import basedao_test.pojo.Cinfo;
+import basedao_test.service.pojo.Cinfo;
 import basedao_test.service.CinfoService;
 import basedao_test.vo.CinfoVO;
 import com.kamo.context.annotation.Autowired;

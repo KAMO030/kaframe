@@ -33,6 +33,8 @@ public class JDBCTemplate {
             for (int i = 0; i < obs.length; i++) {
                 preparedStatement.setObject(i + 1, obs[i]);
             }
+            System.out.println("SQL: "+sql);
+            System.out.println("OBJ: "+ Arrays.toString(obs));
             row = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
