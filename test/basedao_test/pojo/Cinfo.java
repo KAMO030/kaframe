@@ -1,4 +1,4 @@
-package basedao_test.service.pojo;
+package basedao_test.pojo;
 
 import java.io.Serializable;
 

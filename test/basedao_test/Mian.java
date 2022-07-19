@@ -1,7 +1,7 @@
 package basedao_test;
 
 import basedao_test.service.CinfoService;
-import basedao_test.service.pojo.Cinfo;
+import basedao_test.pojo.Cinfo;
 import com.kamo.context.ApplicationContext;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 

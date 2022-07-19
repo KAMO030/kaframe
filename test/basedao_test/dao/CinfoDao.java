@@ -1,6 +1,6 @@
 package basedao_test.dao;
 
-import basedao_test.service.pojo.Cinfo;
+import basedao_test.pojo.Cinfo;
 import basedao_test.vo.CinfoVO;
 import com.kamo.jdbc.basedao.BaseDao;
 import com.kamo.jdbc.basedao.SQL;
