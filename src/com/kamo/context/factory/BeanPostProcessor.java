@@ -1,7 +1,7 @@
 package com.kamo.context.factory;
 
-import com.sun.istack.internal.Nullable;
 import com.kamo.context.exception.BeansException;
+import com.sun.istack.internal.Nullable;
 
 public interface BeanPostProcessor {
     @Nullable

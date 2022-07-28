@@ -7,7 +7,7 @@ package com.kamo.factory;
 
 import com.kamo.context.annotation.Import;
 import com.kamo.proxy.TransactionProxy;
-import com.kamo.transaction.impl.TransManagerImpl;
+import com.kamo.transaction.support.DataSourceTransManager;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -291,7 +291,7 @@ public class AnnotationConfigApplicationContext implements ApplicationContext {
                     throw new NullPointerException(method.getName()+":没有找到指定的dataSource");
                 }
 
-                bean = TransactionProxy.createProxy(bean,new TransManagerImpl(dataSource));
+                bean = TransactionProxy.createProxy(bean,new DataSourceTransManager(dataSource));
             }
             singletonBeanMap.put(beanName, bean);
         }

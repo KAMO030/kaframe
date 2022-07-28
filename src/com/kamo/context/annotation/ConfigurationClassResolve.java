@@ -1,8 +1,6 @@
 package com.kamo.context.annotation;
 
-import com.kamo.context.BeanDefinitionRegistry;
-import com.kamo.context.BeanFactory;
-import com.kamo.context.Resolve;
+import com.kamo.context.*;
 
 import java.lang.reflect.Method;
 
@@ -11,8 +9,10 @@ public class ConfigurationClassResolve implements Resolve {
     private BeanDefinitionRegistry registry;
     private Class configBeanClass;
 
+
     public ConfigurationClassResolve(BeanDefinitionRegistry registry,Class configBeanClass) {
         this.configBeanClass = configBeanClass;
+
         this.registry = registry;
     }
     @Override
@@ -43,15 +43,12 @@ public class ConfigurationClassResolve implements Resolve {
     }
 
     protected void loadMethods() {
-        Method[] methods = configBeanClass.getMethods();
-        Object configBean;
-        configBean = ((BeanFactory)registry).getBean(configBeanClass);
+        Method[] methods = configBeanClass.getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Bean.class)) {
                 String name = method.getAnnotation(Bean.class).name();
                 name = name.equals("") ? method.getName() : name;
-                MethodBeanDefinition methodBeanDefinition = new MethodBeanDefinition(configBean,method);
-                new AutowiredPropertyResolve(methodBeanDefinition).parse();
+                BeanDefinition methodBeanDefinition = BeanDefinitionBuilder.getBeanDefinition(method,()->((BeanFactory)registry).getBean(configBeanClass));
                 registry.registerBeanDefinition(name,methodBeanDefinition);
             }
         }

@@ -5,8 +5,6 @@ import com.kamo.context.annotation.Autowired;
 import com.kamo.context.annotation.Component;
 import proxy_test.service.CinfoService;
 
-import java.util.List;
-
 @Component
 public class CinfoServiceImp implements CinfoService {
     @Autowired

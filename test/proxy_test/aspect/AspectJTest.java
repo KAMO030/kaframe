@@ -1,10 +1,10 @@
 package proxy_test.aspect;
 
 import com.kamo.proxy.annotation.After;
+import com.kamo.proxy.annotation.Aspect;
 import com.kamo.proxy.annotation.Before;
-import com.kamo.proxy.annotation.AspectJ;
 
-@AspectJ
+@Aspect
 public class AspectJTest {
     @After("proxy_test.service.imp.CinfoServiceImp.service()")
     public void after(){
@@ -26,4 +26,8 @@ public class AspectJTest {
     public void before1(){
         System.out.println("service:before");
     }
+//    @Before("proxy_test.Config.test()")
+//    public void before2(){
+//        System.out.println("service:before55");
+//    }
 }

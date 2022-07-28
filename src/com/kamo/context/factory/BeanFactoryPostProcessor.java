@@ -1,5 +1,5 @@
 package com.kamo.context.factory;
 
 public interface BeanFactoryPostProcessor {
-    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory);
+    default void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory){};
 }

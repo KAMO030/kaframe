@@ -1,7 +1,5 @@
 package com.kamo.context;
 
-import com.kamo.context.annotation.Arg;
-
 import java.beans.Introspector;
 import java.lang.reflect.Parameter;
 
@@ -12,9 +10,7 @@ public class Arguments {
 
     public Arguments(Parameter parameter) {
         setType(parameter.getType());
-        setName(parameter.isAnnotationPresent(Arg.class)
-                ?parameter.getAnnotation(Arg.class).value()
-                : Introspector.decapitalize(parameter.getType().getSimpleName()));
+        setName(Introspector.decapitalize(parameter.getType().getSimpleName()));
     }
 
     public Arguments() {

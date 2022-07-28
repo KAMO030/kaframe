@@ -1,8 +1,8 @@
 package cn.com.hamster.vo;
 
 
-import cn.com.hamster.bean.UnitType;
 import cn.com.hamster.bean.DealUnit;
+import cn.com.hamster.bean.UnitType;
 
 import java.io.Serializable;
 

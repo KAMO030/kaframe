@@ -57,7 +57,7 @@ public  class IzumiConnection implements Connection {
     @Override
     public void close() {
 //        connection.close();
-        izumiDataSource.freeConnection();
+        izumiDataSource.freeConnection(this);
     }
 
     @Override

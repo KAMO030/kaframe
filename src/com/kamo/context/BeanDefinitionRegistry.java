@@ -3,6 +3,8 @@ package com.kamo.context;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 
+import java.util.Map;
+
 public interface BeanDefinitionRegistry  {
 
 
@@ -38,6 +40,8 @@ public interface BeanDefinitionRegistry  {
      * @return the number of beans defined in the registry
      */
     int getBeanDefinitionCount();
+
+    Map<Class, Object> getFactoryBeans();
 
     /**
      * Determine whether the given bean name is already in use within this registry,

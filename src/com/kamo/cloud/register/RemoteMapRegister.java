@@ -40,7 +40,7 @@ public class RemoteMapRegister {
 
     private static void saveFile() {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("/temp.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("temp1.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(REGISTER);
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class RemoteMapRegister {
 
     private static Map<String, List<URL>> getFile() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("/temp.txt");
+            FileInputStream fileInputStream = new FileInputStream("temp1.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             return (Map<String, List<URL>>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {

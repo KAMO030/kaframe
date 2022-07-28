@@ -37,8 +37,8 @@ public class ResultMap<T> implements RowMapper<T> {
         if (metaDataMap==null){
             metaDataMap = getMetaDataMap(resultSet.getMetaData());
         }
-//        System.out.println(resultMap);
-//        System.out.println(metaDataMap);
+        System.out.println(resultMap);
+        System.out.println(metaDataMap);
         Field field;
         T bean = null;
         try {

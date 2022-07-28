@@ -1,11 +1,9 @@
 package com.kamo.proxy.impl;
 
 import com.kamo.proxy.Advisor;
-import com.kamo.proxy.AdvisorRegister;
 import com.kamo.proxy.MethodInvocation;
 import com.kamo.proxy.Pointcut;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -33,10 +31,10 @@ public class JdkMethodInvocation implements MethodInvocation {
 
     public Object invoke(JdkMethodInvocation invocation) throws Throwable {
         int index = invocation.getIndex();
-        if (index== AdvisorRegister.advisorSize()) {
+        if (index== advisorList.size()) {
             return invocation.invoke();
         }
-        Advisor advisor = AdvisorRegister.getAdvisor(index);
+        Advisor advisor = advisorList.get(index);
         Pointcut pointcut = advisor.getPointcut();
         return pointcut.matches(invocation.getMethod(), target.getClass())
                 ?advisor.getAdvice().invoke(invocation)
@@ -47,9 +45,13 @@ public class JdkMethodInvocation implements MethodInvocation {
         return null;
     }
 
-    public Object invoke() throws InvocationTargetException, IllegalAccessException {
-        return method.invoke(target,args);
-   }
+    public Object invoke() throws Throwable {
+        try {
+            return method.invoke(target,args);
+        } catch (Throwable e) {
+            throw e.getCause();
+        }
+    }
     public Object getTarget() {
         return target;
     }

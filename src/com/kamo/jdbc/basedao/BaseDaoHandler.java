@@ -1,14 +1,12 @@
 package com.kamo.jdbc.basedao;
 
-import com.kamo.jdbc.BeanPropertyRowMapper;
-import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.util.BeanUtil;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +18,15 @@ public class BaseDaoHandler implements InvocationHandler {
     private DataSource dataSource;
 
     private Map<Method, SqlStatement> sqlStatements;
-    private JDBCTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     private BaseDaoImp baseDao;
+    private Class daoClass;
 
-
-    public <T> BaseDaoHandler(Map<Method, SqlStatement> sqlStatementMap, Class<T> entityClass, DataSource dataSource) {
+    public BaseDaoHandler(Map<Method, SqlStatement> sqlStatementMap,Class daoClass, Class entityClass, DataSource dataSource) {
         this.sqlStatements = sqlStatementMap;
         this.dataSource = dataSource;
-        jdbcTemplate = new JDBCTemplate(dataSource);
+        this.daoClass = daoClass;
+        jdbcTemplate = new JdbcTemplate(dataSource);
         baseDao = new BaseDaoImp(entityClass);
 
     }
@@ -35,6 +34,9 @@ public class BaseDaoHandler implements InvocationHandler {
     //代理对象的拦截方法,调用所有的方法都会被此方法拦截,进入此方法
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if (method.getName().equals("toString")&&method.getParameterTypes().length == 0){
+            return daoClass.getName()+"$proxy@"+Integer.toHexString(baseDao.hashCode());
+        }
         Object result = null;
         try {
             //如果调用的方法是BaseDao里面已经实现的对于单表的CURD则直接调用

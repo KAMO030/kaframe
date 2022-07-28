@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="myBatis_test.mapper.CinfoMapper">
+    <select id="findAllCinfoVOByList" resultType="mapper_test.test.vo.CinfoVO" >
+        select cinfo.*,ctype.tname,cunit.uname from cinfo,ctype,cunit where cinfo.tid=ctype.tid and cinfo.uid=cunit.uid
+    </select>
+</mapper>

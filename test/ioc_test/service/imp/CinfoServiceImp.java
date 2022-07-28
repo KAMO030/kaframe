@@ -9,7 +9,16 @@ import ioc_test.service.CinfoService;
 public class CinfoServiceImp implements CinfoService {
     @Autowired
     private CinfoDao cinfoDao;
-    public int service(){
+
+    @Autowired
+    public CinfoServiceImp(CinfoDao cinfoDao) {
+        this.cinfoDao = cinfoDao;
+    }
+
+    public CinfoServiceImp() {
+    }
+
+    public int service() {
         return cinfoDao.update(null);
     }
 }

@@ -1,8 +1,9 @@
 package com.kamo.context.annotation;
 
 import com.kamo.context.BeanDefinition;
+import com.kamo.context.BeanDefinitionBuilder;
 import com.kamo.context.BeanDefinitionRegistry;
-
+import com.kamo.util.ReflectUtils;
 
 import java.beans.Introspector;
 
@@ -16,22 +17,12 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
 
 
     public void register(Class beanClass) {
-        Component component = (Component) beanClass.getAnnotation(Component.class);
+        Component component = ReflectUtils.getAnnotation(beanClass,Component.class);
         String beanName = component.value();
         if (beanName.equals("")) {
             beanName = Introspector.decapitalize(beanClass.getSimpleName());
         }
-        BeanDefinition beanDefinition = new ScannedGenericBeanDefinition();
-        if (beanClass.isAnnotationPresent(Scope.class)) {
-            Scope scope = (Scope) beanClass.getAnnotation(Scope.class);
-            beanDefinition.setScope(scope.value());
-        } else {
-            beanDefinition.setScope(Scope.SINGLETON);
-        }
-        beanDefinition.setBeanClass(beanClass);
-        beanDefinition.setLazyInit(beanClass.isAnnotationPresent(Lazy.class));
-        AutowiredPropertyResolve propertyResolve = new AutowiredPropertyResolve(beanDefinition);
-        propertyResolve.parse();
+        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(beanClass);
         registry.registerBeanDefinition(beanName, beanDefinition);
 
     }
@@ -39,7 +30,7 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
     public boolean isRegisterClass(Class loaderClass) {
 
         return loaderClass != null
-                && loaderClass.isAnnotationPresent(Component.class)
+                && ReflectUtils.isAnnotationPresent(loaderClass,Component.class)
                 && !loaderClass.isInterface();
     }
 }

@@ -4,7 +4,7 @@ import basedao_test.Config;
 import com.kamo.context.ApplicationContext;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 import com.kamo.jdbc.BeanPropertyRowMapper;
-import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.basedao.BaseDaoImp;
 import com.kamo.jdbc.basedao.SQL;
 import com.kamo.util.BeanUtil;
@@ -48,7 +48,7 @@ public class Mian {
     private static <T> T getMapping(Class<T> daoClass, DataSource dataSource) {
         return (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{daoClass}, new InvocationHandler() {
             Class<T> entityClass = (Class) ((ParameterizedType) daoClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];
-            JDBCTemplate jdbcTemplate = new JDBCTemplate(dataSource);
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             BaseDaoImp baseDao = new BaseDaoImp(entityClass,jdbcTemplate);
 
             @Override

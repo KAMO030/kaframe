@@ -1,9 +1,7 @@
 package cn.com.hamster.vo;
 
 
-
 import cn.com.hamster.bean.*;
-
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

@@ -2,9 +2,8 @@ package com.kamo.jdbc.basedao;
 
 
 import com.kamo.jdbc.BeanPropertyRowMapper;
-import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -13,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class BaseDaoImp<T> implements BaseDao<T> {
     public List<T> obj;
-    protected  JDBCTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate;
     //子类dao泛型的类型对应实体类型
     protected Class entityClass;
     //表名
@@ -29,10 +28,10 @@ public class BaseDaoImp<T> implements BaseDao<T> {
 
 
     public BaseDaoImp(Class<T> entityClass) {
-        this(entityClass,new JDBCTemplate());
+        this(entityClass,new JdbcTemplate());
     }
 
-    public BaseDaoImp(Class entityClass,JDBCTemplate jdbcTemplate ) {
+    public BaseDaoImp(Class entityClass, JdbcTemplate jdbcTemplate ) {
         this.jdbcTemplate = jdbcTemplate;
         this.entityClass = entityClass;
         init();
@@ -178,21 +177,21 @@ public class BaseDaoImp<T> implements BaseDao<T> {
     }
 
     public String autoStitchingSql(T entity, String refer, List args) {
-        String stitchingSql = "";
+        StringBuffer stitchingSql = new StringBuffer();
         try {
             for (String columnName : columnNameMap.keySet()) {
                 Field field = columnNameMap.get(columnName);
                 Object value = null;
                 value = field.get(entity);
                 if (value != null) {
-                    stitchingSql += refer.replace("$", columnName);
+                    stitchingSql.append(refer.replace("$", columnName));
                     if (refer.indexOf("like") != -1) {
                         value = "%" + value + "%";
                     }
                     args.add(value);
                 }
             }
-            return stitchingSql;
+            return stitchingSql.toString();
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }

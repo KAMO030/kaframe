@@ -17,5 +17,8 @@ public interface CinfoDao extends BaseDao<Cinfo> {
     @SQL
     Integer u(Cinfo cinfo);
 
+    @SQL
+    List<String> queryCname(Cinfo cinfo);
+
 
 }

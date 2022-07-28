@@ -10,7 +10,7 @@ public abstract class AbstractScanner implements Scanner {
             int index = basePackage.indexOf('/');
             //test.dao
             rootPath = index != -1 ? basePackage.substring(0, index) : basePackage;
-            String filePath = AnnotationConfigApplicationContext.class.getClassLoader().getResource(basePackage).getFile();
+            String filePath = AbstractScanner.class.getClassLoader().getResource(basePackage).getFile();
             File classFile = new File(filePath);
             doScan(classFile);
         }

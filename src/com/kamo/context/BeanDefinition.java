@@ -3,6 +3,7 @@ package com.kamo.context;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
+import java.util.function.Supplier;
 
 public interface BeanDefinition {
     String SCOPE_SINGLETON = "singleton";
@@ -34,6 +35,6 @@ public interface BeanDefinition {
 
     String getScope();
     void setScope(String scope);
-
+    void setInstanceSupplier(Supplier instanceSupplier);
     boolean isSingleton();
 }

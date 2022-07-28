@@ -5,26 +5,13 @@ package com.kamo.util;
 
 import com.kamo.jdbc.PageBean;
 import com.kamo.jdbc.basedao.BaseDao;
-import javafx.util.converter.DateStringConverter;
 
 import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public final class BeanUtils {
-    private static final Map<Class, Converter> converterMap = new HashMap<>();
-    static {
-        converterMap.put(Integer.class, values -> Integer.valueOf((String) values[0]));
-        converterMap.put(int.class, values -> Integer.parseInt((String) values[0]));
-        converterMap.put(Date.class, values -> new DateStringConverter(DateFormat.DEFAULT).fromString((String) values[0]));
-        converterMap.put(Boolean.class, values -> Boolean.parseBoolean((String) values[0]));
-        converterMap.put(String.class, values -> values[0]);
-        converterMap.put(String[].class, values -> values);
 
-    }
     private BeanUtils() {
     }
 
@@ -46,7 +33,7 @@ public final class BeanUtils {
                 continue;
             }
             Class type = field.getType();
-            Object value = converterMap.get(type).convert(values);
+            Object value = ConverterRegistry.convert(values,type);
             try {
                 field.set(obj,value);
             } catch (IllegalAccessException e) {

@@ -2,7 +2,7 @@ package test;
 
 import cn.com.hamster.bean.UserInfo;
 import com.kamo.datasource.IzumiDataSourceFactory;
-import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
 
 import java.io.FileReader;
@@ -17,7 +17,7 @@ public class RemoteTest {
 //        socketServer.start(1112);
         Properties properties = new Properties();
         properties.load(new FileReader("jdbc.properties"));
-        JDBCTemplate jdbcTemplate = new JDBCTemplate(IzumiDataSourceFactory.createDataSource(properties));
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(IzumiDataSourceFactory.createDataSource(properties));
         jdbcTemplate.query("", new RowMapper<UserInfo>() {
             @Override
             public UserInfo mapRow(ResultSet resultSet) throws SQLException {

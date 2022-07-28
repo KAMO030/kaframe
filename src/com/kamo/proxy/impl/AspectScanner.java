@@ -3,7 +3,7 @@ package com.kamo.proxy.impl;
 import com.kamo.context.annotation.AbstractScanner;
 import com.kamo.context.annotation.Scanner;
 import com.kamo.proxy.AspectResolve;
-import com.kamo.proxy.annotation.AspectJ;
+import com.kamo.proxy.annotation.Aspect;
 
 public class AspectScanner extends AbstractScanner implements Scanner {
 
@@ -15,6 +15,6 @@ public class AspectScanner extends AbstractScanner implements Scanner {
 
     @Override
     public boolean isRegisterClass(Class loaderClass) {
-        return loaderClass.isAnnotationPresent(AspectJ.class);
+        return loaderClass.isAnnotationPresent(Aspect.class);
     }
 }

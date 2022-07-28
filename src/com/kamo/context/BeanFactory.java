@@ -1,10 +1,6 @@
 package com.kamo.context;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public interface BeanFactory {
-    Map beanMap = new HashMap();
     boolean	containsBean(String name);
     String[]	getAliases(String name);
     <T> T	getBean(Class<T> requiredType);
@@ -13,7 +9,7 @@ public interface BeanFactory {
 
     Object getInUseAndRemove(String beanName,Class type);
 
-    Object	getBean(String name);
+    <T extends Object> T	getBean(String name);
     <T> T	getBean(String name, Class<T> requiredType);
     Object	getBean(String name, Object... args);
     Class<?>	getType(String name);

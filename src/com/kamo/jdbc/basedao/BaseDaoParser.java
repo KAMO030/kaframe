@@ -1,13 +1,10 @@
 package com.kamo.jdbc.basedao;
 
-import com.kamo.idal.Mapper;
 import com.kamo.util.Resource;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-
 import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;

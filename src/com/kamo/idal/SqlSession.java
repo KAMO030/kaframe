@@ -1,6 +1,7 @@
 package com.kamo.idal;
 
-import com.kamo.jdbc.JDBCTemplate;
+import com.kamo.jdbc.BeanPropertyRowMapper;
+import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
 
 import javax.sql.DataSource;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class SqlSession {
     private DataSource dataSource;
     private Map<String, Mapper> mapperMap;
-    private JDBCTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     private Map<String, Object> proxyMap;
     private Map<String, RowMapper> rowMapperMap;
 
@@ -22,7 +23,7 @@ public class SqlSession {
         proxyMap = new HashMap<>();
         this.dataSource = dataSource;
         this.mapperMap = mapperMap;
-        jdbcTemplate = new JDBCTemplate(dataSource);
+        jdbcTemplate = new JdbcTemplate(dataSource);
         rowMapperMap = new HashMap<>();
     }
 
@@ -62,7 +63,7 @@ public class SqlSession {
             if (rowMapperMap.containsKey(resultType.getName())) {
                 rowMapper = rowMapperMap.get(resultType.getName());
             } else {
-                rowMapper = new ResultMap(resultType);
+                rowMapper = new BeanPropertyRowMapper(resultType);
                 rowMapperMap.put(resultType.getName(), rowMapper);
             }
         } else {

@@ -4,16 +4,26 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class GenericBeanDefinition implements BeanDefinition {
     protected Class beanClass;
-
     protected boolean lazyInit;
     protected String scope;
     protected String destroyMethodName;
     protected String initMethodName;
+    protected Supplier instanceSupplier ;
     private Map<String,Property> propertys = new HashMap<>();
     private Map<String,Arguments> argumentsMap = new HashMap<>();
+    public GenericBeanDefinition() {
+    }
+
+    public GenericBeanDefinition(Class beanClass, boolean lazyInit, String scope) {
+        this.beanClass = beanClass;
+        this.lazyInit = lazyInit;
+        this.scope = scope;
+    }
+
     @Override
     public Class getBeanClass() {
         return beanClass;
@@ -21,7 +31,7 @@ public class GenericBeanDefinition implements BeanDefinition {
 
     @Override
     public Object doInstance(Object[] args) throws InvocationTargetException, IllegalAccessException {
-        return null;
+        return instanceSupplier==null ? null : instanceSupplier.get();
     }
     @Override
     public void addArguments(String argName,Arguments arg){
@@ -106,6 +116,11 @@ public class GenericBeanDefinition implements BeanDefinition {
     @Override
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    @Override
+    public void setInstanceSupplier(Supplier instanceSupplier) {
+        this.instanceSupplier = instanceSupplier;
     }
 
     @Override

@@ -14,9 +14,9 @@ public class JdkProxyFactory implements InvocationHandler , ProxyFactory {
 
 
     private TargetSource targetSource;
-    private List<Advisor> advisorList = AdvisorRegister.getAdvisors();
+    private List<Advisor> advisorList ;
     public JdkProxyFactory(TargetSource targetSource) {
-        this.targetSource = targetSource;
+        setTargetSource(targetSource);
     }
 
     public JdkProxyFactory(Object target) {
@@ -31,10 +31,7 @@ public class JdkProxyFactory implements InvocationHandler , ProxyFactory {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         final Object target = getTargetSource().getTarget();
         if (method .getName().equals("toString")&&args==null) {
-            return targetSource.getTargetClass().getName()+"$$Proxy@"+target.hashCode();
-        }
-        if (method .getName().equals("getClass")&&args==null){
-            return proxy.getClass();
+            return targetSource.getTargetClass().getName()+"$Proxy@"+Integer.toHexString(target.hashCode());
         }
         JdkMethodInvocation invocation = new JdkMethodInvocation(target, method, args,advisorList);
         return invocation.invoke(invocation);
@@ -49,6 +46,7 @@ public class JdkProxyFactory implements InvocationHandler , ProxyFactory {
 
     public void setTargetSource(TargetSource targetSource) {
         this.targetSource = targetSource;
+        setAdvisor(AdvisorRegister.getAdvisors(targetSource.getTargetClass()));
     }
 
     public void setAdvisor(List<Advisor> advisor) {

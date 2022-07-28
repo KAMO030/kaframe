@@ -1,7 +1,5 @@
 package com.kamo.jdbc.basedao;
 
-import com.kamo.context.FactoryBean;
-
 import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -39,7 +37,7 @@ public class BaseDaoFactory {
         Map<Method, SqlStatement> sqlStatementMap = BaseDaoParser.parse(daoClass);
         Class<T> entityClass = (Class) ((ParameterizedType) daoClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];
         //通过解析出来的映射和自己的dataSource构建一个BaseDao方法拦截处理器
-        BaseDaoHandler baseDaoHandler = new BaseDaoHandler(sqlStatementMap,entityClass, dataSource);
+        BaseDaoHandler baseDaoHandler = new BaseDaoHandler(sqlStatementMap,daoClass,entityClass, dataSource);
         //通过BaseDao方法拦截处理器构造代理对象
         return (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{daoClass}, baseDaoHandler);
     }

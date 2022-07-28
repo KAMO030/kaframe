@@ -9,6 +9,8 @@ public class Property {
     private Object value;
     private Field field;
     private Class type;
+
+    private Class valueType;
     private boolean isLazed;
     public Property(Field field){
         init(field);
@@ -39,7 +41,8 @@ public class Property {
         return value;
     }
     public Class getValueType() {
-        return value==null ?null : value.getClass();
+        return  valueType!=null ?valueType:
+                value==null?null :value.getClass();
     }
     public void setValue(Object value) {
         this.value = value;

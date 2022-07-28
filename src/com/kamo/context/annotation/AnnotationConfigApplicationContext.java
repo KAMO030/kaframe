@@ -1,7 +1,8 @@
 package com.kamo.context.annotation;
-import com.kamo.context.AbstractApplicationContext;
 
-public class AnnotationConfigApplicationContext extends AbstractApplicationContext implements AnnotationConfigRegistry {
+import com.kamo.context.AbstractApplicationContext1;
+
+public class AnnotationConfigApplicationContext extends AbstractApplicationContext1 implements AnnotationConfigRegistry {
     private final AnnotatedBeanDefinitionReader reader;
 
     private final ClassPathBeanDefinitionScanner scanner;
@@ -23,11 +24,12 @@ public class AnnotationConfigApplicationContext extends AbstractApplicationConte
     }
     @Override
     public void registerBeanFactoryPostProcessors() {
-
-        singletonBeans.put("annotationConfigApplicationContext",this);
-        register(this.getClass());
-        registerConfiguration(new ConfigurationClassPostProcessor());
-        registerConfiguration(new PropertySetProcessor(this));
+        super.registerBeanFactoryPostProcessors();
+        register(
+                PropertySetProcessor.class,
+                ConfigurationRegistryPostProcessor.class,
+                AutowiredArgsInstanceProcessor.class
+        );
     }
 
 

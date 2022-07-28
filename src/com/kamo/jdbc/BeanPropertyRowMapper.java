@@ -1,5 +1,6 @@
 package com.kamo.jdbc;
 
+import com.kamo.jdbc.mapper_upport.annotation.FieldName;
 import com.kamo.util.BeanUtil;
 
 import java.lang.reflect.Field;
@@ -14,13 +15,22 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
     private Class type;
     /**
      * 查询完以后每个字段的类型;
-     *key:字段名;val:字段名对应的Field对象
+     * key:字段名;val:字段名对应的Field对象
      */
-    private Map<String, Field> propertyMapping;
+    private Map<String, String> propertyMapping;
 
 
     public BeanPropertyRowMapper(Class<T> type) {
         this.type = type;
+        initializerMapping();
+    }
+
+    protected void initializerMapping() {
+        try {
+            mappingNameByField();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getCause());
+        }
     }
 
     @Override
@@ -29,10 +39,10 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
         try {
             //首次调用时才会进入if
             if (propertyMapping == null) {
-                mappingName(resultSet.getMetaData());
+                mappingNameByResultSet(resultSet.getMetaData());
             }
             //如果没有一个字段映射匹配则直接返回null
-            if (propertyMapping.isEmpty()){
+            if (propertyMapping.isEmpty()) {
                 return null;
             }
             entity = (T) type.newInstance();
@@ -44,16 +54,19 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
             throw new RuntimeException(e);
         }
 
-        for (Map.Entry<String, Field> propertyEntry : propertyMapping.entrySet()) {
-            String columnName = propertyEntry.getKey();
-            Field propertyField = propertyEntry.getValue();
+        for (Map.Entry<String, String> propertyEntry : propertyMapping.entrySet()) {
             try {
+                String columnName = propertyEntry.getKey();
+                String fieldName = propertyEntry.getValue();
+                Field propertyField = type.getDeclaredField(fieldName);
                 propertyField.setAccessible(true);
                 propertyField.set(entity, resultSet.getObject(columnName));
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
             }
         }
         return entity;
@@ -61,10 +74,11 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
 
     /**
      * 根据查询到结果集的数据源的每个字段的名字寻找名字相同的field对象
+     *
      * @param metaData 查询到结果集的数据源
      * @throws SQLException
      */
-    private void mappingName(ResultSetMetaData metaData) throws SQLException {
+    private void mappingNameByResultSet(ResultSetMetaData metaData) throws SQLException {
         propertyMapping = new HashMap<>();
         //获得结果集的列数
         int columnCount = metaData.getColumnCount();
@@ -79,7 +93,7 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
                 try {
                     //通过BeanUtil工具类将字段名转换成一定规则的名字在去找
                     //U_ID->uId  (把字符全转为小写,把下划线去掉并把下划线后的一个字母转为大写)
-                    field =  type.getDeclaredField( BeanUtil.toBeanName(columnName));
+                    field = type.getDeclaredField(BeanUtil.toBeanName(columnName));
                 } catch (NoSuchFieldException ex) {
                     //如果还是找不到,则打印异常
                     //并继续寻找映射
@@ -87,7 +101,22 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
                     continue;
                 }
             }
-            propertyMapping.put(columnName, field);
+            propertyMapping.put(columnName, field.getName());
         }
+    }
+
+    private void mappingNameByField() throws SQLException {
+        propertyMapping = new HashMap<>();
+        //获得结果集的列数
+        Field[] fields = type.getDeclaredFields();
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            String columnName = field.isAnnotationPresent(FieldName.class)?
+                    field.getAnnotation(FieldName.class).value():
+                    fieldName;
+            propertyMapping.put(columnName, fieldName);
+
+        }
+
     }
 }

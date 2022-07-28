@@ -3,7 +3,6 @@ package com.kamo.context_rpc;
 import com.kamo.cloud.RpcProxyFactory;
 import com.kamo.context.BeanDefinition;
 import com.kamo.context.Property;
-import com.kamo.context.annotation.Reference;
 import com.kamo.context.factory.BeanInstanceProcessor;
 
 import java.lang.reflect.Field;

@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +21,9 @@ public class IzumiDataSource implements DataSource {
     private int usedSize;
     private List<Connection> connectionList;
     private boolean isIsolate = true;
-    private static ThreadLocal<Connection> local = new ThreadLocal();
 
-    IzumiDataSource() {
+
+    public IzumiDataSource() {
     }
 
     public IzumiDataSource(String driver, String username, String password, String url,
@@ -81,14 +79,7 @@ public class IzumiDataSource implements DataSource {
 
     @Override
     public synchronized Connection getConnection(String username, String password) throws SQLException {
-        if (isIsolate){
-            if (local.get()==null){
-                local.set(setConnection(username,password));
-            }
-            return local.get();
-        }else {
-            return setConnection(username,password);
-        }
+        return setConnection(username,password);
     }
 
     private Connection setConnection(String username, String password) throws SQLException {
@@ -114,18 +105,12 @@ public class IzumiDataSource implements DataSource {
     }
 
 
-    public void freeConnection() {
-        Connection connection = local.get();
-        freeConnection(connection);
-    }
+
     public synchronized void  freeConnection(Connection connection) {
         if (connection==null){
             return;
         }
         connectionList.add(connection);
-        if (local.get()!=null){
-            local.remove();
-        }
     }
     private void freeAllConnection() throws SQLException {
         for (Connection connection : connectionList) {

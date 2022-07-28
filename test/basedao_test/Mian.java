@@ -1,17 +1,19 @@
 package basedao_test;
 
-import basedao_test.service.CinfoService;
 import basedao_test.pojo.Cinfo;
-import com.kamo.context.ApplicationContext;
+import basedao_test.service.CinfoService;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
+import com.kamo.context.annotation.Autowired;
 
 //basedao和BFactoryBean演示demo
+
 public class Mian {
+    @Autowired
+    private static CinfoService service;
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        CinfoService cinfoServiceImp = (CinfoService) context.getBean("cinfoServiceImp");
+        new AnnotationConfigApplicationContext(Mian.class, Config.class);
         Cinfo cinfo = new Cinfo();
-        cinfo.setcName("可");
-        System.out.println(cinfoServiceImp.service(cinfo));
+        cinfo.setcId("e");
+        System.out.println(service.service(cinfo));
     }
 }
