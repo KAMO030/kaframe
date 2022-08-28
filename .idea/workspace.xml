@@ -6,136 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="添加了事务和转换器功能，和反射工具类并调整了整体结构">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/kaframe_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/context_rpc/EnableRpc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/context_rpc/RpcService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/IPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/IdTypeAssignAuto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/IdTypeAssignInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/IdTypeAssignUUID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/IdTypeStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportBuild.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/PageHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/PageInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/IdType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/NameType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/META-INF/services/mapper_test.test.service.CinfoService" afterDir="false" />
+    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="大更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kaframe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/kaframe.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/Protocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/Protocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/ProtocolFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/ProtocolFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/URL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/URL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/protocol/bio/BioSocketProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/protocol/bio/BioSocketProtocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/protocol/bio/BioSocketServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/protocol/bio/BioSocketServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/register/LocalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/register/LocalRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/cloud/register/RemoteMapRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/cloud/register/RemoteMapRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/BeanDefinitionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/BeanDefinitionBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/BeanDefinitionRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/BeanDefinitionRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/BeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/BeanFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/BeanFinder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/BeanMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/BeanMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanDefinitionRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanDefinitionRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/LazedProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/LazedProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/AnnotatedBeanDefinitionReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/AnnotatedBeanDefinitionReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/AnnotationConfigApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/AnnotationConfigApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Autowired.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Autowired.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/AutowiredArgsInstanceProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/AutowiredArgsInstanceProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/AutowiredPropertyResolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/AutowiredPropertyResolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/ClassPathBeanDefinitionScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/ClassPathBeanDefinitionScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Configuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/ConfigurationAnnotationResolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/ConfigurationAnnotationResolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/PropertySetProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/PropertySetProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context_rpc/Reference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context_rpc/Reference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context_rpc/ReferencePostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context_rpc/ReferencePostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/datasource/IzumiDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/datasource/IzumiDataSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/After.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/After.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/AfterThrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/AfterThrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/AnnotationConfigApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/AnnotationConfigApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/ApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/AspInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/AspInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Aspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Aspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/AspectJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/AspectJ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Autowired.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Autowired.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Bean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Bean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/BeanDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/BeanDefinition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/BeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/BeanFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/BeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/BeanPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Beans.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Beans.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Befor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Befor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/ClassPathXmlApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/ClassPathXmlApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/ComponentScan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/ComponentScan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Configuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Constructor_Arg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Constructor_Arg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/PointCut.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/PointCut.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Prototype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Prototype.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Scope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/Source.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/Source.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/factory/TranceManage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/factory/TranceManage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/BeanPropertyRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/BeanPropertyRowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/DataSourceUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/DataSourceUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/JdbcTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/JdbcTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/PageBean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/SingleColumnRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/SingleColumnRowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactoryBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactoryBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactoryBuild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoFactoryBuild.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/BaseDaoParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/SQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/SQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/SqlStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/basedao/SqlStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/MapperSupportImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/EnableMapperSupport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/EnableMapperSupport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/FieldName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/TableField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/PrimeField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/TableId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/TableName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_upport/annotation/TableName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/AdvisorRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/AdvisorRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionManagerRegistryPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionManagerRegistryPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionSynchronizationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionSynchronizationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/support/DataSourceTransManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/support/DataSourceTransManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/support/DataSourceTransactionObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/support/DataSourceTransactionObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionAdvisorBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionAdvisorBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionDefinitionBuild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionDefinitionBuild.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionManagerBeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/support/TransactionManagerBeanPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/util/BeanUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/util/BeanUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/util/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/util/Converter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/util/ConverterRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/util/ConverterRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/util/ThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/util/ThreadPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/converter_registry_test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/converter_registry_test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ioc_test/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ioc_test/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ioc_test/Mian.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ioc_test/Mian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ioc_test/dao/imp/CinfoDao1.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ioc_test/dao/imp/CinfoDao1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ioc_test/service/imp/CinfoServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ioc_test/service/imp/CinfoServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/pojo/Cinfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/pojo/Cinfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/service/impl/CinfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/service/impl/CinfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/vo/CinfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/vo/CinfoVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/myBatis_test/mapper/CinfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test/myBatis_test/mapper/CinfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/proxy_test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/proxy_test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/rpc_test/cloud/comsumer/Comsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/rpc_test/cloud/comsumer/Comsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/rpc_test/cloud/provider/Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/rpc_test/cloud/provider/Provider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/rpc_test/cloud/provider/serviceimp/TestServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/rpc_test/cloud/provider/serviceimp/TestServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/rpc_test/cloud/provider/serviceimp/TestServiceImp1.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/rpc_test/cloud/provider/serviceimp/TestServiceImp1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -367,7 +239,7 @@
       <workItem from="1661505875566" duration="845000" />
       <workItem from="1661506737204" duration="1202000" />
       <workItem from="1661574046223" duration="11564000" />
-      <workItem from="1661598391890" duration="17620000" />
+      <workItem from="1661598391890" duration="18888000" />
     </task>
     <task id="LOCAL-00001" summary="55">
       <created>1657590233333</created>
@@ -488,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658985857251</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="大更新">
+      <created>1661657175054</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1661657175054</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +439,8 @@
     <MESSAGE value="简化了demo" />
     <MESSAGE value="demo的pojo包错位问题" />
     <MESSAGE value="添加了事务和转换器功能，和反射工具类并调整了整体结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加了事务和转换器功能，和反射工具类并调整了整体结构" />
+    <MESSAGE value="大更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="大更新" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
