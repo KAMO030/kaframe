@@ -3,6 +3,7 @@ package com.kamo.jdbc.basedao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+@Deprecated
 
 public interface BaseDao<T> {
      Map<Class,BaseDao> DAO_MAP = new HashMap<Class, BaseDao>();

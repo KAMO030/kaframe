@@ -17,10 +17,13 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
 
 
     public void register(Class beanClass) {
-        Component component = ReflectUtils.getAnnotation(beanClass,Component.class);
+        Component component = ReflectUtils.getAnnotation(beanClass, Component.class);
         String beanName = component.value();
         if (beanName.equals("")) {
             beanName = Introspector.decapitalize(beanClass.getSimpleName());
+        }
+        if (registry.containsBeanDefinition(beanName)) {
+            return;
         }
         BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(beanClass);
         registry.registerBeanDefinition(beanName, beanDefinition);
@@ -30,7 +33,7 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
     public boolean isRegisterClass(Class loaderClass) {
 
         return loaderClass != null
-                && ReflectUtils.isAnnotationPresent(loaderClass,Component.class)
+                && ReflectUtils.isAnnotationPresent(loaderClass, Component.class)
                 && !loaderClass.isInterface();
     }
 }

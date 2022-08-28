@@ -12,13 +12,6 @@ import com.kamo.util.AnnotationMetadata;
 import java.beans.Introspector;
 
 public class TransactionManagerRegistryPostProcessor extends BeanDefinitionImportRegistry implements BeanDefinitionRegistryPostProcessor {
-   private boolean autoRegistryManager;
-
-//    public TransactionManagerRegistryPostProcessor(boolean autoRegistryManager) {
-//        this.autoRegistryManager = autoRegistryManager;
-//    }
-
-
 
     @Override
     public void postProcessBeanDefinitionRegistry(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) throws BeansException {

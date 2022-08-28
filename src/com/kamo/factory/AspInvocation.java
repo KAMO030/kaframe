@@ -3,7 +3,7 @@ package com.kamo.factory;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
+@Deprecated
 public class AspInvocation implements InvocationHandler {
     private Method beforeMethod;
     private Method afterMethod;

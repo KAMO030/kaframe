@@ -1,7 +1,8 @@
 package mapper_test.test.pojo;
 
-import com.kamo.jdbc.mapper_upport.annotation.FieldName;
-import com.kamo.jdbc.mapper_upport.annotation.PrimeField;
+import com.kamo.jdbc.mapper_upport.annotation.IdType;
+import com.kamo.jdbc.mapper_upport.annotation.TableField;
+import com.kamo.jdbc.mapper_upport.annotation.TableId;
 import com.kamo.jdbc.mapper_upport.annotation.TableName;
 
 import java.io.Serializable;
@@ -17,14 +18,12 @@ public class Cinfo implements Serializable {
 
 
     private String cName;
-    @PrimeField
-    @FieldName("cid")
+    @TableId(type = IdType.ASSIGN_UUID)
     private String cId;
 
     private String tId;
 
     private String uId;
-
     private String cSpace;
 
     private String cNo;

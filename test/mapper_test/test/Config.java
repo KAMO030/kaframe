@@ -7,6 +7,7 @@ import com.kamo.context.annotation.Configuration;
 import com.kamo.context.annotation.PropertySource;
 import com.kamo.datasource.IzumiDataSourceFactory;
 import com.kamo.jdbc.mapper_upport.annotation.EnableMapperSupport;
+import com.kamo.proxy.annotation.EnableProxy;
 import com.kamo.transaction.annotation.EnableTransaction;
 
 import javax.sql.DataSource;
@@ -15,6 +16,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan
 @EnableTransaction
+@EnableProxy
 @EnableMapperSupport
 @PropertySource("db.properties")
 public class Config {

@@ -3,10 +3,7 @@ package com.kamo.transaction;
 
 import com.kamo.transaction.support.TransactionObject;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 public class TransactionSynchronizationManager {
     private static final ThreadLocal<Map<Object, Object>> resources = new ThreadLocal();
@@ -15,7 +12,7 @@ public class TransactionSynchronizationManager {
     private static final ThreadLocal<Integer> currentTransactionIsolationLevel = new ThreadLocal();
     private static final ThreadLocal<Boolean> actualTransactionActive = new ThreadLocal();
 
-    private static final ThreadLocal<Stack<TransactionObject>> transactionObjs = new ThreadLocal();
+    private static final ThreadLocal<LinkedList<TransactionObject>> transactionObjs = new ThreadLocal();
     public static Object getResource(Object key) {
         return doGetResource(key);
     }
@@ -71,23 +68,22 @@ public class TransactionSynchronizationManager {
     }
 
     public static TransactionObject getCurrentTransactionObject() {
-        Stack<TransactionObject> transactionObjectStack = transactionObjs.get();
-        return transactionObjectStack==null||transactionObjectStack.empty() ? null : transactionObjectStack.peek();
+        LinkedList<TransactionObject> transactionObjects = transactionObjs.get();
+        return transactionObjects ==null|| transactionObjects.isEmpty() ? null : transactionObjects.getLast();
     }
     public static TransactionObject popTransactionObject() {
-        Stack<TransactionObject> transactionObjectStack = transactionObjs.get();
-
-        return transactionObjectStack==null||transactionObjectStack.empty() ?
+        LinkedList<TransactionObject> transactionObjects = transactionObjs.get();
+        return transactionObjects ==null|| transactionObjects.isEmpty() ?
                 null :
-                transactionObjectStack.pop();
+                transactionObjects.removeLast();
     }
     public static void addTransactionObject(TransactionObject object) {
-        Stack<TransactionObject> transactionObjectStack = transactionObjs.get();
-        if (transactionObjectStack ==null){
-            transactionObjectStack = new Stack<>();
-            transactionObjs.set(transactionObjectStack);
+        LinkedList<TransactionObject> transactionObjects = transactionObjs.get();
+        if (transactionObjects ==null){
+            transactionObjects = new LinkedList<>();
+            transactionObjs.set(transactionObjects);
         }
-        transactionObjectStack.push(object);
+        transactionObjects.add(object);
     }
 
     public static void unBindResource(Object key) {

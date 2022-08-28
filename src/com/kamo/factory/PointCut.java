@@ -1,6 +1,7 @@
 package com.kamo.factory;
 
 import java.lang.reflect.InvocationHandler;
+@Deprecated
 
 public abstract class PointCut implements InvocationHandler {
     protected AspectJ aspectJ;

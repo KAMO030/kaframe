@@ -3,6 +3,7 @@ package com.kamo.jdbc.basedao;
 import com.kamo.context.FactoryBean;
 
 import javax.sql.DataSource;
+@Deprecated
 
 public class BaseDaoFactoryBean extends BaseDaoFactory implements FactoryBean {
     public BaseDaoFactoryBean(DataSource dataSource) {

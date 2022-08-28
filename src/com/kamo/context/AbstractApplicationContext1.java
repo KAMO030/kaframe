@@ -1,5 +1,6 @@
 package com.kamo.context;
 
+import com.kamo.context.annotation.PropertySetProcessor;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 import com.kamo.context.factory.BeanDefinitionRegistryPostProcessor;
@@ -38,8 +39,10 @@ public  class AbstractApplicationContext1 implements ApplicationContext, BeanDef
     }
 
     public void registerBeanFactoryPostProcessors() {
-        this.beanFactory.singletonBeans.put(Introspector.decapitalize(this.getClass().getSimpleName()), this);
-        register(this.getClass());
+
+        String contextName = Introspector.decapitalize(this.getClass().getSimpleName());
+        this.beanFactory.singletonBeans.put(contextName, this);
+        register(PropertySetProcessor.class,this.getClass());
     }
 
     private void preInstantiateFactoryPostProcessors() {
@@ -74,7 +77,7 @@ public  class AbstractApplicationContext1 implements ApplicationContext, BeanDef
         for (Map.Entry<String, BeanDefinition> beanDefinitionEntry : beanDefinitions.entrySet()) {
             BeanDefinition beanDefinition = beanDefinitionEntry.getValue();
             String beanName = beanDefinitionEntry.getKey();
-            if (!beanDefinition.isSingleton()) {
+            if (!beanDefinition.isSingleton()||beanDefinition.isLazyInit()) {
                 continue;
             }
             this.beanFactory.getSingletonBean(beanName, beanDefinition);
@@ -148,8 +151,8 @@ public  class AbstractApplicationContext1 implements ApplicationContext, BeanDef
     }
 
     @Override
-    public boolean isBeanNameInUse(String beanName) {
-        return this.registry.isBeanNameInUse(beanName);
+    public boolean isSingletonCurrentlyInitialized(String beanName) {
+        return this.registry.isSingletonCurrentlyInitialized(beanName);
     }
 
     @Override
@@ -178,8 +181,8 @@ public  class AbstractApplicationContext1 implements ApplicationContext, BeanDef
     }
 
     @Override
-    public Object getInUseAndRemove(String beanName, Class type) {
-        return this.beanFactory.getInUseAndRemove(beanName, type);
+    public Object getInUseBean(String beanName, Class type) {
+        return this.beanFactory.getInUseBean(beanName, type);
     }
 
     @Override
@@ -225,5 +228,10 @@ public  class AbstractApplicationContext1 implements ApplicationContext, BeanDef
     @Override
     public Object[] getBeans() {
         return this.beanFactory.getBeans();
+    }
+
+    @Override
+    public <T> List<T> getBeans(Class<T> requiredType) {
+        return beanFactory.getBeans(requiredType);
     }
 }

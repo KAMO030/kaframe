@@ -18,13 +18,23 @@ public class BioSocketServerHandler {
         try {
             Invocation invocation = (Invocation) new ObjectInputStream(socket.getInputStream()).readObject();
 
-            Class serviceImpl = LocalRegister.get(invocation.getInterfaceName(),invocation.getVersion());
-            Object implObject = impMap.get(serviceImpl);
-            if (implObject == null) {
-                implObject = serviceImpl.newInstance();
-                impMap.put(serviceImpl, implObject);
+            Object implObject =  LocalRegister.get(invocation.getInterfaceName(),invocation.getVersion());
+            Class implClass = null;
+            if(implObject instanceof String){
+                implClass = Thread.currentThread().getContextClassLoader().loadClass((String) implObject);
+                implObject = impMap.get(implClass);
+                if (implObject == null) {
+                    implObject = implClass.newInstance();
+                    impMap.put(implClass, implObject);
+                }
+            }else {
+                implClass = implObject.getClass();
+                if (!impMap.containsKey(implClass)) {
+                    impMap.put(implClass, implObject);
+                }
             }
-            Method method = serviceImpl.getMethod(invocation.getMethodName(), invocation.getParamTypes());
+
+            Method method = implClass.getMethod(invocation.getMethodName(), invocation.getParamTypes());
             Object result = method.invoke(implObject, invocation.getParams());
 
             new ObjectOutputStream(socket.getOutputStream()).writeObject(result);

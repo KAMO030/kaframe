@@ -8,11 +8,10 @@ import com.kamo.transaction.annotation.Transactional;
 import java.lang.reflect.Method;
 
 public class TransactionDefinitionBuild {
-    public static TransactionDefinition build(Method method) {
+    public static TransactionDefinition build(Transactional transactionalAnnotation,Method method) {
         if (!method.isAnnotationPresent(Transactional.class)) {
             return new TransactionDefinition(method.getName());
         }
-        Transactional transactionalAnnotation = method.getAnnotation(Transactional.class);
         String transactionManagerName = transactionalAnnotation.value();
         if (transactionManagerName.equals("")) {
             transactionManagerName = method.getName();

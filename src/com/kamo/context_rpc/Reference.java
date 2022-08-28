@@ -13,5 +13,6 @@ import java.lang.annotation.Target;
 @Autowired
 public @interface Reference {
     @AliasFor(annotation = Autowired.class)
-    String value();
+    String value()default "";
+    String version()default "";
 }

@@ -5,6 +5,7 @@ import com.kamo.datasource.IzumiDataSourceFactory;
 
 import java.io.IOException;
 import java.util.Properties;
+@Deprecated
 
 /**
  * 构造BaseDaoFactory的类

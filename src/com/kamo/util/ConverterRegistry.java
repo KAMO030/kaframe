@@ -80,12 +80,14 @@ public final class ConverterRegistry {
     }
 
     public static <T, R> R doConvert(T target, Class<R> returnType, Class<T> targetType) {
-        if (ReflectUtils.isPrimitive(returnType) && targetType.equals(String.class)) {
+        if (ReflectUtils.isPrimitive(returnType)) {
             try {
                 return (R) (returnType.equals(String.class) ?
                         target.toString() :
                         returnType.getMethod("valueOf", String.class).invoke(null, target.toString()));
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {}
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
         returnType = ReflectUtils.getWrapperClass(returnType);
         targetType = ReflectUtils.getWrapperClass(targetType);

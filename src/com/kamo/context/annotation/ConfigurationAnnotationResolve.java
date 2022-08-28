@@ -66,6 +66,9 @@ public class ConfigurationAnnotationResolve implements Resolve {
                     Field annotationMetadata = BeanDefinitionImportRegistry.class.getDeclaredField("annotationMetadata");
                     Property property = new Property(annotationMetadata);
                     property.setValue(metadata);
+                    property.setType(annotationMetadata.getType());
+                    property.setName("annotationMetadata");
+
                     beanDefinition.addProperty(property);
                 }
                 configRegistry.registerConfiguration(beanName, beanDefinition);
@@ -96,7 +99,7 @@ public class ConfigurationAnnotationResolve implements Resolve {
         for (int i = 0; i < argsTypes.length; i++) {
             argsTypes[i] = declaredMethods[i].getReturnType();
             argsValues[i] = declaredMethods[i].invoke(annotation);
-            beanDefinition.addArguments("var", new Arguments("var", argsTypes[i], argsValues[i]));
+            beanDefinition.addArguments(argsTypes[i].getSimpleName(), new Arguments("var", argsTypes[i], argsValues[i]));
         }
         return beanDefinition;
     }

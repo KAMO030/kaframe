@@ -3,11 +3,10 @@ package com.kamo.util;
 
 
 
-import com.kamo.jdbc.PageBean;
-import com.kamo.jdbc.basedao.BaseDao;
+
 
 import java.lang.reflect.Field;
-import java.util.List;
+
 import java.util.Map;
 
 public final class BeanUtils {
@@ -43,46 +42,5 @@ public final class BeanUtils {
         return obj;
     }
 
-    /**
-     * 根据数据总条数和每页显示多少数据获取一共多少页
-     * @param totalCount 数据总条数
-     * @param pageSize 每页显示几条数据
-     * @return 总页数
-     */
-   public static Integer getTotalPage(Integer totalCount,Integer pageSize){
-       return totalCount%pageSize==0?totalCount/pageSize:totalCount/pageSize+1;
-    }
 
-    /**
-     * 根据数据当前页数和每页显示多少数据获取当前页是从第几条数据开始（）
-     * @param currentPage
-     * @param pageSize
-     * @return StartPage返回从第几条数据开始
-     */
-    public static Integer getStartPage(Integer currentPage,Integer pageSize){
-        return  (currentPage - 1) * pageSize;
-    }
-
-    /**
-     *
-     * @param dao PageBean对应泛型类型的dao类对象实例
-     * @param currentPage 当前第几页
-     * @param pageSize 每页显示几条数据
-     * @param equalEntity 要匹配的等于条件
-     * @param likeEntity 要匹配的like条件
-     * @return 返回dao对应泛型的PageBean
-     * @param <T>
-     */
-    public static <T> PageBean<T> pageBean(BaseDao<T> dao, Integer currentPage, Integer pageSize , T equalEntity, T likeEntity){
-        Integer totalCount = dao.count();
-        Integer totalPage = getTotalPage(totalCount,pageSize);
-        List<T> datas = dao.queryByLimitAndEntity(getStartPage(currentPage,pageSize), pageSize, equalEntity,likeEntity);
-        return  new PageBean<T>(datas,currentPage, pageSize,totalPage ,totalCount);
-    }
-    public static <T> PageBean<T> pageBean(BaseDao<T> dao,Integer currentPage, Integer pageSize ,T entity){
-        return  pageBean(dao,currentPage,pageSize,entity,null);
-    }
-    public static <T> PageBean<T> pageBean(BaseDao<T> dao,Integer currentPage, Integer pageSize ){
-        return  pageBean(dao,currentPage,pageSize,null,null);
-    }
 }

@@ -3,17 +3,17 @@ package com.kamo.cloud;
 import java.io.Serializable;
 
 public class URL implements Serializable {
-
+    private static final long serialVersionUID = 2644732163136764801L;
     private String protocol;
     private String hostname;
     private Integer port;
 
     private String version;
     private String interfaceName;
-    private Class implClass;
+    private String implClass;
 
 
-    public URL(String protocol, String hostname, Integer port, String version, String interfaceName, Class implClass) {
+    public URL(String protocol, String hostname, Integer port, String version, String interfaceName, String implClass) {
         this.protocol = protocol;
         this.hostname = hostname;
         this.port = port;
@@ -62,11 +62,11 @@ public class URL implements Serializable {
         this.interfaceName = interfaceName;
     }
 
-    public Class getImplClass() {
+    public String getImplClass() {
         return implClass;
     }
 
-    public void setImplClass(Class implClass) {
+    public void setImplClass(String implClass) {
         this.implClass = implClass;
     }
 }

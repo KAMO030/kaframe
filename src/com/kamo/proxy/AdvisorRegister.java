@@ -31,6 +31,7 @@ public  final class AdvisorRegister {
         return advisors;
     }
   public static boolean classFilter(Class aspClass){
+
       for (Advisor advisor : ADVISOR_LIST) {
           if (advisor.classFilter(aspClass)) {
               return true;

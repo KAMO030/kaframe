@@ -9,10 +9,10 @@ import ioc_test.dao.imp.CinfoDao1;
 @ComponentScan
 public class Config {
 
-    @Bean
-    public CinfoDao1 cinfoDao1(){
-       return new CinfoDao1();
-    }
+//    @Bean
+//    public CinfoDao1 cinfoDao1(){
+//       return new CinfoDao1();
+//    }
 
 //    @Bean
 //    public CinfoDao2 cinfoDao2(){

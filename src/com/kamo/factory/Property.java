@@ -1,4 +1,5 @@
 package com.kamo.factory;
+@Deprecated
 
 public class Property {
     private String name;

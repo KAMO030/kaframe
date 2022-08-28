@@ -45,10 +45,10 @@ public class MapperSupportFactory {
         //先解析传进来的mapper类型,获得句柄和方法的映射Map
         Map<Method, SqlStatement> sqlStatementMap = MapperParser.parse(mapperClass);
         Class<T> entityClass = (Class) ((ParameterizedType) mapperClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];
-        //通过解析出来的映射和自己的dataSource构建一个Basemapper方法拦截处理器
+        //通过解析出来的映射和自己的dataSource构建一个Mapper方法拦截处理器
         MapperSupportHandler mapperSupportHandler = new MapperSupportHandler(sqlStatementMap,mapperClass,entityClass, mapperSupportDataSource);
         //通过Basemapper方法拦截处理器构造代理对象
-        return (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{mapperClass}, mapperSupportHandler);
+        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{mapperClass}, mapperSupportHandler);
     }
 
 

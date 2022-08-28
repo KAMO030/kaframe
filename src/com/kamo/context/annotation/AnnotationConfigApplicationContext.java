@@ -26,7 +26,7 @@ public class AnnotationConfigApplicationContext extends AbstractApplicationConte
     public void registerBeanFactoryPostProcessors() {
         super.registerBeanFactoryPostProcessors();
         register(
-                PropertySetProcessor.class,
+
                 ConfigurationRegistryPostProcessor.class,
                 AutowiredArgsInstanceProcessor.class
         );

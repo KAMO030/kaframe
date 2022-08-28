@@ -73,7 +73,6 @@ public class IzumiDataSource implements DataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-
         return getConnection(username, password);
     }
 
@@ -96,7 +95,7 @@ public class IzumiDataSource implements DataSource {
                 e.printStackTrace();
             }
             if (connectionList.size() == 0) {
-                throw new SQLException();
+                throw new SQLException("以达到最大连接数 maxActive: "+maxActive);
             } else {
                 conn = connectionList.remove(0);
             }

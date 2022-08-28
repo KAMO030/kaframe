@@ -6,11 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class JdbcTemplate {
     private DataSource dataSource;
+
+    private Map<String,List> caches = new HashMap<>();
 
     public JdbcTemplate(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -25,67 +26,55 @@ public class JdbcTemplate {
     }
 
     public int update(String sql, Object... obs){
-        PreparedStatement preparedStatement = null;
-        int row = 0;
 
-        try {
-            preparedStatement = getConnection().prepareStatement(sql);
+        int row = 0;
+        Connection connection = getConnection();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             for (int i = 0; i < obs.length; i++) {
                 preparedStatement.setObject(i + 1, obs[i]);
             }
             row = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException(e);
+        }finally {
+            DataSourceUtils.releaseConnection(connection);
         }
+        caches.clear();
         return row ;
     }
-
-
 
     public <T> List<T> query(String sql, Class<T> beanType, Object... obs) {
         return query(sql, new BeanPropertyRowMapper<>(beanType), obs);
     }
 
     public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object... obs) {
-        List<T> beanList = null;
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            preparedStatement = getConnection().prepareStatement(sql);
+        List<T> beanList;
+        String cacheKey = sql+rowMapper+ Arrays.toString(obs);
+        beanList = caches.get(cacheKey);
+        if (beanList != null) {
+            return beanList;
+        }
+        caches.put(cacheKey,null);
+        Connection connection = getConnection();
+        try(PreparedStatement preparedStatement = connection. prepareStatement(sql)){
             if (obs != null) {
                 for (int i = 0; i < obs.length; i++) {
                     //"select * from user_info where u_id = ?"
                     preparedStatement.setObject(i + 1, obs[i]);
                 }
             }
-            resultSet = preparedStatement.executeQuery();
-            beanList = new Vector<>();
-            while (resultSet.next()) {
-                beanList.add(rowMapper.mapRow(resultSet));
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                beanList = new Vector<>();
+                while (resultSet.next()) {
+                    beanList.add(rowMapper.mapRow(resultSet));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException(e.getCause());
+        }finally {
+            DataSourceUtils.releaseConnection(connection);
         }
+        caches.put(cacheKey,beanList);
         return beanList;
     }
 
@@ -104,7 +93,8 @@ public class JdbcTemplate {
         return list.get(0);
     }
 
-    protected Connection getConnection() throws SQLException {
+    protected Connection getConnection()  {
         return DataSourceUtils.getConnection(dataSource);
     }
+
 }

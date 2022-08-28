@@ -1,24 +1,23 @@
 package rpc_test.cloud.provider;
 
 
-import com.kamo.cloud.Protocol;
-import com.kamo.cloud.ProtocolFactory;
-import com.kamo.cloud.URL;
+import com.kamo.context.ApplicationContext;
+import com.kamo.context.annotation.AnnotationConfigApplicationContext;
+import com.kamo.context.annotation.ComponentScan;
+import com.kamo.context.annotation.Configuration;
+import com.kamo.context.annotation.Import;
+import com.kamo.context_rpc.ReferencePostProcessor;
 import rpc_test.cloud.common.service.TestService;
 import rpc_test.cloud.provider.serviceimp.TestServiceImp;
-import rpc_test.cloud.provider.serviceimp.TestServiceImp1;
 
-import java.net.UnknownHostException;
+@Configuration
+@ComponentScan("rpc_test.cloud.provider.serviceimp")
+//@Import(ReferencePostProcessor.class)
 public class Provider {
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args)  {
+        ApplicationContext context = new AnnotationConfigApplicationContext(Provider.class);
+        Object testServiceImp = context.getBean("tests");
 
-        String protocolName = "BioSocket";
-
-        URL url = new URL(protocolName, "localhost", 8080, "1", TestService.class.getName(), TestServiceImp.class);
-        URL url1 = new URL(protocolName, "localhost", 8080, "2",TestService.class.getName(), TestServiceImp1.class);
-
-        Protocol protocol = ProtocolFactory.getProtocol(protocolName);
-        protocol.export(url);
-        protocol.export(url1);
+        System.out.println(testServiceImp);
     }
 }

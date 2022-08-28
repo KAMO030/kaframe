@@ -1,5 +1,7 @@
 package com.kamo.context;
 
+import java.util.List;
+
 public interface BeanFactory {
     boolean	containsBean(String name);
     String[]	getAliases(String name);
@@ -7,7 +9,7 @@ public interface BeanFactory {
     <T> T	getBean(Class<T> requiredType, Object... args);
     boolean isInUse(Class type);
 
-    Object getInUseAndRemove(String beanName,Class type);
+    Object getInUseBean(String beanName, Class type);
 
     <T extends Object> T	getBean(String name);
     <T> T	getBean(String name, Class<T> requiredType);
@@ -18,4 +20,6 @@ public interface BeanFactory {
     boolean	isSingleton(String name);
     boolean	isTypeMatch(String name, Class<?> typeToMatch);
     Object[] getBeans();
+
+    <T> List<T> getBeans(Class<T> requiredType);
 }

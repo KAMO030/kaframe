@@ -1,15 +1,19 @@
 package mapper_test.test.vo;
 
 
+import com.kamo.jdbc.mapper_upport.annotation.TableField;
+import com.kamo.jdbc.mapper_upport.annotation.TableId;
 import mapper_test.test.pojo.Cinfo;
 import mapper_test.test.pojo.Ctype;
 import mapper_test.test.pojo.Cunit;
 
 public class CinfoVO {
+    @TableField("tId")
+    private String tIdsadd;
+    @TableId
     private String cId;
     private String cName;
     private String tName;
-    private String tId;
     private String uName;
     private String uId;
     private String cSpace;//规格
@@ -25,12 +29,12 @@ public class CinfoVO {
         this.uName = cunit.getuName();
         this.cSpace = cinfo.getcSpace();
         this.cNo = cinfo.getcNo();
-        this.tId = cinfo.gettId();
+        this.tIdsadd = cinfo.gettId();
         this.uId = cinfo.getuId();
     }
 
     public String gettId() {
-        return tId;
+        return tIdsadd;
     }
 
     public String getcId() {
@@ -42,7 +46,7 @@ public class CinfoVO {
     }
 
     public void settId(String tId) {
-        this.tId = tId;
+        this.tIdsadd = tId;
     }
 
     public String getuId() {
@@ -100,7 +104,7 @@ public class CinfoVO {
                 "cId='" + cId + '\'' +
                 ", cName='" + cName + '\'' +
                 ", tName='" + tName + '\'' +
-                ", tId='" + tId + '\'' +
+                ", tId='" + tIdsadd + '\'' +
                 ", uName='" + uName + '\'' +
                 ", uId='" + uId + '\'' +
                 ", cSpace='" + cSpace + '\'' +

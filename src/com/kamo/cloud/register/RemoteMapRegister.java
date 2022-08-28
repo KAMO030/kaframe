@@ -13,17 +13,15 @@ public class RemoteMapRegister {
 
     private static Map<String, List<URL>> REGISTER = new HashMap<>();
 
-
-    public static void regist(URL url){
+    private static String FILE_PATH = "/temp1.txt";
+    public static void register(URL url){
         String interfaceKey = getInterfaceKey(url.getInterfaceName(), url.getVersion());
         List<URL> list = REGISTER.get(interfaceKey);
         if (list == null) {
             list = new ArrayList<>();
         }
         list.add(url);
-
         REGISTER.put(interfaceKey, list);
-
         saveFile();
     }
 
@@ -39,9 +37,8 @@ public class RemoteMapRegister {
 
 
     private static void saveFile() {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream("temp1.txt");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+//            REGISTER.putAll(getFile());
             objectOutputStream.writeObject(REGISTER);
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,9 +46,7 @@ public class RemoteMapRegister {
     }
 
     private static Map<String, List<URL>> getFile() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream("temp1.txt");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        try(ObjectInputStream objectInputStream = new ObjectInputStream( new FileInputStream(FILE_PATH));) {
             return (Map<String, List<URL>>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

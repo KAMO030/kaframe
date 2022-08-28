@@ -69,7 +69,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
     }
 
     @Override
-    public boolean isBeanNameInUse(String beanName) {
+    public boolean isSingletonCurrentlyInitialized(String beanName) {
         return false;
     }
 }

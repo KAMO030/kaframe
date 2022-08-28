@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
+@Deprecated
 public class ClassPathXmlApplicationContext implements ApplicationContext {
     private String path;
     private Map<String, Beans> beanMap;

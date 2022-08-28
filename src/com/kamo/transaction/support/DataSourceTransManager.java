@@ -27,7 +27,7 @@ public class DataSourceTransManager implements TransactionManager {
 
     @Override
     public void begin(TransactionDefinition newDefinition) throws SQLException {
-        System.out.println("开始事务");
+
         DataSourceTransactionObject transactionObject = (DataSourceTransactionObject) TransactionSynchronizationManager.getCurrentTransactionObject();
         Propagation propagation = newDefinition.getPropagation();
         //如果是第一次就还开启事务或者传播性为需要新的事务
@@ -41,6 +41,7 @@ public class DataSourceTransManager implements TransactionManager {
                 TransactionSynchronizationManager.setSynchronizationActive(true);
                 conn = DataSourceUtils.getConnection(dataSourceTransManagerDataSource);
             }
+            System.out.println("开始事务");
             transactionObject = new DataSourceTransactionObject(conn,newDefinition);
             TransactionSynchronizationManager.addTransactionObject(transactionObject);
         }else if (propagation.equals(Propagation.NOT_SUPPORTED)){

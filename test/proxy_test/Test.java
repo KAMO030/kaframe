@@ -2,6 +2,7 @@ package proxy_test;
 
 import com.kamo.context.ApplicationContext;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
+import com.kamo.transaction.TransactionSynchronizationManager;
 import proxy_test.service.CinfoService;
 
 
@@ -14,6 +15,7 @@ public class Test {
         CinfoService service = context.getBean(CinfoService.class);
         System.out.println(service);
         System.out.println(service.service("111"));
+
 
     }
 }

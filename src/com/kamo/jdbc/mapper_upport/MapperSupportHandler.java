@@ -18,8 +18,6 @@ import java.util.Map;
  * MapperSupport的方法拦截处理器
  */
 public class MapperSupportHandler implements InvocationHandler {
-    private DataSource dataSource;
-
     private Map<Method, SqlStatement> sqlStatements;
     private JdbcTemplate jdbcTemplate;
     private MapperSupport mapperSupport;
@@ -27,7 +25,6 @@ public class MapperSupportHandler implements InvocationHandler {
 
     public MapperSupportHandler(Map<Method, SqlStatement> sqlStatementMap, Class mapperClass, Class entityClass, DataSource dataSource) {
         this.sqlStatements = sqlStatementMap;
-        this.dataSource = dataSource;
         this.mapperClass = mapperClass;
         jdbcTemplate = new JdbcTemplate(dataSource);
         mapperSupport = new MapperSupportBuilder(entityClass,jdbcTemplate).build();
@@ -42,11 +39,11 @@ public class MapperSupportHandler implements InvocationHandler {
         }
         Object result = null;
         try {
-            //如果调用的方法是BaseDao里面已经实现的对于单表的CURD则直接调用
-            //直接invoke到已经通过子类接口获得的父类BaseDao上的泛型类型(表的实体类型)实例化的BaseDaoImp上
+            //如果调用的方法是MapperSupportImp里面已经实现的对于单表的CURD则直接调用
+            //直接invoke到已经通过子类接口获得的父类MapperSupportImp上的泛型类型(表的实体类型)实例化的BaseDaoImp上
             result = method.invoke(mapperSupport, args);
         } catch (IllegalArgumentException e) {
-            //如果调用的方法不是在BaseDao里定义的方法,而是在子类接口中定义的方法则会抛出异常
+            //如果调用的方法不是在MapperSupportImp里定义的方法,而是在子类接口中定义的方法则会抛出异常
             //则根据sqlStatements缓存去执行sql得到返回值返回
             result = invoke(method, args);
         }
@@ -95,19 +92,43 @@ public class MapperSupportHandler implements InvocationHandler {
      */
     private Object doQuery(SqlStatement sqlStatement, Object[] args) {
         String sql = sqlStatement.getSql();
-        int argIndex = 0;
-        List params = new ArrayList();
-        sql =  autoStitchingSql(sql , params,args);
+        List paramsList = new ArrayList();
+        sql = autoStitchingSql(sql, paramsList, args);
         RowMapper rowMapper = sqlStatement.getRowMapper();
-
-        System.out.println("SQL : "+sql);
-        System.out.println("PARAMS : "+Arrays.toString(params.toArray()));
-        List resultList = jdbcTemplate.query(sql, rowMapper, params.toArray());
         return sqlStatement.isDefaultReturnType() ?
-                resultList :
-                resultList.isEmpty() ?
-                        null :
-                        resultList.get(0);
+                doQueryForList(sql,rowMapper,paramsList) :
+                doQueryForObject(sql,rowMapper,paramsList);
+    }
+
+    private Object doQueryForObject(String sql,RowMapper rowMapper,List paramsList) {
+        Object[] params = paramsList.toArray();
+        List resultList = mapperSupport.query(sql, rowMapper, params);
+        return resultList.isEmpty() ?
+                null : resultList.get(0);
+    }
+
+    private <T> List<T> doQueryForList(String sql, RowMapper<T> rowMapper, List paramsList) {
+        IPage<T> page = PageHelper.getPage();
+        if (page!=null&&page.getCurrentPage()!=null&&page.getPageSize()!=null) {
+            int select = sql.indexOf("select");
+            int from = sql.indexOf("from");
+            Object[] params = paramsList.toArray();
+            String countSql = sql.replace(sql.substring(select+7,from-1),"COUNT(*)")  ;
+            Integer totalCount = jdbcTemplate.queryForObject(countSql,Integer.class,params);
+            page.setTotalCount(totalCount);
+            sql+=" limit ?,? ";
+            paramsList.add(page.getStartPage());
+            paramsList.add(page.getPageSize());
+            params = paramsList.toArray();
+            List resultList = mapperSupport.query(sql, rowMapper, params);
+            page.setDataList(resultList);
+            PageHelper.removePage();
+            return page;
+        }else {
+            Object[] params = paramsList.toArray();
+            List<T> resultList = mapperSupport.query(sql, rowMapper, params);
+            return resultList;
+        }
     }
     private String autoStitchingSql(String sql , List params, Object...args){
         if(args==null||args.length == 0){

@@ -1,7 +1,8 @@
 package com.kamo.jdbc;
 
-import com.kamo.jdbc.mapper_upport.annotation.FieldName;
+import com.kamo.jdbc.mapper_upport.annotation.TableField;
 import com.kamo.util.BeanUtil;
+import com.kamo.util.ReflectUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -23,6 +24,11 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
     public BeanPropertyRowMapper(Class<T> type) {
         this.type = type;
         initializerMapping();
+    }
+
+    public BeanPropertyRowMapper(Class type, Map<String, String> propertyMapping) {
+        this.type = type;
+        this.propertyMapping = propertyMapping;
     }
 
     protected void initializerMapping() {
@@ -53,23 +59,32 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         for (Map.Entry<String, String> propertyEntry : propertyMapping.entrySet()) {
+            String columnName = propertyEntry.getKey();
+            String fieldName = propertyEntry.getValue();
             try {
-                String columnName = propertyEntry.getKey();
-                String fieldName = propertyEntry.getValue();
-                Field propertyField = type.getDeclaredField(fieldName);
-                propertyField.setAccessible(true);
-                propertyField.set(entity, resultSet.getObject(columnName));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                mapping(entity, resultSet, columnName, fieldName);
             } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
         return entity;
+    }
+
+    private void mapping(T entity, ResultSet resultSet, String columnName, String fieldName) throws NoSuchFieldException, SQLException, IllegalAccessException {
+        Field propertyField = type.getDeclaredField(fieldName);
+        propertyField.setAccessible(true);
+        try {
+            propertyField.set(entity, resultSet.getObject(columnName));
+        } catch (IllegalAccessException ex) {
+            propertyField.set(entity, resultSet.getObject(BeanUtil.toBeanName(columnName)));
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     /**
@@ -111,9 +126,11 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
         Field[] fields = type.getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
-            String columnName = field.isAnnotationPresent(FieldName.class)?
-                    field.getAnnotation(FieldName.class).value():
-                    fieldName;
+            TableField annotation = ReflectUtils.getAnnotation(field, TableField.class);
+            String columnName = fieldName;
+            if (annotation != null && !annotation.value().equals("")) {
+                columnName = annotation.value();
+            }
             propertyMapping.put(columnName, fieldName);
 
         }

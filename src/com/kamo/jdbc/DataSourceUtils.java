@@ -37,9 +37,20 @@ public class DataSourceUtils {
         Objects.requireNonNull(dataSource, "不存在数据源");
         //是否存在事务
         if (TransactionSynchronizationManager.isSynchronizationActive()){
-            //绑定资源
+            //解绑资源
             TransactionSynchronizationManager.unBindResource(dataSource);
         }
         con.close();
+    }
+    public static void releaseConnection(Connection con)  {
+        Objects.requireNonNull(con, "不存在连接");
+        if (TransactionSynchronizationManager.isSynchronizationActive()){
+            return;
+        }
+        try {
+            con.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

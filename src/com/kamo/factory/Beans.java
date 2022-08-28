@@ -1,7 +1,7 @@
 package com.kamo.factory;
 
 import java.util.List;
-
+@Deprecated
 class Beans {
     private String id;
     private String className;

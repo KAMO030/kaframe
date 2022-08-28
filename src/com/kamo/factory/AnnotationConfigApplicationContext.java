@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
+@Deprecated
 public class AnnotationConfigApplicationContext implements ApplicationContext {
 
     private String rootPath;

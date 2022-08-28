@@ -12,6 +12,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+@Deprecated
 
 public abstract class AbstractApplicationContext implements ApplicationContext, BeanDefinitionRegistry {
     protected final BeanMatcher exileBeanMatcher;
@@ -315,7 +316,7 @@ public abstract class AbstractApplicationContext implements ApplicationContext, 
     }
 
     @Override
-    public boolean isBeanNameInUse(String beanName) {
+    public boolean isSingletonCurrentlyInitialized(String beanName) {
         return false;
     }
 
@@ -325,8 +326,8 @@ public abstract class AbstractApplicationContext implements ApplicationContext, 
     }
 
     @Override
-    public Object getInUseAndRemove(String beanName, Class type) {
-        return exileBeanMatcher.getMatchAndRemove(beanName, type);
+    public Object getInUseBean(String beanName, Class type) {
+        return exileBeanMatcher.getMatch(beanName, type);
     }
 
     @Override

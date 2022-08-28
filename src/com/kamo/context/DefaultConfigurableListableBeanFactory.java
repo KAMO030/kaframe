@@ -38,11 +38,14 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
         Class beanClass = beanDefinition.getBeanClass();
         if (BeanFactoryPostProcessor.class.isAssignableFrom(beanClass)) {
             beanFactoryPostProcessors.add(beanFactory.getBean(beanName));
-        } else if (BeanInstanceProcessor.class.isAssignableFrom(beanClass)) {
+        }
+        if (BeanInstanceProcessor.class.isAssignableFrom(beanClass)) {
             beanInstanceProcessors.add( beanFactory.getBean(beanName));
-        } else if (BeanPostProcessor.class.isAssignableFrom(beanClass)) {
+        }
+        if (BeanPostProcessor.class.isAssignableFrom(beanClass)) {
             beanPostProcessors.add(beanFactory.getBean(beanName));
-        }else if (Converter.class.isAssignableFrom(beanClass)) {
+        }
+        if (Converter.class.isAssignableFrom(beanClass)) {
             ConverterRegistry.registerConverter( beanFactory.getBean(beanName));
         }
     }

@@ -21,9 +21,10 @@ public class MapperParser {
     public static Map<Method, SqlStatement> parse(Class daoClass) {
         Map<Method, SqlStatement> sqlStatements = new ConcurrentHashMap<>();
         Method[] methods = daoClass.getMethods();
+        String className = daoClass.getName();
         for (Method method : methods) {
             if (method.isAnnotationPresent(SQL.class)) {
-                sqlStatements.put(method, doParse(method, daoClass.getName()));
+                sqlStatements.put(method, doParse(method, className));
             }
         }
         return sqlStatements;

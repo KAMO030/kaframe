@@ -20,4 +20,7 @@ public class AutowiredArgsInstanceProcessor implements BeanInstanceProcessor {
         }
         return null;
     }
+
+    public AutowiredArgsInstanceProcessor() {
+    }
 }

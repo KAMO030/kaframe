@@ -2,7 +2,7 @@ package com.kamo.factory;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public interface BeanFactory {
     Map beanMap = new HashMap();
     boolean	containsBean(String name);

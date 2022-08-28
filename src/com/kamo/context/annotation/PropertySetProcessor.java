@@ -7,7 +7,11 @@ import com.kamo.context.Property;
 import com.kamo.context.factory.BeanInstanceProcessor;
 import com.kamo.util.ConverterRegistry;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
 
 public class PropertySetProcessor implements BeanInstanceProcessor {
     private BeanFactory factory;
@@ -26,54 +30,44 @@ public class PropertySetProcessor implements BeanInstanceProcessor {
         Property[] propertys = beanDefinition.getPropertys();
         Class<?> beanClass = bean.getClass();
         for (Property property : propertys) {
-            String name = property.getName();
-            Field field = null;
-            Object value = null;
-            try {
-                field = property.getField();
-                field.setAccessible(true);
-                if (field.get(bean) == null) {
-                    value = getPropertyValue(property);
-                    field.set(bean, value);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e.getCause());
+            property.setBean(bean);
+            if (property.isNeedAssign()) {
+                Object value = getPropertyValue(property);
+                property.assignPro(value);
             }
         }
     }
 
-    private boolean isNeedProxy(Class type) {
-        return type.isInterface();
-    }
-
-    //property.isLazed()
-//        ? LazedProxy.getLazedProxy(beanClass,
-//            () -> getPropertyValue(property))
-//            :getPropertyValue(property);
     protected Object getPropertyValue(Property property) {
         Object value = property.getValue();
-        //如果之前没有设置值
         Class filedType = property.getType();
+        //如果之前没有设置值
         if (value == null) {
             //如果该属性是懒加载的
-            if (property.isLazed()) {
-                value = getProxyPropertyValue(property);
-            } else if (!factory.isInUse(filedType)) {
-                //如果需要的此类型没有正在创建，没有出现了循环依赖
-                value = factory.getBean(property.getName(), filedType);
-            } else if (isNeedProxy(filedType)) {
-                value = getProxyPropertyValue(property);
-            } else {
-                value = factory.getInUseAndRemove(property.getName(), filedType);
-            }
+            value = property.isLazed()?
+                 getProxyPropertyValue(property):
+                    getValue(property);
         }else if(!filedType.isAssignableFrom(property.getValueType())) {
             value =  ConverterRegistry.convert( value,filedType);
         }
         property.setValue(value);
         return value;
     }
+    protected <T> Object getValue(Property property) {
+        Object value = property.getValue();
+        Class<T> requiredType = property.getType();
+        String name = property.getName();
+        if (requiredType.isArray()) {
+            return factory.getBeans(requiredType.getComponentType()).toArray((T[]) Array.newInstance(requiredType.getComponentType(),0));
+        }
+        if (List.class.isAssignableFrom(requiredType)){
+           ParameterizedType parameterizedType = (ParameterizedType) property.getGenericType();
+            return factory.getBeans((Class)parameterizedType.getActualTypeArguments()[0]);
+        }
+        return factory.getBean(name,requiredType);
+    }
 
     private Object getProxyPropertyValue(Property property) {
-        return LazedProxy.getLazedProxy(property.getType(), () -> factory.getBean(property.getName(), property.getType()));
+        return LazedProxy.getLazedProxy(property.getType(), () -> getValue(property));
     }
 }

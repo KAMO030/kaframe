@@ -18,6 +18,9 @@ public class SingleColumnRowMapper<T> implements RowMapper<T>{
             throw new SQLException("");
         }
         Object result = resultSet.getObject(1);
+        if (result==null) {
+            return null;
+        }
         if (result.getClass().equals(type)) {
             return (T) result;
         }

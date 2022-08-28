@@ -4,6 +4,7 @@ import com.kamo.jdbc.BeanPropertyRowMapper;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.jdbc.SingleColumnRowMapper;
 import com.kamo.util.ReflectUtils;
+@Deprecated
 
 /**
  * 描述一条Sql的类

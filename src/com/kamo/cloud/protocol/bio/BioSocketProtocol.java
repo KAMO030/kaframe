@@ -10,17 +10,24 @@ public class BioSocketProtocol implements Protocol {
     private BioSocketServer server;
     @Override
     public void export(URL url) {
-        LocalRegister.regist(url.getInterfaceName(), url.getVersion(),url.getImplClass());
-        RemoteMapRegister.regist(url);
+        LocalRegister.register(url.getInterfaceName(), url.getVersion(),url.getImplClass());
+        doExport(url);
+    }
+    @Override
+    public void export(URL url, Object instance) {
+        LocalRegister.register(url.getInterfaceName(), url.getVersion(),instance);
+        doExport(url);
+    }
+    @Override
+    public Invoker refer(URL url) {
+        return new BioSocketInvoker(url);
+    }
+    public void doExport(URL url) {
+        RemoteMapRegister.register(url);
         if (server==null){
             server = new BioSocketServer();
             new Thread(()-> server.start(url.getHostname(), url.getPort())).start();
         }
-    }
-
-    @Override
-    public Invoker refer(URL url) {
-        return new BioSocketInvoker(url);
     }
 
 }

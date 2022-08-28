@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+@Deprecated
 
 public class BaseDaoParser  {
     private static final Map<String,Properties>PROPERTY_MAP = new ConcurrentHashMap<>();

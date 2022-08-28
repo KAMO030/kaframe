@@ -1,5 +1,5 @@
 package com.kamo.factory;
-
+@Deprecated
 public class BeanDefinition {
     private Class type;
     private String scope;

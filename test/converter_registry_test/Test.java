@@ -9,14 +9,16 @@ import java.util.Date;
 
 @Configuration
 @Import(Test.StringCtypeConverter.class)
+@Service
 public class Test {
 @Autowired("2021-1-2")
 private static Date getString;
     public static void main(String[] args)  {
-        ApplicationContext context = new AnnotationConfigApplicationContext(Test.class,ConverterConfig.class);
-        String getString1 = context.getBean("getString1");
-        System.out.println(getString);
-        System.out.println(getString1);
+//        ApplicationContext context = new AnnotationConfigApplicationContext(Test.class,ConverterConfig.class);
+//        String getString1 = context.getBean("getString1");
+//        System.out.println(getString);
+//        System.out.println(getString1);
+        System.out.println(Test.class.isAnnotationPresent(Component.class));
 
     }
     @Bean

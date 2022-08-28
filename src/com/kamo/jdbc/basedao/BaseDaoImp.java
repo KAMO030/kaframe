@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+@Deprecated
 
 public class BaseDaoImp<T> implements BaseDao<T> {
     public List<T> obj;

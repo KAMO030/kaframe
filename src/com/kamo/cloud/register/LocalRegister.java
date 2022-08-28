@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class LocalRegister {
 
-    private static Map<String, Class> map = new HashMap<>();
+    private static Map<String, Object> map = new HashMap<>();
 
-    public static void regist(String interfaceName,String version,Class implClass) {
-        map.put(interfaceName+version, implClass);
+
+    public static void register(String interfaceName, String version, Object instance) {
+        map.put(interfaceName+version, instance);
     }
-
-    public static Class get(String interfaceName,String version) {
+    public static Object get(String interfaceName,String version) {
        return map.get(interfaceName+version);
     }
 }

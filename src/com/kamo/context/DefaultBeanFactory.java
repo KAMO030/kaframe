@@ -7,6 +7,7 @@ import com.kamo.context.factory.BeanInstanceProcessor;
 import com.kamo.context.factory.BeanPostProcessor;
 import com.kamo.context.factory.ConfigurableListableBeanFactory;
 import com.kamo.context.factory.InitializingBean;
+import com.kamo.proxy.AdvisorRegister;
 import com.kamo.util.Converter;
 import com.kamo.util.ConverterRegistry;
 
@@ -115,18 +116,12 @@ public class DefaultBeanFactory implements BeanFactory{
         return argValues;
     }
 
-    private Object getLazyInitBean(String beanName, BeanDefinition beanDefinition) {
-        return LazedProxy.getLazedProxy(beanDefinition.getBeanClass(),
-                () -> doCreatBean(beanName, beanDefinition));
-    }
 
     protected Object getSingletonBean(String beanName, BeanDefinition beanDefinition) {
         if (singletonBeans.containsKey(beanName)) {
             return getBean(beanName);
         }
-        Object bean = beanDefinition.isLazyInit()
-                ? getLazyInitBean(beanName, beanDefinition)
-                : doCreatBean(beanName, beanDefinition);
+        Object bean = doCreatBean(beanName, beanDefinition);
         if (bean instanceof FactoryBean) {
             FactoryBean factoryBean = ((FactoryBean) bean);
             factoryBeans.put(factoryBean.getObjectType(), factoryBean);
@@ -136,7 +131,7 @@ public class DefaultBeanFactory implements BeanFactory{
         return bean;
     }
 
-    protected Constructor getConstructor(BeanDefinition beanDefinition) throws NoSuchMethodException {
+    protected Constructor getConstructor(BeanDefinition beanDefinition) {
         Class beanClass = beanDefinition.getBeanClass();
         String[] argNames = beanDefinition.getArgNames();
         Constructor constructor = null;
@@ -191,8 +186,8 @@ public class DefaultBeanFactory implements BeanFactory{
     }
 
     @Override
-    public Object getInUseAndRemove(String beanName, Class type) {
-        return exileBeanMatcher.getMatchAndRemove(beanName, type);
+    public Object getInUseBean(String beanName, Class type) {
+        return exileBeanMatcher.getMatch(beanName, type);
     }
 
     @Override
@@ -207,20 +202,20 @@ public class DefaultBeanFactory implements BeanFactory{
 
     @Override
     public <T> T getBean(Class<T> requiredType) {
-
         String[] matchNames = getBeanNamesByType(requiredType);
+        String name = requiredType.getName();
         if (matchNames.length > 1) {
-            throw new BeanDefinitionStoreException("存在多个类型为: " + requiredType.getName() + " 的 Bean");
+            throw new BeanDefinitionStoreException("存在多个类型为: " + name + " 的 Bean");
         } else if (matchNames.length == 0) {
-            T bean = getBeanByFactory(Introspector.decapitalize(requiredType.getName()), requiredType);
+            T bean = getBeanByFactory(Introspector.decapitalize(name), requiredType);
             if (bean != null) {
                 return bean;
             }
-            bean = getBeanByConverter(Introspector.decapitalize(requiredType.getName()),requiredType);
+            bean = getBeanByConverter(Introspector.decapitalize(name),requiredType);
             if (bean != null) {
                 return bean;
             }
-            throw new NoSuchBeanDefinitionException("找不到类型为: " + requiredType.getName() + " 的 Bean");
+            throw new NoSuchBeanDefinitionException("找不到类型为: " + name + " 的 Bean");
         }
         return (T) getBean(matchNames[0]);
     }
@@ -237,35 +232,37 @@ public class DefaultBeanFactory implements BeanFactory{
     }
 
     public <T> T getBeanByFactory(String name, Class<T> type) {
-        Object factory = factoryBeans.get(type);
-        if (factory == null) {
-            for (Class factoryType : factoryBeans.keySet()) {
-                if (factoryType.isAssignableFrom(type)) {
-                    factory = factoryBeans.get(factoryType);
+        FactoryBean factoryBean = (FactoryBean) factoryBeans.get(type);
+        if (factoryBean == null) {
+            for (Class factoryClass : factoryBeans.keySet()) {
+                Object beanDefinitionObj = factoryBeans.get(factoryClass);
+                if (beanDefinitionObj instanceof BeanDefinition){
+                    String factoryClassName = factoryClass.getSimpleName();
+                    BeanDefinition beanDefinition = (BeanDefinition) beanDefinitionObj;
+                    FactoryBean factory = (FactoryBean)getSingletonBean(Introspector.decapitalize(factoryClassName), beanDefinition);
+                    Class objectType = factory.getObjectType();
+                    factoryBeans.remove(factoryClass);
+                    factoryBeans.put(objectType,factory);
+                    if (objectType.isAssignableFrom(type)) {
+                        factoryBean = factory;
+                        break;
+                    }
+                }else {
+                    factoryBean = (FactoryBean) beanDefinitionObj;
                 }
             }
-            if (factory == null) {
+            if (factoryBean == null) {
                 return null;
             }
         }
-        FactoryBean factoryBean = factory instanceof BeanDefinition ?
-                (FactoryBean) getSingletonBean(factory.getClass().getSimpleName(), (BeanDefinition) factory) :
-                (FactoryBean) factory;
-        T object = (T) factoryBean.getObject(type);
+        Object factoryObject = factoryBean.getObject(type);
         if (factoryBean.isSingleton()) {
-            singletonBeans.put(name, object);
+            singletonBeans.put(name, factoryObject);
         }
-        return object;
+        return (T) factoryObject;
     }
 
-
-    @Override
-    public <T> T getBean(Class<T> requiredType, Object... args) {
-        return null;
-    }
-
-    @Override
-    public <T extends Object> T getBean(String name) {
+    protected  <T> T getBean(String name, boolean isInterface) {
         Object bean = null;
         if (!containsBean(name)) {
             throw new NoSuchBeanDefinitionException("找不到ID为: " + name + " 的 Bean");
@@ -273,14 +270,42 @@ public class DefaultBeanFactory implements BeanFactory{
         if (singletonBeans.containsKey(name)) {
             bean = singletonBeans.get(name);
         } else {
-            bean = creatBean(name);
-        }
-        if (bean instanceof FactoryBean) {
-            FactoryBean factoryBean = (FactoryBean) bean;
-            bean = getBeanByFactory(name, factoryBean.getObjectType());
-        }
 
+            BeanDefinition beanDefinition = beanDefinitionRegistry.getBeanDefinition(name);
+            Class beanClass = beanDefinition.getBeanClass();
+            if (isInUse(beanDefinition.getBeanClass())) {
+                //如果需要的此类型正在创建，出现了循环依赖
+                return (T)(isNeedProxy(beanClass) &&isInterface?
+                        LazedProxy.getLazedProxy(beanClass,()->getBean(name,beanClass)) :
+                        this.getInUseBean(name, beanClass));
+            }
+            bean = creatBean(name);
+            if (bean instanceof FactoryBean) {
+                FactoryBean factoryBean = (FactoryBean) bean;
+                bean = getBeanByFactory(name, factoryBean.getObjectType());
+            }
+        }
         return (T) bean;
+    }
+    private boolean  isNeedProxy(Class beanClass){
+        if (beanClass.isInterface()) {
+            String[] beanNamesByType = getBeanNamesByType(beanClass);
+            boolean need = false;
+            for (String beanName : beanNamesByType) {
+                need =  AdvisorRegister.classFilter(this.beanDefinitionRegistry.getBeanDefinition(beanName).getBeanClass());
+            }
+            return need;
+        }
+        return AdvisorRegister.classFilter(beanClass)&&beanClass.getInterfaces().length>0;
+     }
+    @Override
+    public <T> T getBean(Class<T> requiredType, Object... args) {
+        return null;
+    }
+
+    @Override
+    public <T extends Object> T getBean(String name) {
+        return (T) getBean(name,false);
     }
 
     @Override
@@ -299,11 +324,11 @@ public class DefaultBeanFactory implements BeanFactory{
             throw new NoSuchBeanDefinitionException("找不到类型为: " + requiredType.getName() + " 的 Bean");
         }
         if (matchNames.length == 1) {
-            bean =  getBean(matchNames[0]);
+            bean =  getBean(matchNames[0],requiredType.isInterface());
         } else {
             for (String matchName : matchNames) {
                 if (name.equals(matchName)) {
-                    bean =  getBean(matchName);
+                    bean =  getBean(matchNames[0],requiredType.isInterface());
                     break;
                 }
             }
@@ -343,7 +368,7 @@ public class DefaultBeanFactory implements BeanFactory{
         BeanDefinition beanDefinition = beanDefinitionRegistry.getBeanDefinition(name);
         for (Object arg : args) {
             Class<?> argClass = arg.getClass();
-            Arguments arguments = new Arguments(Introspector.decapitalize(argClass.getName()),
+            Arguments arguments = new Arguments(Introspector.decapitalize(argClass.getSimpleName()),
                     argClass, args);
             beanDefinition.addArguments(arguments.getName(), arguments);
         }
@@ -382,17 +407,22 @@ public class DefaultBeanFactory implements BeanFactory{
 
     @Override
     public boolean isTypeMatch(String name, Class typeToMatch) {
-        if (!containsBean(name)) {
-            return false;
-        }
-        return typeToMatch
-                .isAssignableFrom(
-                        beanDefinitionRegistry.getBeanDefinition(name)
-                        .getBeanClass());
+        return containsBean(name)?
+                typeToMatch.isAssignableFrom(beanDefinitionRegistry.getBeanDefinition(name).getBeanClass())
+                :false;
     }
 
     @Override
     public Object[] getBeans() {
         return singletonBeans.values().toArray();
+    }
+    @Override
+    public <T> List<T>  getBeans(Class<T> requiredType) {
+        String[] beanNamesByType = getBeanNamesByType(requiredType);
+        List<T> beanList = new ArrayList<>(beanNamesByType.length);
+        for (String name : beanNamesByType) {
+            beanList.add(getBean(name));
+        }
+        return beanList;
     }
 }

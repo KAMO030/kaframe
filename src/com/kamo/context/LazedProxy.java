@@ -7,11 +7,11 @@ import java.util.function.Supplier;
 
 public class LazedProxy{
 
-    public static Object getLazedProxy(Class type,Supplier supplier){
+    public static <T> T getLazedProxy(Class<T> type, Supplier supplier){
         if (type .isInterface()) {
-            return Proxy.newProxyInstance(type.getClassLoader(), new Class[] {type}, new LazedInvocationHandler(supplier));
+            return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class[] {type}, new LazedInvocationHandler(supplier));
         }
-        return Proxy.newProxyInstance(type.getClassLoader(), type.getInterfaces(), new LazedInvocationHandler(supplier));
+        return (T) Proxy.newProxyInstance(type.getClassLoader(), type.getInterfaces(), new LazedInvocationHandler(supplier));
     }
    private static class LazedInvocationHandler  implements InvocationHandler {
        private Supplier supplier;
@@ -25,6 +25,9 @@ public class LazedProxy{
        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
            if (target == null) {
                target = supplier.get();
+           }
+           if (method.getName().equals("toString")&&args==null){
+               return target.getClass().getName()+"$proxy@"+Integer.toHexString(target.hashCode());
            }
            return method.invoke(target, args);
        }
