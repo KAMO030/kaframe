@@ -7,8 +7,9 @@ import com.kamo.context.annotation.Component;
 import com.kamo.context.annotation.Lazy;
 import ioc_test.dao.CinfoDao;
 @Component
-@Lazy
+//@Lazy
 public class CinfoDao1 implements CinfoDao {
+
     public CinfoDao1() {
         System.out.println(11);
     }

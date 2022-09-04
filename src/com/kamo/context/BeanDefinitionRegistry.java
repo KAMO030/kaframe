@@ -4,6 +4,9 @@ import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 public interface BeanDefinitionRegistry  {
 
@@ -30,6 +33,5 @@ public interface BeanDefinitionRegistry  {
 
 
     boolean isSingletonCurrentlyInitialized(String beanName);
-
 
 }

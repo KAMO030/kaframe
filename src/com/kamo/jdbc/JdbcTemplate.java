@@ -70,7 +70,7 @@ public class JdbcTemplate {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e.getCause());
+            throw new RuntimeException(e);
         }finally {
             DataSourceUtils.releaseConnection(connection);
         }

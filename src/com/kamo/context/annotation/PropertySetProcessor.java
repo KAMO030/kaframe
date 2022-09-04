@@ -59,8 +59,7 @@ public class PropertySetProcessor implements BeanInstanceProcessor {
         String name = property.getName();
         if (requiredType.isArray()) {
             return factory.getBeans(requiredType.getComponentType()).toArray((T[]) Array.newInstance(requiredType.getComponentType(),0));
-        }
-        if (List.class.isAssignableFrom(requiredType)){
+        }else if (List.class.isAssignableFrom(requiredType)){
            ParameterizedType parameterizedType = (ParameterizedType) property.getGenericType();
             return factory.getBeans((Class)parameterizedType.getActualTypeArguments()[0]);
         }

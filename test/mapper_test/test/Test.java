@@ -5,6 +5,7 @@ import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 import com.kamo.context.annotation.Autowired;
 import com.kamo.jdbc.mapper_upport.IPage;
 import com.kamo.jdbc.mapper_upport.PageHelper;
+import com.kamo.util.BeanUtil;
 import mapper_test.test.mapper.CinfoMapper;
 import mapper_test.test.pojo.Cinfo;
 import mapper_test.test.pojo.Ctype;
@@ -22,12 +23,14 @@ public class Test {
      private static List<String> name;
     public static void main(String[] args) throws NoSuchFieldException {
         ApplicationContext context = new AnnotationConfigApplicationContext(Test.class,Config.class);
-//        CinfoService service = context.getBean("cinfoServiceImpl");
+        CinfoService service = context.getBean("cinfoServiceImpl");
 //        service.service();
-        CinfoMapper bean = context.getBean(CinfoMapper.class);
-        PageHelper.setPage(222,2);
-        IPage<CinfoVO> iPage = (IPage<CinfoVO>) bean.findAllCinfoVOByList();
-        System.out.println(iPage);
+//        CinfoMapper bean = context.getBean(CinfoMapper.class);
+////        PageHelper.setPage(444,2);
+//        List<CinfoVO> iPage =  bean.findAllCinfoVOByList();
+//        CinfoVO cinfoVO = iPage.get(0);
+//        iPage.forEach(c-> System.out.println(c));
+//        System.out.println(iPage);
 //        System.out.println(bean);
 
 //        使用原生方法查单表所有

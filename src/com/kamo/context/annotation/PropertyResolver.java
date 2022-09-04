@@ -1,10 +1,10 @@
 package com.kamo.context.annotation;
 
-import com.kamo.context.Resolve;
+import com.kamo.context.Resolver;
 
 import java.lang.reflect.AnnotatedElement;
 
 
-public interface PropertyResolve extends Resolve {
+public interface PropertyResolver extends Resolver {
      boolean needParse(AnnotatedElement element);
 }

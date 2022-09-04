@@ -1,18 +1,21 @@
-package ioc_test;
+package ioc_test.config;
 
 import com.kamo.context.annotation.Bean;
 import com.kamo.context.annotation.ComponentScan;
+import com.kamo.context.condition.annotation.Conditional;
 import com.kamo.context.annotation.Configuration;
 import ioc_test.dao.imp.CinfoDao1;
+import ioc_test.service.imp.CinfoServiceImp;
 
-@Configuration
-@ComponentScan
+//@Configuration
+//@ComponentScan("ioc_test")
 public class Config {
 
-//    @Bean
-//    public CinfoDao1 cinfoDao1(){
-//       return new CinfoDao1();
-//    }
+    @Bean
+    @Conditional(CinfoServiceImp.ConditionTest.class)
+    public CinfoDao1 cinfoDao121(){
+       return new CinfoDao1();
+    }
 
 //    @Bean
 //    public CinfoDao2 cinfoDao2(){

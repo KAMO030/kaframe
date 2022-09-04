@@ -80,7 +80,7 @@ public final class ConverterRegistry {
     }
 
     public static <T, R> R doConvert(T target, Class<R> returnType, Class<T> targetType) {
-        if (ReflectUtils.isPrimitive(returnType)) {
+        if (ReflectUtil.isPrimitive(returnType)) {
             try {
                 return (R) (returnType.equals(String.class) ?
                         target.toString() :
@@ -89,8 +89,8 @@ public final class ConverterRegistry {
                 e.printStackTrace();
             }
         }
-        returnType = ReflectUtils.getWrapperClass(returnType);
-        targetType = ReflectUtils.getWrapperClass(targetType);
+        returnType = ReflectUtil.getWrapperClass(returnType);
+        targetType = ReflectUtil.getWrapperClass(targetType);
         Converter<T, R> converter = getConverter(returnType, targetType);
         if (converter != null) {
            return converter.convert(target);

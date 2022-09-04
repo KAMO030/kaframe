@@ -17,9 +17,10 @@ import java.io.Serializable;
 public class Cinfo implements Serializable {
 
 
-    private String cName;
-    @TableId(type = IdType.ASSIGN_UUID)
+//    @TableId(type = IdType.ASSIGN_UUID)
+    @TableField( "cid")
     private String cId;
+    private String cName;
 
     private String tId;
 

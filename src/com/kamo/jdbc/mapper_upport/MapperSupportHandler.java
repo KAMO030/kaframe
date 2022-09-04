@@ -4,7 +4,8 @@ package com.kamo.jdbc.mapper_upport;
 import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.util.BeanUtil;
-import com.kamo.util.ReflectUtils;
+import com.kamo.util.AnnotationUtils;
+import com.kamo.util.ReflectUtil;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
@@ -135,7 +136,7 @@ public class MapperSupportHandler implements InvocationHandler {
             return sql;
         }
         for (Object arg : args) {
-            if (ReflectUtils.isPrimitive(arg.getClass())) {
+            if (ReflectUtil.isPrimitive(arg.getClass())) {
                 params.add(arg);
             }else {
                 if (sql.matches("(.*)\\$\\{(.*)\\}(.*)")){

@@ -1,6 +1,6 @@
 package com.kamo.proxy;
 
-import com.kamo.context.Resolve;
+import com.kamo.context.Resolver;
 import com.kamo.proxy.annotation.After;
 import com.kamo.proxy.annotation.Before;
 import com.kamo.proxy.impl.AfterPoint;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class AspectResolve implements Resolve {
+public class AspectResolve implements Resolver {
     private final Class aspectClass;
     private final static Map<Class, PointParser> POINT_MAP = new HashMap<>();
     static {

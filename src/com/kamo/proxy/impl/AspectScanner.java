@@ -8,6 +8,9 @@ import com.kamo.proxy.annotation.Aspect;
 public class AspectScanner extends AbstractScanner implements Scanner {
 
 
+    public AspectScanner() {
+    }
+
     @Override
     public void register(Class beanClass) {
         new AspectResolve(beanClass).parse();

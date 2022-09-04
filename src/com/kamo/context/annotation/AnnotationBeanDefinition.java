@@ -23,6 +23,8 @@ public class AnnotationBeanDefinition extends GenericBeanDefinition {
                 if (!value.equals("")) {
                     arguments.setValue(value);
                 }
+            }else {
+                arguments.setName(parameter.getName());
             }
             addArguments(arguments.getName(), arguments);
         }

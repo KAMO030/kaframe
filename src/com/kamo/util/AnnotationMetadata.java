@@ -1,8 +1,12 @@
 package com.kamo.util;
 
+import com.kamo.util.exception.ReflectException;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +14,7 @@ public  interface   AnnotationMetadata<T extends Annotation> {
     T getAnnotation();
     Annotation getSrcAnnotation();
     Class<T> getAnnotationType();
+
     AnnotatedElement getSrcAnnotationElement();
     default String getSrcAnnotationElementClassName(){
         return ((Class) getSrcAnnotationElement()).getName();
@@ -18,26 +23,30 @@ public  interface   AnnotationMetadata<T extends Annotation> {
         return ((Class) getSrcAnnotationElement());
     };
     default boolean hasAnnotation(Class<? extends Annotation> annotationType) {
-        return ReflectUtils.isAnnotationPresent(this.getSrcAnnotationElement(),annotationType);
+        return AnnotationUtils.isAnnotationPresent(this.getSrcAnnotationElement(),annotationType);
     }
 
     default <R extends Annotation> List<R>  getAnnotationsInSrc(Class<R> annotationType) {
-        return ReflectUtils.getAnnotations(this.getSrcAnnotationElement(),annotationType);
+        return AnnotationUtils.getAnnotations(this.getSrcAnnotationElement(),annotationType);
     }
     default <R extends Annotation> R getAnnotationInSrc(Class<R> annotationType) {
-        return ReflectUtils.getAnnotation(this.getSrcAnnotationElement(),annotationType);
+        return AnnotationUtils.getAnnotation(this.getSrcAnnotationElement(),annotationType);
     }
-    default Object getSrcAnnotationValue(String attributeName){
-        Annotation annotation = this.getSrcAnnotation();
+    default <T> T getAnnotationValue(String attributeName){
+        return getValue(this.getAnnotation(), attributeName);
+    }
+    default <T > T getSrcAnnotationValue(String attributeName){
+        return getValue(this.getSrcAnnotation(), attributeName);
+    }
+    default <T extends Object> T getValue(Annotation annotation,String attributeName){
         Objects.requireNonNull(annotation);
+        Class<? extends Annotation> type = annotation.annotationType();
         try {
-            return annotation.annotationType().getDeclaredMethod(attributeName).invoke(annotation);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            Method method = ReflectUtil.getMethod(type, attributeName);
+            return (T) ReflectUtil.invokeMethod(method,annotation);
+        }catch (ReflectException e){
+            Field field = ReflectUtil.getField(type, attributeName);
+            return (T) ReflectUtil.getFieldValue(field,null);
         }
-    };
+    }
 }

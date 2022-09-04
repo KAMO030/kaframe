@@ -1,4 +1,4 @@
-package com.kamo.util;
+package com.kamo.util.exception;
 
 public class EmptyWalletException extends RuntimeException {
     public EmptyWalletException() {

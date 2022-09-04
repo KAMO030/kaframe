@@ -3,12 +3,22 @@ package com.kamo.context;
 import java.util.List;
 
 public interface BeanFactory {
-    boolean	containsBean(String name);
+    boolean containsBeanDefinition(String name);
+
+    boolean containSingletonBean(String name);
+
+
+
+    boolean containsBeanDefinition(Class type);
+
     String[]	getAliases(String name);
     <T> T	getBean(Class<T> requiredType);
+
+    String[] getBeanNamesByType(Class requiredType);
+
     <T> T	getBean(Class<T> requiredType, Object... args);
     boolean isInUse(Class type);
-
+    void addSingletonBeans(Object...beans);
     Object getInUseBean(String beanName, Class type);
 
     <T extends Object> T	getBean(String name);
@@ -22,4 +32,10 @@ public interface BeanFactory {
     Object[] getBeans();
 
     <T> List<T> getBeans(Class<T> requiredType);
+
+    Object getSingletonBean(String beanName, BeanDefinition beanDefinition);
+
+    void addSingletonBean(String name, Object bean);
+
+    void destroy();
 }

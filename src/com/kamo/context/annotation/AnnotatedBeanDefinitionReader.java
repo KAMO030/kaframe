@@ -26,10 +26,6 @@ public class AnnotatedBeanDefinitionReader {
 
     private void doRegisterBean(Class<?> beanClass) {
         BeanDefinition bd = BeanDefinitionBuilder.getBeanDefinition(beanClass);
-//        for (Parameter parameter : beanClass.getConstructors()[0].getParameters()) {
-//            Arguments arguments = new Arguments(parameter);
-//            bd.addArguments(arguments.getName(), arguments);
-//        }
         try {
             registry.registerBeanDefinition(Introspector.decapitalize(beanClass.getSimpleName()),bd);
         } catch (BeanDefinitionStoreException e) {

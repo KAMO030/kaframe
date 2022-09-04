@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../KamoTest/KamoTest.iml" filepath="$PROJECT_DIR$/../KamoTest/KamoTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../boot/boot.iml" filepath="$PROJECT_DIR$/../boot/boot.iml" />
       <module fileurl="file://$PROJECT_DIR$/kaframe.iml" filepath="$PROJECT_DIR$/kaframe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mvc/mvc.iml" filepath="$PROJECT_DIR$/../mvc/mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../server/server.iml" filepath="$PROJECT_DIR$/../server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../servlet/servlet.iml" filepath="$PROJECT_DIR$/../servlet/servlet.iml" />
     </modules>
   </component>
 </project>

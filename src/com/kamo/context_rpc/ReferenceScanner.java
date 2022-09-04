@@ -5,6 +5,9 @@ import com.kamo.context.annotation.Service;
 
 public class ReferenceScanner extends AbstractScanner {
 
+    public ReferenceScanner() {
+    }
+
     @Override
     public void register(Class beanClass) {
 

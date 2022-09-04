@@ -53,7 +53,7 @@ public class AnnotationConvertHandler<T extends Annotation> implements Invocatio
             return targetAnnotation.toString();
         }
         //如果不为空
-        if (annotationMethodMapper.containsKey(name)) {
+        if (annotationMethodMapper.containsKey(name) ) {
             //将目标转换为注释元素(Test.class)上的目标注解类型实例(Service.class)
             target = targetAnnotation;
             //将执行的方法转换为目标注解类型(Service.class)的方法,此方法是(Service.class)的方法

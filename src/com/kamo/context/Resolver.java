@@ -1,6 +1,6 @@
 package com.kamo.context;
 
-public interface Resolve {
+public interface Resolver {
     void parse();
 
 }

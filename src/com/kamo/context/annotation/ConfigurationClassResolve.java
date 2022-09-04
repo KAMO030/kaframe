@@ -1,18 +1,20 @@
 package com.kamo.context.annotation;
 
 import com.kamo.context.*;
+import com.kamo.context.condition.ConditionMatcher;
+import com.kamo.util.AnnotationUtils;
 
 import java.lang.reflect.Method;
 
-public class ConfigurationClassResolve implements Resolve {
+public class ConfigurationClassResolve implements Resolver {
 
     private BeanDefinitionRegistry registry;
     private Class configBeanClass;
+    private ConditionMatcher methodMatcher;
 
-
-    public ConfigurationClassResolve(BeanDefinitionRegistry registry,Class configBeanClass) {
+    public ConfigurationClassResolve(BeanDefinitionRegistry registry, ConditionMatcher methodMatcher, Class configBeanClass) {
+        this.methodMatcher = methodMatcher;
         this.configBeanClass = configBeanClass;
-
         this.registry = registry;
     }
     @Override
@@ -26,26 +28,28 @@ public class ConfigurationClassResolve implements Resolve {
     }
 
     private void scan() {
-        String[] basePackages =((ComponentScan) configBeanClass.getAnnotation(ComponentScan.class)).value();
-        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(registry);
+        String[] basePackages = AnnotationUtils.getAnnotation(configBeanClass,ComponentScan.class).value();
+        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(methodMatcher,registry);
 
         if (basePackages.length!=0) {
             scanner.scan(basePackages);
             return;
         }
         String basePackage = configBeanClass.getName();
-        basePackage = basePackage.substring(0,basePackage.lastIndexOf('.'));
+        int endIndex = basePackage.lastIndexOf('.');
+
+        basePackage = endIndex != -1 ?basePackage.substring(0, endIndex) : "";
         scanner.scan(new String[]{basePackage});
     }
 
     protected boolean needScan() {
-        return configBeanClass.isAnnotationPresent(ComponentScan.class);
+        return AnnotationUtils.isAnnotationPresent(configBeanClass,ComponentScan.class);
     }
 
     protected void loadMethods() {
         Method[] methods = configBeanClass.getDeclaredMethods();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(Bean.class)) {
+            if (method.isAnnotationPresent(Bean.class)&&methodMatcher.isMeeConditions(method)) {
                 String name = method.getAnnotation(Bean.class).name();
                 name = name.equals("") ? method.getName() : name;
                 BeanDefinition methodBeanDefinition = BeanDefinitionBuilder.getBeanDefinition(method,()->((BeanFactory)registry).getBean(configBeanClass));

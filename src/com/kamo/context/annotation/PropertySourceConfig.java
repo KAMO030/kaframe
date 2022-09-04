@@ -4,6 +4,7 @@ import com.kamo.context.BeanDefinition;
 import com.kamo.context.BeanDefinitionBuilder;
 import com.kamo.context.BeanDefinitionRegistry;
 import com.kamo.context.exception.BeansException;
+import com.kamo.context.factory.ClassLoadAware;
 import com.kamo.util.AnnotationMetadata;
 import com.kamo.util.Resource;
 
@@ -12,10 +13,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PropertySourceConfig extends BeanDefinitionImportRegistry {
+public class PropertySourceConfig extends BeanDefinitionImportRegistry implements ClassLoadAware {
 
     private Map<String, Properties> propertyMap ;
-
+    private ClassLoader classLoader;
 
     @Override
     public void postProcessBeanDefinitionRegistry(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) throws BeansException {
@@ -35,7 +36,7 @@ public class PropertySourceConfig extends BeanDefinitionImportRegistry {
         for (String path : paths) {
             Properties properties = new Properties();
             try {
-                properties.load(Resource.getResourceAsReader(path));
+                properties.load(classLoader.getResourceAsStream(path));
             } catch (IOException e) {
                 throw new RuntimeException("找不到路径名为: " + path + " 的文件");
             }
@@ -53,5 +54,11 @@ public class PropertySourceConfig extends BeanDefinitionImportRegistry {
         BeanDefinition propertyDefinition = BeanDefinitionBuilder.getBeanDefinition(Properties.class,()->properties);
         registry.registerBeanDefinition(path, propertyDefinition);
     }
+
+    @Override
+    public void setClassLoad(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
 
 }

@@ -35,6 +35,9 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
         if (!registry.containsBeanDefinition(beanName)) {
             registry.registerBeanDefinition(beanName, beanDefinition);
         }
+        if (beanFactory.containSingletonBean(beanName)) {
+            return;
+        }
         Class beanClass = beanDefinition.getBeanClass();
         if (BeanFactoryPostProcessor.class.isAssignableFrom(beanClass)) {
             beanFactoryPostProcessors.add(beanFactory.getBean(beanName));
@@ -58,6 +61,8 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
         registerConfiguration(configName, beanDefinition);
         return beanDefinition;
     }
+
+
 
     @Override
     public void register(Class... beanClases) {

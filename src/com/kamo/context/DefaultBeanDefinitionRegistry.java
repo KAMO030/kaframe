@@ -5,6 +5,7 @@ import com.kamo.context.exception.NoSuchBeanDefinitionException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
     protected final Map<String, BeanDefinition> beanDefinitions;
@@ -16,7 +17,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
 
     @Override
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws BeanDefinitionStoreException {
-        if (!chekBeanName(beanName)) {
+        if (!checkBeanName(beanName)) {
             beanDefinitions.put(beanName, beanDefinition);
             Class beanClass = beanDefinition.getBeanClass();
             if (FactoryBean.class.isAssignableFrom(beanClass)) {
@@ -26,13 +27,13 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
             throw new BeanDefinitionStoreException();
         }
     }
-    private boolean chekBeanName(String beanName) {
+    private boolean checkBeanName(String beanName) {
         return beanDefinitions.containsKey(beanName);
     }
 
     @Override
     public void removeBeanDefinition(String beanName) throws NoSuchBeanDefinitionException {
-        if (chekBeanName(beanName)) {
+        if (checkBeanName(beanName)) {
             beanDefinitions.remove(beanName);
         } else {
             throw new NoSuchBeanDefinitionException();
@@ -41,7 +42,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
 
     @Override
     public BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException {
-        if (chekBeanName(beanName)) {
+        if (checkBeanName(beanName)) {
             return beanDefinitions.get(beanName);
         } else {
             throw new NoSuchBeanDefinitionException();
@@ -72,4 +73,5 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
     public boolean isSingletonCurrentlyInitialized(String beanName) {
         return false;
     }
+
 }

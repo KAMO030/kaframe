@@ -3,9 +3,10 @@ package com.kamo.proxy.impl;
 import com.kamo.context.BeanDefinitionRegistry;
 import com.kamo.context.annotation.BeanDefinitionImportRegistry;
 import com.kamo.context.exception.BeansException;
+import com.kamo.context.factory.ClassLoadAware;
 import com.kamo.util.AnnotationMetadata;
 
-public class ProxyScannerPostProcessor extends BeanDefinitionImportRegistry {
+public class ProxyScannerPostProcessor extends BeanDefinitionImportRegistry  {
 
     private AspectScanner scanner = new AspectScanner();
 

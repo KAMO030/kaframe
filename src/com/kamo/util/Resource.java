@@ -10,7 +10,7 @@ public abstract class Resource {
         return Resource.class.getClassLoader().getResource(resourcePath);
     }
     public static InputStream getResourceAsStream(String resourcePath){
-        return Resource.class.getClassLoader().getResourceAsStream(resourcePath);
+        return Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath);
     }
     public static Reader getResourceAsReader(String resourcePath){
         return new InputStreamReader(getResourceAsStream(resourcePath));

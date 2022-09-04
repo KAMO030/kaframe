@@ -1,4 +1,15 @@
 package com.kamo.context.annotation;
 
-public abstract class AnnotationConfigUtils {
+import com.kamo.context.BeanDefinitionRegistry;
+import com.kamo.context.condition.ConditionMatcher;
+import com.kamo.context.factory.ConfigurableListableBeanFactory;
+
+public final class AnnotationConfigUtils {
+    public static void parseConfiguration(ConfigurableListableBeanFactory configRegistry,BeanDefinitionRegistry beanDefinitionRegistry, ConditionMatcher conditionMatcher, Class configClass) {
+        new ConfigurationClassResolve(beanDefinitionRegistry, conditionMatcher, configClass)
+                .parse();
+        new ConfigurationAnnotationResolve( configRegistry, conditionMatcher,configClass)
+                .parse();
+    }
+
 }

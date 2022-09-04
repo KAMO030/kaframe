@@ -10,7 +10,6 @@ public interface ConfigurableListableBeanFactory {
     void registerConfiguration(String beanName ,BeanDefinition beanDefinition);
     BeanDefinition registerConfiguration(Class configClass);
 
-
     void register(Class... beanClass);
     BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;
 
@@ -19,4 +18,6 @@ public interface ConfigurableListableBeanFactory {
     Set<BeanInstanceProcessor> getBeanInstanceProcessors();
 
     Set<BeanPostProcessor> getBeanPostProcessors();
+
+
 }

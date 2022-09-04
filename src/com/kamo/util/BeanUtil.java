@@ -1,14 +1,11 @@
 package com.kamo.util;
 
 
-
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.*;
 
 
 public abstract class BeanUtil {
@@ -29,15 +26,17 @@ public abstract class BeanUtil {
         return columnName;
     }
 
+
+
     public static boolean isExtends(Class clazz, Class supClass) {
         boolean bool = false;
-        if (clazz!=Object.class){
+        if (clazz != Object.class) {
             do {
                 if (clazz == supClass) {
                     bool = true;
                     break;
                 }
-            } while (clazz!=null&&(clazz = clazz.getSuperclass()) != Object.class);
+            } while (clazz != null && (clazz = clazz.getSuperclass()) != Object.class);
         }
         return bool;
     }
@@ -65,64 +64,23 @@ public abstract class BeanUtil {
 
     public static void assignByBean(String beanData, Object bean, Class beanType) {
         String[] fieldPairs = beanData.split("&");
-        try {
-            for (String fieldPair : fieldPairs) {
-                String[] field = fieldPair.split("=");
-                String fieldName = field[0];
-                String fieldValue = "";
-                if (field.length != 1) {
-                    fieldValue = field[1];
-                }
-                Field ff = null;
-
-                ff = beanType.getDeclaredField(fieldName);
-                ff.setAccessible(true);
-
-                ff.set(bean, toBeanType(fieldValue, ff.getType()));
+        for (String fieldPair : fieldPairs) {
+            String[] field = fieldPair.split("=");
+            String fieldName = field[0];
+            String fieldValue = "";
+            if (field.length != 1) {
+                fieldValue = field[1];
             }
-            } catch(IllegalAccessException e){
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            Field ff = ReflectUtil.getField(beanType, fieldName);
+            ff.setAccessible(true);
+            ReflectUtil.setFieldValue(ff, bean, ReflectUtil.parseString(ff.getType(), fieldValue));
         }
     }
 
-        public static <T > T toBean(String beanData, Class < T > beanType) {
-            T bean = null;
-            try {
-                bean = beanType.getDeclaredConstructor().newInstance();
-                assignByBean(beanData, bean,beanType);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            return bean;
-        }
 
-        public static Object toBeanType (String value, Class type){
-            if (type == String.class) {
-            } else if (type == int.class) {
-                Integer.valueOf(value);
-            } else if (type == long.class) {
-                Long.valueOf(value);
-            } else if (type == float.class) {
-                Float.valueOf(value);
-            } else if (type == double.class) {
-                Double.valueOf(value);
-            } else if (type == byte.class) {
-                Byte.valueOf(value);
-            } else if (type == boolean.class) {
-                Boolean.valueOf(value);
-            } else if (type == char.class) {
-                Character.valueOf(value.charAt(0));
-            }
-            return value;
-        }
+
+
+
     public static String toTableName(String name) {
         char[] chars = name.toCharArray();
         StringBuffer buffer = new StringBuffer();
@@ -135,9 +93,10 @@ public abstract class BeanUtil {
         }
         return buffer.toString().toUpperCase();
     }
+
     public static String autoStitchingSql(Object entity, String refer, List args) {
         String stitchingSql = "";
-        if (entity==null) {
+        if (entity == null) {
             return "";
         }
         Class<?> entityClass = entity.getClass();
@@ -162,29 +121,7 @@ public abstract class BeanUtil {
         }
     }
 
-    public static void setTableVal(Field field, Object bean, Object object) throws IllegalAccessException {
-        Class type = field.getType();
-        if (type == String.class) {
-            field.set(bean,object);
-        } else if (type == int.class||type == Integer.class) {
-            field.setInt(bean, (Integer) object);
-        } else if (type == float.class||type == Integer.class) {
-            field.set(bean,object);
-        } else if (type == long.class||type == Integer.class) {
-            field.set(bean,object);
-        } else if (type == double.class||type == Integer.class) {
-            field.set(bean,object);
-        } else if (type == boolean.class||type == Integer.class) {
-            field.set(bean,object);
-        } else if (type == char.class||type == Integer.class) {
-            field.set(bean,object);
-        } else if (type == byte.class||type == Integer.class) {
-            field.set(bean,object);
-        }
-    }
-    public static Class getGenericsSuperclass(Class clazz){
-        return (Class) ((ParameterizedType)clazz.getGenericSuperclass()).getActualTypeArguments()[0];
-    }
+
 
 //    public static Map<String, Object> getColumnMap(List<String>columnName,Object voBean)  {
 //        return getColumnMap(columnName.toArray(new String[0]),voBean);

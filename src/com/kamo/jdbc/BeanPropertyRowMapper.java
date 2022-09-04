@@ -1,8 +1,11 @@
 package com.kamo.jdbc;
 
+import com.kamo.jdbc.mapper_upport.annotation.NameType;
 import com.kamo.jdbc.mapper_upport.annotation.TableField;
+import com.kamo.jdbc.mapper_upport.annotation.TableName;
 import com.kamo.util.BeanUtil;
-import com.kamo.util.ReflectUtils;
+import com.kamo.util.Converter;
+import com.kamo.util.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -124,15 +127,17 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
         propertyMapping = new HashMap<>();
         //获得结果集的列数
         Field[] fields = type.getDeclaredFields();
+
+        TableName tableName = (TableName) type.getAnnotation(TableName.class);
+        Converter<String,String> converter = (tableName!=null ? tableName.nameType() : NameType.SAME).getConverter();
         for (Field field : fields) {
             String fieldName = field.getName();
-            TableField annotation = ReflectUtils.getAnnotation(field, TableField.class);
-            String columnName = fieldName;
+            TableField annotation = AnnotationUtils.getAnnotation(field, TableField.class);
+            String columnName = converter.convert(fieldName);
             if (annotation != null && !annotation.value().equals("")) {
                 columnName = annotation.value();
             }
             propertyMapping.put(columnName, fieldName);
-
         }
 
     }

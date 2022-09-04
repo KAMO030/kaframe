@@ -1,16 +1,30 @@
 package com.kamo.context.annotation;
 
 import java.io.File;
+import java.util.Arrays;
 
 public abstract class AbstractScanner implements Scanner {
     private String rootPath;
+    private ClassLoader classLoader;
+
+
+
+    public AbstractScanner() {
+        classLoader = Thread.currentThread().getContextClassLoader();
+    }
+
     public void scan(String[] basePackages) {
         for (String basePackage : basePackages) {
-            basePackage = basePackage.replace(".", "/");
             int index = basePackage.indexOf('/');
+            basePackage = basePackage.replace(".", "/");
             //test.dao
-            rootPath = index != -1 ? basePackage.substring(0, index) : basePackage;
-            String filePath = AbstractScanner.class.getClassLoader().getResource(basePackage).getFile();
+            if (basePackage.startsWith("classpath:")) {
+                index = index != -1 ? index : basePackage.length();
+                rootPath = basePackage.substring(10, index);
+            }else {
+                rootPath = index != -1 ? basePackage.substring(0, index) : basePackage;
+            }
+            String filePath = classLoader.getResource(basePackage).getFile();
             File classFile = new File(filePath);
             doScan(classFile);
         }
@@ -39,13 +53,14 @@ public abstract class AbstractScanner implements Scanner {
             if (classFile.getName().endsWith(".class")) {
 //                test/A
                 String className = classFile.getAbsolutePath();
+                String start = rootPath.replace('/', '\\');
                 className = className.substring(
-                                className.lastIndexOf(rootPath),
+                                className.lastIndexOf(start),
                                 className.indexOf(".class"))
                         .replace("\\", ".");
                 Class beanClass = null;
                 try {
-                    beanClass = AnnotationConfigApplicationContext.class.getClassLoader().loadClass(className);
+                    beanClass = classLoader.loadClass(className);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
