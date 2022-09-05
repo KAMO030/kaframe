@@ -26,7 +26,6 @@ public class JdbcTemplate {
     }
 
     public int update(String sql, Object... obs){
-
         int row = 0;
         Connection connection = getConnection();
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){

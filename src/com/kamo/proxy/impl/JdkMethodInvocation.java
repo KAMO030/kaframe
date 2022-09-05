@@ -36,13 +36,12 @@ public class JdkMethodInvocation implements MethodInvocation {
         }
         Advisor advisor = advisorList.get(index);
         Pointcut pointcut = advisor.getPointcut();
-        return pointcut.matches(invocation.getMethod(), target.getClass())
-                ?advisor.getAdvice().invoke(invocation)
-                :invoke(invocation);
+        return pointcut.matches(invocation.getMethod(), target.getClass()) ?
+                advisor.getAdvice().invoke(invocation) : invoke(invocation);
     }
     @Override
     public Object getThis() {
-        return null;
+        return this;
     }
 
     public Object invoke() throws Throwable {

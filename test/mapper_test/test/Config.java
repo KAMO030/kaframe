@@ -1,8 +1,10 @@
 package mapper_test.test;
 
 
-import com.kamo.boot.annotation.KamoBootApplication;
+
 import com.kamo.context.annotation.Bean;
+import com.kamo.context.annotation.ComponentScan;
+import com.kamo.context.annotation.Configuration;
 import com.kamo.context.annotation.PropertySource;
 import com.kamo.datasource.IzumiDataSourceFactory;
 import com.kamo.jdbc.mapper_upport.annotation.EnableMapperSupport;
@@ -16,9 +18,8 @@ import java.util.Properties;
 @EnableProxy
 @EnableMapperSupport
 @PropertySource("db.properties")
-@KamoBootApplication
-//@Configuration
-//@ComponentScan
+@Configuration
+@ComponentScan
 public class Config {
 
     @Bean

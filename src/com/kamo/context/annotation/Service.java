@@ -5,7 +5,6 @@ import com.kamo.util.AliasFor;
 
 import java.lang.annotation.*;
 @Inherited
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 @Component

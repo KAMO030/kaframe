@@ -2,6 +2,7 @@ package com.kamo.context.annotation;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Queue;
 
 public abstract class AbstractScanner implements Scanner {
     private String rootPath;

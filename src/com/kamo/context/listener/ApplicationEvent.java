@@ -2,11 +2,11 @@ package com.kamo.context.listener;
 
 import java.util.EventObject;
 
-public  class ApplicationEvent extends EventObject {
+public  class ApplicationEvent<T> extends EventObject {
     private static final long serialVersionUID = 7099057708183571937L;
     private final long timestamp = System.currentTimeMillis();
 
-    public ApplicationEvent(Object source) {
+    public ApplicationEvent(T source) {
         super(source);
     }
 

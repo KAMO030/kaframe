@@ -17,6 +17,7 @@ public @interface RpcService {
     @AliasFor(annotation = Component.class)
     String value()default "";
     String protocolName() default "BioSocket";
+
     String hostname() default "localhost";
     int port() default 8080;
     String version() default "";

@@ -1,10 +1,14 @@
 package com.kamo.context.env.impl;
 
 import com.kamo.context.annotation.Autowired;
+import com.kamo.context.annotation.PostConstruct;
 import com.kamo.context.env.Environment;
+import com.kamo.context.env.PropertyHolder;
 import com.kamo.context.env.PropertyParser;
 import com.kamo.context.env.PropertySource;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,14 +17,14 @@ public class DefaultEnvironment implements Environment {
 
     @Autowired
     private List<PropertyParser> propertyParserList;
-    private final Map<String, PropertyHolder> propertyHolderMap;
+    private final Map<String, PropertyHolder> propertyHolderMap = new ConcurrentHashMap<>();
 
-
-    public DefaultEnvironment() {
-        this.propertyHolderMap = new ConcurrentHashMap<>();
+    @PostConstruct
+    private void initialize(){
+        if (propertyParserList == null) {
+            propertyParserList = new ArrayList<>();
+        }
     }
-
-
     @Override
     public boolean containsProperty(String key) {
         int prefixIndex = key.lastIndexOf('.');
@@ -41,7 +45,7 @@ public class DefaultEnvironment implements Environment {
         if (propertyHolderMap.containsKey(prefix)) {
             return getPropertyHolder(prefix).setProperty(suffix, value);
         }
-        PropertyHolder propertyHolder = new PropertyHolder(prefix);
+        PropertyHolder propertyHolder = new GenericPropertyHolder(prefix);
         propertyHolder.setProperty(suffix, value);
         propertyHolderMap.put(prefix, propertyHolder);
         return null;
@@ -71,7 +75,12 @@ public class DefaultEnvironment implements Environment {
             return defaultValue;
         }
         String suffix = prefixIndex == -1 ? key : key.substring(prefixIndex + 1);
-        return (T) propertyHolder.getProperty(suffix);
+        return propertyHolder.getProperty(suffix,targetType,defaultValue);
+    }
+
+    @Override
+    public void registerPropertyParser(PropertyParser propertyParser) {
+        propertyParserList.add(propertyParser);
     }
 
     private PropertyHolder getPropertyHolder(String prefix) {

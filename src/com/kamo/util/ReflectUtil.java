@@ -27,18 +27,19 @@ public final class ReflectUtil {
     public static Class getActualTypeArgument(Type type) {
         return (Class) getActualTypeArguments(type)[0];
     }
-    public static Type[] getActualTypesOnInterface(Class targetType,String interfaceName) throws IllegalArgumentException{
+
+    public static Type[] getActualTypesOnInterface(Class targetType, String interfaceName) throws IllegalArgumentException {
         Type[] genericInterfaces = targetType.getGenericInterfaces();
         for (Type genericInterface : genericInterfaces) {
             if (genericInterface instanceof ParameterizedType && genericInterface.getTypeName().startsWith(PropertyParser.class.getName())) {
                 return ReflectUtil.getActualTypeArguments(genericInterface);
             }
         }
-        throw new IllegalArgumentException(targetType+" 没有实现："+interfaceName);
+        throw new IllegalArgumentException(targetType + " 没有实现：" + interfaceName);
     }
 
-    public static Class getActualTypeOnInterface(Class targetType,String interfaceName)  throws IllegalArgumentException{
-        return (Class) getActualTypesOnInterface(targetType,interfaceName)[0];
+    public static Class getActualTypeOnInterface(Class targetType, String interfaceName) throws IllegalArgumentException {
+        return (Class) getActualTypesOnInterface(targetType, interfaceName)[0];
     }
 
     public static <T> Class getWrapperClass(Class<T> type) {
@@ -93,6 +94,7 @@ public final class ReflectUtil {
     }
 
     public static boolean isPrimitive(Class type) {
+        Objects.requireNonNull(type);
         if (type.isPrimitive() || String.class.equals(type)) {
             return true;
         }
@@ -106,33 +108,30 @@ public final class ReflectUtil {
 
     public static Object invokeMethod(Method method, Object instance, Object... args) {
         try {
+            Objects.requireNonNull(method);
             method.setAccessible(true);
             return method.invoke(instance, args);
-        } catch (IllegalAccessException e) {
-            throw new ReflectException(e);
-        } catch (InvocationTargetException e) {
-            throw new ReflectException(e);
+        } catch (Exception e) {
+            throw new ReflectException("执行 " + instance + " 的 " + method + " 方法时发生异常,实参为: " + Arrays.toString(args), e);
         }
     }
-    public static Object invokeMethod(Object instance, String methodeName,Object... args) {
+
+    public static Object invokeMethod(Object instance, String methodeName, Object... args) {
         Class[] parameterTypes = new Class[args.length];
-        if (args.length>0) {
+        if (args.length > 0) {
             for (int i = 0; i < args.length; i++) {
                 parameterTypes[i] = args[i].getClass();
             }
         }
-        try {
-            Method method = getMethod(instance.getClass(),methodeName, parameterTypes);
-            method.setAccessible(true);
-            return method.invoke(instance, args);
-        } catch (IllegalAccessException e) {
-            throw new ReflectException(e);
-        } catch (InvocationTargetException e) {
-            throw new ReflectException(e);
-        }
+        Method method = getMethod(instance.getClass(), methodeName, parameterTypes);
+        return invokeMethod(method, instance, args);
+
+
     }
+
     public static Object getFieldValue(Field field, Object instance) {
         try {
+            Objects.requireNonNull(field);
             field.setAccessible(true);
             return field.get(instance);
         } catch (IllegalAccessException e) {
@@ -142,6 +141,7 @@ public final class ReflectUtil {
 
     public static void setFieldValue(Field field, Object instance, Object value) {
         try {
+            Objects.requireNonNull(field);
             field.setAccessible(true);
             field.set(instance, value);
         } catch (IllegalAccessException e) {
@@ -151,13 +151,10 @@ public final class ReflectUtil {
 
     public static <T> T newInstance(Constructor<T> constructor, Object... args) {
         try {
+            Objects.requireNonNull(constructor);
             constructor.setAccessible(true);
             return constructor.newInstance(args);
-        } catch (InstantiationException e) {
-            throw new ReflectException(e);
-        } catch (IllegalAccessException e) {
-            throw new ReflectException(e);
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             throw new ReflectException(e);
         }
     }
@@ -166,9 +163,7 @@ public final class ReflectUtil {
     public static <T> T newInstance(Class<T> type) {
         try {
             return type.newInstance();
-        } catch (InstantiationException e) {
-            throw new ReflectException(e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             throw new ReflectException(e);
         }
     }
@@ -231,13 +226,13 @@ public final class ReflectUtil {
         return getField(type, fieldName, false);
     }
 
-    public static void forEachField(Class type, Function<Field,Boolean> function) {
+    public static void forEachField(Class type, Function<Field, Boolean> function) {
         forEachSuperclass(type, c -> {
             Field[] fields = c.getDeclaredFields();
             boolean isBreak = false;
             for (Field field : fields) {
-                isBreak =  function.apply(field);
-                if (isBreak){
+                isBreak = function.apply(field);
+                if (isBreak) {
                     break;
                 }
             }
@@ -245,13 +240,13 @@ public final class ReflectUtil {
         });
     }
 
-    public static void forEachMethod(Class type, Function<Method,Boolean> function) {
+    public static void forEachMethod(Class type, Function<Method, Boolean> function) {
         forEachSuperclass(type, c -> {
             Method[] methods = c.getDeclaredMethods();
             boolean isBreak = false;
             for (Method method : methods) {
-                isBreak =  function.apply(method);
-                if (isBreak){
+                isBreak = function.apply(method);
+                if (isBreak) {
                     break;
                 }
             }
