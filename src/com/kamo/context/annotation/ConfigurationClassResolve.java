@@ -8,14 +8,14 @@ import java.lang.reflect.Method;
 
 public class ConfigurationClassResolve implements Resolver {
 
-    private BeanDefinitionRegistry registry;
+    private ApplicationContext context;
     private Class configBeanClass;
     private ConditionMatcher methodMatcher;
 
-    public ConfigurationClassResolve(BeanDefinitionRegistry registry, ConditionMatcher methodMatcher, Class configBeanClass) {
+    public ConfigurationClassResolve(ApplicationContext context, ConditionMatcher methodMatcher, Class configBeanClass) {
         this.methodMatcher = methodMatcher;
         this.configBeanClass = configBeanClass;
-        this.registry = registry;
+        this.context = context;
     }
     @Override
     public void parse(){
@@ -29,7 +29,7 @@ public class ConfigurationClassResolve implements Resolver {
 
     private void scan() {
         String[] basePackages = AnnotationUtils.getAnnotation(configBeanClass,ComponentScan.class).value();
-        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(methodMatcher,registry);
+        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(methodMatcher,context);
 
         if (basePackages.length!=0) {
             scanner.scan(basePackages);
@@ -52,8 +52,8 @@ public class ConfigurationClassResolve implements Resolver {
             if (method.isAnnotationPresent(Bean.class)&&methodMatcher.isMeeConditions(method)) {
                 String name = method.getAnnotation(Bean.class).name();
                 name = name.equals("") ? method.getName() : name;
-                BeanDefinition methodBeanDefinition = BeanDefinitionBuilder.getBeanDefinition(method,()->((BeanFactory)registry).getBean(configBeanClass));
-                registry.registerBeanDefinition(name,methodBeanDefinition);
+                BeanDefinition methodBeanDefinition = BeanDefinitionBuilder.getBeanDefinition(method,()-> context.getBean(configBeanClass));
+                context.registerBeanDefinition(name,methodBeanDefinition);
             }
         }
     }

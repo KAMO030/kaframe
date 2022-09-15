@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Component
 public @interface Configuration {
-
+    boolean isProxyMethod()default true;
 }

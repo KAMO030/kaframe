@@ -4,6 +4,7 @@ import com.kamo.context.annotation.*;
 import com.kamo.util.AnnotationUtils;
 import com.kamo.util.ReflectUtil;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.concurrent.atomic.AtomicReference;

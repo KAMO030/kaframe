@@ -3,18 +3,8 @@ package mapper_test.test;
 import com.kamo.context.ApplicationContext;
 import com.kamo.context.annotation.AnnotationConfigApplicationContext;
 import com.kamo.context.annotation.Autowired;
-import com.kamo.jdbc.mapper_upport.IPage;
-import com.kamo.jdbc.mapper_upport.PageHelper;
-import com.kamo.util.BeanUtil;
-import mapper_test.test.mapper.CinfoMapper;
-import mapper_test.test.pojo.Cinfo;
-import mapper_test.test.pojo.Ctype;
 import mapper_test.test.service.CinfoService;
-import mapper_test.test.vo.CinfoVO;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class Test {

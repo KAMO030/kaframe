@@ -32,7 +32,7 @@ public class ConfigurationRegistryPostProcessor implements BeanDefinitionRegistr
         for (String beanDefinitionName : beanDefinitionNames) {
             BeanDefinition beanDefinition = registry.getBeanDefinition(beanDefinitionName);
             if (isConfigurationClass(beanDefinition)) {
-                AnnotationConfigUtils.parseConfiguration(applicationContext,registry,classConditionMatcher,beanDefinition.getBeanClass());
+                AnnotationConfigUtils.parseConfiguration(applicationContext,classConditionMatcher,beanDefinition);
             }
         }
     }

@@ -1,7 +1,9 @@
 package com.kamo.util;
 
 
-import sun.reflect.misc.ReflectUtil;
+
+
+
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
@@ -165,6 +167,27 @@ public final class AnnotationUtils {
                 continue;
             }
             handler.accept(annotation);
+        }
+    }
+
+    public static <T> T getValue(AnnotatedElement element, Class<? extends Annotation> annotationType, T defaultValue) {
+        return getValue(element,annotationType, "value", defaultValue);
+    }
+
+    public static <T> T getValue(AnnotatedElement element, Class<? extends Annotation> annotationType, String methodName, T defaultValue) {
+        if (!element.isAnnotationPresent(annotationType)) {
+            return defaultValue;
+        }
+        Annotation annotation = element.getAnnotation(annotationType);
+        try {
+            T value = (T)annotationType.getMethod(methodName).invoke(annotation,new Object[0]);
+            if (value instanceof String && value.equals("")) {
+                return defaultValue;
+            }
+            return value;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return defaultValue;
         }
     }
 }

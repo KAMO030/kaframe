@@ -1,16 +1,6 @@
 package proxy_test;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.listener.ApplicationEvent;
-import com.kamo.context.listener.ApplicationListener;
-import com.kamo.context.listener.impl.ContextRefreshedListenerAdapter;
-import com.kamo.transaction.TransactionSynchronizationManager;
-import proxy_test.service.CinfoService;
-import proxy_test.service.imp.CinfoServiceImp;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import com.kamo.context.listener.impl.ContextRefreshedListenerMethodAdapter;
 
 
 //循环依赖和aop演示demo
@@ -18,7 +8,7 @@ import java.lang.reflect.Type;
 public class Test {
 
     public static void main(String[] args) {
-        System.out.println(new ContextRefreshedListenerAdapter(null, null).getEventType());
+        System.out.println(new ContextRefreshedListenerMethodAdapter(null, null).supportsEventType());
 //        ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 //        CinfoService service = context.getBean(CinfoService.class);
 //        context.publishEvent(new ApplicationEvent("11"));

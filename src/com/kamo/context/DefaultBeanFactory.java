@@ -7,8 +7,8 @@ import com.kamo.context.factory.*;
 import com.kamo.context.listener.ApplicationEventMulticaster;
 import com.kamo.context.listener.ApplicationListener;
 import com.kamo.proxy.AdvisorRegister;
-import com.kamo.util.Converter;
-import com.kamo.util.ConverterRegistry;
+import com.kamo.context.converter.Converter;
+import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.util.ReflectUtil;
 
 import java.beans.Introspector;
@@ -99,12 +99,7 @@ public class DefaultBeanFactory implements BeanFactory {
             return;
         }
         Aware aware = (Aware) bean;
-        String[] awareNames = aware.getAwareNames();
-        Class[] awareTypes = aware.getAwareTypes();
-        Object[] awareValues = new Object[awareTypes.length];
-        for (int i = 0; i < awareNames.length; i++) {
-            awareValues[i] = getBean(awareNames[i], awareTypes[i]);
-        }
+        Object[] awareValues = aware.getAwareValues(this);
         aware.setAware(awareValues);
 //        if (bean instanceof ApplicationPublisherAware) {
 //            ((ApplicationPublisherAware) bean).setApplicationPublisher(applicationContext);
@@ -174,6 +169,9 @@ public class DefaultBeanFactory implements BeanFactory {
     @Override
     public void addSingletonBean(String name, Object bean) {
         this.singletonBeans.put(name, bean);
+        if (applicationContext.containsBeanDefinition(name)){
+            return;
+        }
         BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(bean.getClass());
         this.applicationContext.registerBeanDefinition(name, beanDefinition);
     }
@@ -239,7 +237,7 @@ public class DefaultBeanFactory implements BeanFactory {
     }
 
     @Override
-    public boolean isInUse(Class type) {
+    public boolean isUsing(Class type) {
         return exileBeanMatcher.match(type);
     }
 
@@ -253,7 +251,7 @@ public class DefaultBeanFactory implements BeanFactory {
     }
 
     @Override
-    public Object getInUseBean(String beanName, Class type) {
+    public Object getUsingBean(String beanName, Class type) {
         return exileBeanMatcher.getMatch(beanName, type);
     }
 
@@ -352,11 +350,11 @@ public class DefaultBeanFactory implements BeanFactory {
 
             BeanDefinition beanDefinition = applicationContext.getBeanDefinition(name);
             Class beanClass = beanDefinition.getBeanClass();
-            if (isInUse(beanDefinition.getBeanClass())) {
+            if (isUsing(beanDefinition.getBeanClass())) {
                 //如果需要的此类型正在创建，出现了循环依赖
                 return (T) (isNeedProxy(beanClass) && isInterface ?
                         LazedProxy.getLazedProxy(beanClass, () -> getBean(name, beanClass)) :
-                        this.getInUseBean(name, beanClass));
+                        this.getUsingBean(name, beanClass));
             }
             bean = creatBean(name);
             if (bean instanceof FactoryBean) {
@@ -386,7 +384,7 @@ public class DefaultBeanFactory implements BeanFactory {
 
     @Override
     public <T extends Object> T getBean(String name) {
-        return (T) getBean(name, false);
+        return getBean(name, false);
     }
 
     @Override

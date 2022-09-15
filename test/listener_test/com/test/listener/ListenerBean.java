@@ -1,13 +1,10 @@
 package listener_test.com.test.listener;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.BeanFactory;
 import com.kamo.context.annotation.*;
-import com.kamo.context.listener.ApplicationEvent;
 import com.kamo.context.listener.ApplicationEventPublisher;
 import com.kamo.context.listener.annotation.Listener;
 import com.kamo.context.listener.impl.ContextRefreshedEvent;
-import com.kamo.context.listener.impl.ContextRefreshedListenerAdapter;
+import com.kamo.context.listener.impl.ContextRefreshedListenerMethodAdapter;
 
 @Component
 public class ListenerBean {
@@ -22,7 +19,7 @@ public class ListenerBean {
         publisher.publishEvent(event);
         System.out.println("contextRefreshedListener----2"+event.getApplicationContext());
     }
-    @Listener(listenerType = ContextRefreshedListenerAdapter.class)
+    @Listener(listenerType = ContextRefreshedListenerMethodAdapter.class)
     public void contextRefreshedListener3(@Arg(name = "source") AnnotationConfigApplicationContext applicationContext, ContextRefreshedEvent event){
         System.out.println("contextRefreshedListener----31231"+applicationContext);
         System.out.println("contextRefreshedListener----31231"+event);

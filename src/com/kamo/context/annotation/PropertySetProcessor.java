@@ -1,24 +1,19 @@
 package com.kamo.context.annotation;
 
-import com.kamo.context.BeanDefinition;
-import com.kamo.context.BeanFactory;
-import com.kamo.context.LazedProxy;
-import com.kamo.context.Property;
+import com.kamo.context.*;
+import com.kamo.context.factory.ApplicationContextAware;
 import com.kamo.context.factory.BeanInstanceProcessor;
-import com.kamo.util.ConverterRegistry;
+import com.kamo.context.converter.ConverterRegistry;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
-
-public class PropertySetProcessor implements BeanInstanceProcessor {
+@Order(1)
+public class PropertySetProcessor implements BeanInstanceProcessor , ApplicationContextAware {
     private BeanFactory factory;
 
-    public PropertySetProcessor(BeanFactory factory) {
-        this.factory = factory;
-    }
+
 
     @Override
     public Object instanceBefore(String beanName, BeanDefinition beanDefinition) {
@@ -68,5 +63,10 @@ public class PropertySetProcessor implements BeanInstanceProcessor {
 
     private Object getProxyPropertyValue(Property property) {
         return LazedProxy.getLazedProxy(property.getType(), () -> getValue(property));
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.factory = applicationContext;
     }
 }

@@ -1,6 +1,7 @@
 package com.kamo.context;
 
 import com.kamo.context.annotation.PropertySetProcessor;
+import com.kamo.context.converter.ConverterRegistryProcessor;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 import com.kamo.context.factory.*;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public  class AbstractApplicationContext implements ApplicationContext {
+public class AbstractApplicationContext implements ApplicationContext {
 
     protected BeanDefinitionRegistry registry;
     protected BeanFactory beanFactory;
@@ -29,17 +30,20 @@ public  class AbstractApplicationContext implements ApplicationContext {
         Thread.currentThread().setContextClassLoader(classLoader);
         initialize();
     }
-    protected void initialize(){
+
+    protected void initialize() {
         registry = new DefaultBeanDefinitionRegistry();
         beanFactory = new DefaultBeanFactory(this);
-        configFactory = new DefaultConfigurableListableBeanFactory(this,this);
+        configFactory = new DefaultConfigurableListableBeanFactory(this, this);
         eventMulticaster = new DefaultEventMulticaster();
+
+        addSingletonBeans(this, eventMulticaster, Thread.currentThread().getContextClassLoader());
     }
 
     public void refresh() {
 
         //初始化注册BeanFactoryPostProcessor
-        registerBeanFactoryPostProcessors();
+        registerBeanFactoryPostProcessorBeanDefinitions();
 
         preInstantiateFactoryPostProcessors();
         //执行BeanFactoryPostProcessor
@@ -48,23 +52,23 @@ public  class AbstractApplicationContext implements ApplicationContext {
         preInstantiateSingletons();
     }
 
-    public void registerBeanFactoryPostProcessors() {
-//        addSingletonBean(this.getApplicationContextName(),this);
-//        addSingletonBean(DefaultEventMulticaster.DEFAULT_EVENT_MULTICASTER_NAME,eventMulticaster);
-        addSingletonBeans(this,eventMulticaster,Thread.currentThread().getContextClassLoader());
-        register(PropertySetProcessor.class);
+    public void registerBeanFactoryPostProcessorBeanDefinitions() {
+        register(FactoryLoader.load(ApplicationProcessor.class));
     }
-    public void addSingletonBeans(Object...beans){
+
+    public void addSingletonBeans(Object... beans) {
         this.beanFactory.addSingletonBeans(beans);
     }
-    public void addSingletonBean(String name,Object bean){
-        this.beanFactory.addSingletonBean(name,bean);
+
+    public void addSingletonBean(String name, Object bean) {
+        this.beanFactory.addSingletonBean(name, bean);
     }
+
     private void preInstantiateFactoryPostProcessors() {
         String[] beanDefinitionNames = this.registry.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
             BeanDefinition beanDefinition = this.registry.getBeanDefinition(beanName);
-            registerConfiguration(beanName, beanDefinition);
+            registerProcessor(beanName, beanDefinition);
         }
     }
 
@@ -86,13 +90,14 @@ public  class AbstractApplicationContext implements ApplicationContext {
                         .postProcessBeanDefinitionRegistry(this);
             }
         }
+
     }
 
     private void preInstantiateSingletons() {
         String[] beanDefinitionNames = this.registry.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
             BeanDefinition beanDefinition = this.registry.getBeanDefinition(beanName);
-            if (!beanDefinition.isSingleton()||beanDefinition.isLazyInit()) {
+            if (!beanDefinition.isSingleton() || beanDefinition.isLazyInit()) {
                 continue;
             }
             this.beanFactory.getSingletonBean(beanName, beanDefinition);
@@ -101,14 +106,25 @@ public  class AbstractApplicationContext implements ApplicationContext {
     }
 
 
-
     public void register(Class... componentClasses) {
-
+        for (Class componentClass : componentClasses) {
+            this.registry.registerBeanDefinition(componentClass);
+        }
     }
 
     @Override
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws BeanDefinitionStoreException {
         this.registry.registerBeanDefinition(beanName, beanDefinition);
+    }
+
+    @Override
+    public BeanDefinition registerBeanDefinition(String beanName, Class beanClass) {
+       return registry.registerBeanDefinition(beanName, beanClass);
+    }
+
+    @Override
+    public BeanDefinition registerBeanDefinition(Class beanClass) {
+        return registry.registerBeanDefinition(beanClass);
     }
 
     @Override
@@ -136,19 +152,20 @@ public  class AbstractApplicationContext implements ApplicationContext {
         return this.configFactory.getBeanPostProcessors();
     }
 
+
     @Override
     public boolean containsBeanDefinition(String beanName) {
         return this.registry.containsBeanDefinition(beanName);
     }
 
     @Override
-    public void registerConfiguration(String beanName, BeanDefinition beanDefinition) {
-        this.configFactory.registerConfiguration(beanName, beanDefinition);
+    public void registerProcessor(String beanName, BeanDefinition beanDefinition) {
+        this.configFactory.registerProcessor(beanName, beanDefinition);
     }
 
     @Override
-    public BeanDefinition registerConfiguration(Class configClass) {
-        return this.configFactory.registerConfiguration(configClass);
+    public BeanDefinition registerProcessor(Class configClass) {
+        return this.configFactory.registerProcessor(configClass);
     }
 
     @Override
@@ -170,7 +187,6 @@ public  class AbstractApplicationContext implements ApplicationContext {
     public boolean isSingletonCurrentlyInitialized(String beanName) {
         return this.registry.isSingletonCurrentlyInitialized(beanName);
     }
-
 
 
     @Override
@@ -205,13 +221,13 @@ public  class AbstractApplicationContext implements ApplicationContext {
     }
 
     @Override
-    public boolean isInUse(Class type) {
-        return this.beanFactory.isInUse(type);
+    public boolean isUsing(Class type) {
+        return this.beanFactory.isUsing(type);
     }
 
     @Override
-    public Object getInUseBean(String beanName, Class type) {
-        return this.beanFactory.getInUseBean(beanName, type);
+    public Object getUsingBean(String beanName, Class type) {
+        return this.beanFactory.getUsingBean(beanName, type);
     }
 
     @Override
@@ -266,7 +282,7 @@ public  class AbstractApplicationContext implements ApplicationContext {
 
     @Override
     public Object getSingletonBean(String beanName, BeanDefinition beanDefinition) {
-        return this.beanFactory.getSingletonBean(beanName,beanDefinition);
+        return this.beanFactory.getSingletonBean(beanName, beanDefinition);
     }
 
     @Override

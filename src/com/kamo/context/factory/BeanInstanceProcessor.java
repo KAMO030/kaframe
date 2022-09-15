@@ -2,7 +2,7 @@ package com.kamo.context.factory;
 
 import com.kamo.context.BeanDefinition;
 
-public interface BeanInstanceProcessor {
+public interface BeanInstanceProcessor extends ApplicationProcessor {
 
 
 

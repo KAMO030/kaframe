@@ -1,5 +1,6 @@
 package com.kamo.context.annotation;
 
+import com.kamo.context.ApplicationContext;
 import com.kamo.context.BeanDefinition;
 import com.kamo.context.BeanDefinitionBuilder;
 import com.kamo.context.BeanDefinitionRegistry;
@@ -11,13 +12,13 @@ import java.beans.Introspector;
 
 public class ClassPathBeanDefinitionScanner extends AbstractScanner {
 
-    private BeanDefinitionRegistry registry;
+    private ApplicationContext context;
 
     private ConditionMatcher conditionMatcher;
 
-    public ClassPathBeanDefinitionScanner(ConditionMatcher conditionMatcher,BeanDefinitionRegistry registry) {
+    public ClassPathBeanDefinitionScanner(ConditionMatcher conditionMatcher,ApplicationContext context) {
         this.conditionMatcher = conditionMatcher;
-        this.registry = registry;
+        this.context = context;
     }
 
 
@@ -28,13 +29,12 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
         if (beanName.equals("")) {
             beanName = Introspector.decapitalize(beanClass.getSimpleName());
         }
-        if (registry.containsBeanDefinition(beanName)) {
+        if (context.containsBeanDefinition(beanName)) {
             return;
         }
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(beanClass);
-        registry.registerBeanDefinition(beanName, beanDefinition);
+        BeanDefinition beanDefinition = context.registerBeanDefinition(beanName, beanClass);
         if (AnnotationUtils.isAnnotationPresent(beanClass, Configuration.class)) {
-            AnnotationConfigUtils.parseConfiguration((ConfigurableListableBeanFactory) registry,registry,conditionMatcher,beanClass);
+            AnnotationConfigUtils.parseConfiguration( context,conditionMatcher,beanDefinition);
         }
 
     }

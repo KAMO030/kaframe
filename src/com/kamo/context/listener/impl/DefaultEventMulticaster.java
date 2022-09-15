@@ -44,7 +44,7 @@ public class DefaultEventMulticaster implements ApplicationEventMulticaster {
         Class eventType = event.getClass();
         List<ApplicationListener> matchListeners = new ArrayList<>();
         listeners.forEach(listener -> {
-            if (listener.getEventType().equals(eventType)) {
+            if (listener.supportsEventType().equals(eventType)) {
                 matchListeners.add(listener);
             }
         });

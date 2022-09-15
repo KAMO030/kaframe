@@ -1,12 +1,13 @@
 package com.kamo.context.env.impl;
 
 import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.PostConstruct;
+
 import com.kamo.context.env.Environment;
 import com.kamo.context.env.PropertyHolder;
 import com.kamo.context.env.PropertyParser;
 import com.kamo.context.env.PropertySource;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.kamo.context.listener;
 
 import com.kamo.context.listener.impl.DefaultEventMulticaster;
-import com.kamo.util.AnnotationUtils;
 import com.kamo.util.ReflectUtil;
 
 import java.lang.reflect.Type;
@@ -14,7 +13,7 @@ public interface ApplicationListener<E extends ApplicationEvent> extends EventLi
         return new String[] {DefaultEventMulticaster.DEFAULT_EVENT_MULTICASTER_NAME};
     }
 
-    default Class getEventType() {
+    default Class supportsEventType() {
         try {
             for (Type genericInterface : this.getClass().getGenericInterfaces()) {
                 if (genericInterface.getTypeName().startsWith(ApplicationListener.class.getName())) {

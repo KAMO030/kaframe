@@ -1,10 +1,10 @@
 package com.kamo.jdbc;
 
-import com.kamo.jdbc.mapper_upport.annotation.NameType;
-import com.kamo.jdbc.mapper_upport.annotation.TableField;
-import com.kamo.jdbc.mapper_upport.annotation.TableName;
+import com.kamo.jdbc.mapper_support.annotation.NameType;
+import com.kamo.jdbc.mapper_support.annotation.TableField;
+import com.kamo.jdbc.mapper_support.annotation.TableName;
 import com.kamo.util.BeanUtil;
-import com.kamo.util.Converter;
+import com.kamo.context.converter.Converter;
 import com.kamo.util.AnnotationUtils;
 
 import java.lang.reflect.Field;

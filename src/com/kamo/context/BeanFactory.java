@@ -17,9 +17,9 @@ public interface BeanFactory {
     String[] getBeanNamesByType(Class requiredType);
 
     <T> T	getBean(Class<T> requiredType, Object... args);
-    boolean isInUse(Class type);
+    boolean isUsing(Class type);
     void addSingletonBeans(Object...beans);
-    Object getInUseBean(String beanName, Class type);
+    Object getUsingBean(String beanName, Class type);
 
     <T extends Object> T	getBean(String name);
     <T> T	getBean(String name, Class<T> requiredType);

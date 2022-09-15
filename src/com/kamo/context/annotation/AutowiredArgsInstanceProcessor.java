@@ -6,7 +6,7 @@ import com.kamo.util.AnnotationUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
-
+@Order(2)
 public class AutowiredArgsInstanceProcessor implements BeanInstanceProcessor {
     @Override
     public Object instanceBefore(String beanName, BeanDefinition beanDefinition) {

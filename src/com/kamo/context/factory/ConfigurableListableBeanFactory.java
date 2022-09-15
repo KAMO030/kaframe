@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface ConfigurableListableBeanFactory {
-    void registerConfiguration(String beanName ,BeanDefinition beanDefinition);
-    BeanDefinition registerConfiguration(Class configClass);
+    void registerProcessor(String beanName , BeanDefinition beanDefinition);
+    BeanDefinition registerProcessor(Class configClass);
 
     void register(Class... beanClass);
     BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;

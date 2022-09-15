@@ -39,8 +39,8 @@ public class AnnotationConfigApplicationContext extends AbstractApplicationConte
         scanner = new ClassPathBeanDefinitionScanner(new AnnotationConditionMatcher(this),this);
     }
     @Override
-    public void registerBeanFactoryPostProcessors() {
-        super.registerBeanFactoryPostProcessors();
+    public void registerBeanFactoryPostProcessorBeanDefinitions() {
+        super.registerBeanFactoryPostProcessorBeanDefinitions();
         register(
                 ConfigurationRegistryPostProcessor.class,
                 AutowiredArgsInstanceProcessor.class,

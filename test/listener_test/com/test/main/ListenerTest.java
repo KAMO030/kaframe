@@ -25,7 +25,7 @@ public class ListenerTest implements ApplicationListener<ContextRefreshedEvent> 
         return new DefaultEventMulticaster();
     }
     @Bean
-    @ConditionalOnBean(beanTypes = {"com.kamo.context.listener.ApplicationEventPublisher"})
+    @ConditionalOnBean(beanClasses = ApplicationEventPublisher.class)
     public ApplicationEventPublisher publisher(@Arg(name = "testMulticaster")ApplicationEventMulticaster multicaster ){
         return (applicationEvent)->{multicaster.multicastEvent(applicationEvent);};
     }

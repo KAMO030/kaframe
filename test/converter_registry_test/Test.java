@@ -1,8 +1,7 @@
 package converter_registry_test;
 
-import com.kamo.context.ApplicationContext;
 import com.kamo.context.annotation.*;
-import com.kamo.util.Converter;
+import com.kamo.context.converter.Converter;
 import test.pojo.Ctype;
 
 import java.util.Date;

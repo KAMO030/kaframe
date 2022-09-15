@@ -1,9 +1,7 @@
 package mapper_test.test.pojo;
 
-import com.kamo.jdbc.mapper_upport.annotation.IdType;
-import com.kamo.jdbc.mapper_upport.annotation.TableField;
-import com.kamo.jdbc.mapper_upport.annotation.TableId;
-import com.kamo.jdbc.mapper_upport.annotation.TableName;
+import com.kamo.jdbc.mapper_support.annotation.TableField;
+import com.kamo.jdbc.mapper_support.annotation.TableName;
 
 import java.io.Serializable;
 

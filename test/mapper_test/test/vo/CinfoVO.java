@@ -1,8 +1,8 @@
 package mapper_test.test.vo;
 
 
-import com.kamo.jdbc.mapper_upport.annotation.TableField;
-import com.kamo.jdbc.mapper_upport.annotation.TableId;
+import com.kamo.jdbc.mapper_support.annotation.TableField;
+import com.kamo.jdbc.mapper_support.annotation.TableId;
 import mapper_test.test.pojo.Cinfo;
 import mapper_test.test.pojo.Ctype;
 import mapper_test.test.pojo.Cunit;

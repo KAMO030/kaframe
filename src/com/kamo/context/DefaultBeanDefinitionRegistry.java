@@ -3,13 +3,14 @@ package com.kamo.context;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 
+import java.beans.Introspector;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
 
-public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
+public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry {
     protected final Map<String, BeanDefinition> beanDefinitions;
     protected final Map<Class, Object> factoryBeans;
+
     public DefaultBeanDefinitionRegistry() {
         this.beanDefinitions = new ConcurrentHashMap<>();
         this.factoryBeans = new ConcurrentHashMap<>();
@@ -27,6 +28,20 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
             throw new BeanDefinitionStoreException();
         }
     }
+
+    @Override
+    public BeanDefinition registerBeanDefinition(String beanName, Class beanClass) {
+        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(beanClass);
+        registerBeanDefinition(beanName, beanDefinition);
+        return beanDefinition;
+    }
+
+    @Override
+    public BeanDefinition registerBeanDefinition(Class beanClass) {
+        String beanName = Introspector.decapitalize(beanClass.getSimpleName());
+        return registerBeanDefinition(beanName, beanClass);
+    }
+
     private boolean checkBeanName(String beanName) {
         return beanDefinitions.containsKey(beanName);
     }
@@ -64,6 +79,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry{
         return beanDefinitions.size();
 
     }
+
     @Override
     public Map<Class, Object> getFactoryBeans() {
         return factoryBeans;

@@ -5,7 +5,7 @@ import com.kamo.context.annotation.Bean;
 import com.kamo.context.annotation.ComponentScan;
 import com.kamo.context.annotation.Configuration;
 import com.kamo.datasource.IzumiDataSourceFactory;
-import com.kamo.jdbc.mapper_upport.annotation.EnableMapperSupport;
+import com.kamo.jdbc.mapper_support.annotation.EnableMapperSupport;
 
 import javax.sql.DataSource;
 import java.util.Properties;

@@ -1,17 +1,5 @@
 package com.kamo.context;
 
-import com.kamo.context.exception.BeanDefinitionStoreException;
-import com.kamo.context.exception.BeansException;
-import com.kamo.context.exception.NoSuchBeanDefinitionException;
-import com.kamo.context.factory.*;
-import com.kamo.util.Converter;
-import com.kamo.util.ConverterRegistry;
-
-import java.beans.Introspector;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 @Deprecated
 
 public abstract class AbstractApplicationContextDeprecated implements ApplicationContext, BeanDefinitionRegistry {

@@ -1,7 +1,7 @@
 package test.mapper;
 
-import com.kamo.jdbc.mapper_upport.MapperSupport;
-import com.kamo.jdbc.mapper_upport.annotation.SQL;
+import com.kamo.jdbc.mapper_support.MapperSupport;
+import com.kamo.jdbc.mapper_support.annotation.SQL;
 import mapper_test.test.pojo.Cinfo;
 import mapper_test.test.pojo.Ctype;
 import mapper_test.test.vo.CinfoVO;

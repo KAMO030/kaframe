@@ -7,7 +7,7 @@ import com.kamo.context.annotation.ComponentScan;
 import com.kamo.context.annotation.Configuration;
 import com.kamo.context.annotation.PropertySource;
 import com.kamo.datasource.IzumiDataSourceFactory;
-import com.kamo.jdbc.mapper_upport.annotation.EnableMapperSupport;
+import com.kamo.jdbc.mapper_support.annotation.EnableMapperSupport;
 import com.kamo.proxy.annotation.EnableProxy;
 import com.kamo.transaction.annotation.EnableTransaction;
 

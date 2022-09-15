@@ -3,7 +3,7 @@ package com.kamo.context.factory;
 import com.kamo.context.exception.BeansException;
 import com.sun.istack.internal.Nullable;
 
-public interface BeanPostProcessor {
+public interface BeanPostProcessor extends ApplicationProcessor {
     @Nullable
     default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         return bean;

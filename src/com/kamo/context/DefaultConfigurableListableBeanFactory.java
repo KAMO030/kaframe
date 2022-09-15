@@ -1,18 +1,13 @@
 package com.kamo.context;
 
+import com.kamo.context.annotation.Order;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
-import com.kamo.context.factory.BeanFactoryPostProcessor;
-import com.kamo.context.factory.BeanInstanceProcessor;
-import com.kamo.context.factory.BeanPostProcessor;
-import com.kamo.context.factory.ConfigurableListableBeanFactory;
-import com.kamo.util.Converter;
-import com.kamo.util.ConverterRegistry;
+import com.kamo.context.factory.*;
+import com.kamo.util.AnnotationUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.beans.Introspector;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultConfigurableListableBeanFactory implements ConfigurableListableBeanFactory {
     protected final List<BeanFactoryPostProcessor> beanFactoryPostProcessors;
@@ -23,6 +18,7 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
     private final BeanFactory beanFactory;
 
     public DefaultConfigurableListableBeanFactory(BeanFactory beanFactory,BeanDefinitionRegistry registry) {
+        ApplicationProcessorComparable applicationProcessorComparable = new ApplicationProcessorComparable();
         this.beanFactoryPostProcessors = new ArrayList<>();
         this.beanInstanceProcessors = new HashSet<>();
         this.beanPostProcessors = new HashSet<>();
@@ -31,7 +27,7 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
     }
 
     @Override
-    public void registerConfiguration(String beanName, BeanDefinition beanDefinition) {
+    public void registerProcessor(String beanName, BeanDefinition beanDefinition) {
         if (!registry.containsBeanDefinition(beanName)) {
             registry.registerBeanDefinition(beanName, beanDefinition);
         }
@@ -48,17 +44,19 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
         if (BeanPostProcessor.class.isAssignableFrom(beanClass)) {
             beanPostProcessors.add(beanFactory.getBean(beanName));
         }
-        if (Converter.class.isAssignableFrom(beanClass)) {
-            ConverterRegistry.registerConverter( beanFactory.getBean(beanName));
-        }
+
     }
 
     @Override
-    public BeanDefinition registerConfiguration(Class configClass) {
-        register(configClass);
-        String configName = Introspector.decapitalize(configClass.getSimpleName());
-        BeanDefinition beanDefinition = registry.getBeanDefinition(configName);
-        registerConfiguration(configName, beanDefinition);
+    public BeanDefinition registerProcessor(Class processorClass) {
+        String processorName = Introspector.decapitalize(processorClass.getSimpleName());
+        BeanDefinition beanDefinition ;
+        if (!registry.containsBeanDefinition(processorName)) {
+            beanDefinition = registry.registerBeanDefinition(processorName, processorClass);
+        }else {
+            beanDefinition =  registry.getBeanDefinition(processorName);
+        }
+        this.registerProcessor(processorName, beanDefinition);
         return beanDefinition;
     }
 
@@ -67,7 +65,7 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
     @Override
     public void register(Class... beanClases) {
         for (Class beanClass : beanClases) {
-            registerConfiguration(beanClass);
+            registerProcessor(beanClass);
         }
     }
 
@@ -89,5 +87,21 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
     @Override
     public Set<BeanPostProcessor> getBeanPostProcessors() {
         return beanPostProcessors;
+    }
+
+
+
+    private class ApplicationProcessorComparable implements Comparator<ApplicationProcessor> {
+
+
+        @Override
+        public int compare(ApplicationProcessor o1, ApplicationProcessor o2) {
+            Class o1Class = o1.getClass();
+            Class o2Class = o2.getClass();
+            Integer o1Int = AnnotationUtils.getValue(o1Class, Order.class,Integer.MAX_VALUE-1);
+            Integer o2Int = AnnotationUtils.getValue(o2Class, Order.class,Integer.MAX_VALUE-1);
+
+            return o2Int-o1Int;
+        }
     }
 }

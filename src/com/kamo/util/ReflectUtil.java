@@ -76,19 +76,19 @@ public final class ReflectUtil {
         if (type == String.class) {
             parsed = value;
         } else if (type == int.class || type == Integer.class) {
-            parsed = Integer.valueOf(value);
+            parsed = Integer.parseInt(value);
         } else if (type == float.class || type == Float.class) {
-            parsed = Float.valueOf(value);
+            parsed = Float.parseFloat(value);
         } else if (type == long.class || type == Long.class) {
-            parsed = Long.valueOf(value);
+            parsed = Long.parseLong(value);
         } else if (type == double.class || type == Double.class) {
-            parsed = Double.valueOf(value);
+            parsed = Double.parseDouble(value);
         } else if (type == boolean.class || type == Boolean.class) {
-            parsed = Boolean.valueOf(value);
+            parsed = Boolean.parseBoolean(value);
         } else if (type == char.class || type == Character.class) {
             parsed = value.charAt(0);
         } else if (type == byte.class || type == Byte.class) {
-            parsed = Byte.valueOf(value);
+            parsed = Byte.parseByte(value);
         }
         return (T) parsed;
     }
@@ -167,7 +167,10 @@ public final class ReflectUtil {
             throw new ReflectException(e);
         }
     }
-
+    public static <T> T newInstance(Class<T> type,Class[]argTypes,Object... args) {
+        Constructor<T>  constructor = ReflectUtil.getConstructor(type, argTypes);
+        return newInstance(constructor, args);
+    }
     public static Method getMethod(Class type, String methodName, boolean isSearchSuper, Class... parameterTypes) {
         try {
             return type.getDeclaredMethod(methodName, parameterTypes);
@@ -257,13 +260,14 @@ public final class ReflectUtil {
     public static void forEachSuperclass(Class type, Function<Class, Boolean> function) {
         Objects.requireNonNull(type);
         do {
+
             if (function.apply(type)) {
                 break;
             }
         } while ((type = type.getSuperclass()) != Object.class && type != null);
     }
 
-    public static Constructor getConstructor(Class targetClass, Class... parameterTypes) {
+    public static<T>  Constructor<T>  getConstructor(Class<T> targetClass, Class... parameterTypes) {
         try {
             return targetClass.getDeclaredConstructor(parameterTypes);
         } catch (NoSuchMethodException e) {
