@@ -1,5 +1,7 @@
 package com.kamo.context;
 
+import com.kamo.cglib.ProxyClass;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -11,7 +13,7 @@ public class LazedProxy{
         if (type .isInterface()) {
             return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class[] {type}, new LazedInvocationHandler(supplier));
         }
-        return (T) Proxy.newProxyInstance(type.getClassLoader(), type.getInterfaces(), new LazedInvocationHandler(supplier));
+        return (T) ProxyClass.newProxyInstance(type.getClassLoader(), type, new LazedInvocationHandler(supplier));
     }
    private static class LazedInvocationHandler  implements InvocationHandler {
        private Supplier supplier;

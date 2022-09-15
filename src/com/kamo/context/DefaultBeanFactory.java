@@ -352,7 +352,7 @@ public class DefaultBeanFactory implements BeanFactory {
             Class beanClass = beanDefinition.getBeanClass();
             if (isUsing(beanDefinition.getBeanClass())) {
                 //如果需要的此类型正在创建，出现了循环依赖
-                return (T) (isNeedProxy(beanClass) && isInterface ?
+                return (T) (isNeedProxy(name,beanClass)  ?
                         LazedProxy.getLazedProxy(beanClass, () -> getBean(name, beanClass)) :
                         this.getUsingBean(name, beanClass));
             }
@@ -365,16 +365,11 @@ public class DefaultBeanFactory implements BeanFactory {
         return (T) bean;
     }
 
-    private boolean isNeedProxy(Class beanClass) {
+    private boolean isNeedProxy(String name, Class beanClass) {
         if (beanClass.isInterface()) {
-            String[] beanNamesByType = getBeanNamesByType(beanClass);
-            boolean need = false;
-            for (String beanName : beanNamesByType) {
-                need = AdvisorRegister.classFilter(this.applicationContext.getBeanDefinition(beanName).getBeanClass());
-            }
-            return need;
+            return  AdvisorRegister.classFilter(applicationContext.getBeanDefinition(name).getBeanClass());
         }
-        return AdvisorRegister.classFilter(beanClass) && beanClass.getInterfaces().length > 0;
+        return AdvisorRegister.classFilter(beanClass);
     }
 
     @Override

@@ -36,7 +36,12 @@ public class ProxyClass {
     public static <T> T newProxyInstance(ClassLoader classLoader, Class<T> superclass, InvocationHandler handler) {
         return newProxyInstance(classLoader, superclass, false, handler);
     }
-
+    public static <T> T newProxyInstance(Class<T> superclass, InvocationHandler handler) {
+        return newProxyInstance(Thread.currentThread().getContextClassLoader(), superclass, false, handler);
+    }
+    public static <T> T newProxyInstance(Class<T> superclass, boolean isWriteFile,InvocationHandler handler) {
+        return newProxyInstance(Thread.currentThread().getContextClassLoader(), superclass, isWriteFile, handler);
+    }
     private static ProxyClassLoader matchClassLoader(ClassLoader classLoader) {
         ProxyClassLoader matchLoader = null;
         for (ProxyClassLoader loader : CLASSLOADER_CACHE) {

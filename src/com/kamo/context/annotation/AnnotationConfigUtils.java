@@ -15,36 +15,40 @@ public final class AnnotationConfigUtils {
         Class configClass = configBeanDefinition.getBeanClass();
         Configuration annotation = AnnotationUtils.getAnnotation(configClass, Configuration.class);
         if (annotation.isProxyMethod()) {
-            crateProxyClass(context,configBeanDefinition);
+            crateProxyClass(context, configBeanDefinition);
         }
         new ConfigurationClassResolve(context, conditionMatcher, configClass)
                 .parse();
-        new ConfigurationAnnotationResolve( context, conditionMatcher,configClass)
+        new ConfigurationAnnotationResolve(context, conditionMatcher, configClass)
                 .parse();
     }
 
     private static void crateProxyClass(ApplicationContext context, BeanDefinition configBeanDefinition) {
-        Class configClass = configBeanDefinition.getBeanClass();
+        configBeanDefinition.setInstanceSupplier(() ->
+                ProxyClass.newProxyInstance(configBeanDefinition.getBeanClass(), new ConfigurationHandler(context)
+                ));
+    }
 
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-
-        configBeanDefinition.setInstanceSupplier(() -> ProxyClass.newProxyInstance(contextClassLoader, configClass, true,new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                String methodName = method.getName();
-                if (method.isAnnotationPresent(Bean.class)) {
-                    String name = method.getAnnotation(Bean.class).name();
-                    name = name.equals("") ? methodName : name;
-                    if (context.containSingletonBean(name)) {
-                        return context.getBean(name);
-                    }
-                    Object result = MethodProxy.invokeSuper(proxy,method,args);
-                    context.addSingletonBean(name,result);
-                    return result;
+    private static class ConfigurationHandler implements InvocationHandler {
+        private ApplicationContext context;
+        public ConfigurationHandler(ApplicationContext context) {
+            this.context = context;
+        }
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            String methodName = method.getName();
+            if (method.isAnnotationPresent(Bean.class)) {
+                String name = method.getAnnotation(Bean.class).name();
+                name = name.equals("") ? methodName : name;
+                if (context.containSingletonBean(name)) {
+                    return context.getBean(name);
                 }
-                return MethodProxy.invoke(proxy,method,args);
+                Object result = MethodProxy.invokeSuper(proxy, method, args);
+                context.addSingletonBean(name, result);
+                return result;
             }
-        }));
+            return MethodProxy.invoke(proxy, method, args);
+        }
     }
 
 }
