@@ -6,30 +6,21 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="更新了监听器和json数据序列化和反序列化功能，优化整体结构">
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/context/env/PropertyHolder.java" afterDir="false" />
+    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="优化代理的实现">
+      <change afterPath="$PROJECT_DIR$/src/com/kamo/proxy/impl/ClassProxyFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/AbstractScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/AbstractScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/env/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/env/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/env/impl/DefaultEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/env/impl/DefaultEnvironment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/env/impl/PropertyHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/env/impl/GenericPropertyHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/listener/ApplicationEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/listener/ApplicationEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationContextEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationContextEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context_rpc/RpcService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context_rpc/RpcService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/JdbcTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/JdbcTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/Joinpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/JoinPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/MethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/MethodInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/impl/JdkMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/impl/JdkMethodInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/util/ReflectUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/util/ReflectUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/env_test/mian/EnvTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/env_test/mian/EnvTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ioc_test/Mian.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ioc_test/Mian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/listener_test/com/test/listener/ListenerBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/listener_test/com/test/listener/ListenerBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/listener_test/com/test/listener/TestEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/listener_test/com/test/listener/TestEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/listener_test/com/test/main/ListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/listener_test/com/test/main/ListenerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/AbstractApplicationContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/LazedProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/LazedProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/converter/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/converter/Converter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/converter/ConverterRegistryProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/converter/ConverterRegistryProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/factory/ConfigurableListableBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/factory/ConfigurableListableBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/impl/JdkProxyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/impl/JdkProxyFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/proxy/impl/ProxyBeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/proxy/impl/ProxyBeanPostProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/converter_registry_test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/converter_registry_test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/proxy_test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/proxy_test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/proxy_test/service/CinfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/proxy_test/service/CinfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/proxy_test/service/imp/CinfoServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/proxy_test/service/imp/CinfoServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +33,10 @@
       <list>
         <option value="Tag Library Descriptor" />
         <option value="Enum" />
+        <option value="Kotlin Annotation" />
+        <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -77,63 +69,65 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/KAMO-NO-NP/IdeaProjects/KamoTest/resources&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;3422a8b64baa4f6cf73b1252ba154ee4&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "C:/Users/KAMO-NO-NP/IdeaProjects/KamoTest/resources/META-INF",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "spring.configuration.checksum": "3422a8b64baa4f6cf73b1252ba154ee4",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.kamo.context" />
       <recent name="com.kamo.context.env" />
       <recent name="com.kamo.context.env.impl" />
       <recent name="com.kamo.boot" />
       <recent name="com.kamo.context.condition.impl" />
-      <recent name="com.kamo.context" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\KamoTest\resources" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\KamoTest" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\KamoTest\src" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\mvc\src\com" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\servlet\src\com\kamo" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\KamoTest\resources\META-INF" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\resources\META-INF\services" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\out\production\kaframe" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\out\production" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\out\production\KamoTest" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\resources\META-INF" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\resources\META-INF\services" />
       <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\test" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.kamo.test.listener" />
+      <recent name="visitor_test.com.impl" />
       <recent name="com.kamo.net.classloader" />
       <recent name="cn.kamo.test" />
       <recent name="com.kamo.boot" />
-      <recent name="com.kamo.context.env.impl" />
-      <recent name="com.kamo.context.condition.annotation" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ListenerTest">
-    <configuration name="EnvTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="env_test.mian.EnvTest" />
-      <module name="kaframe" />
+  <component name="RunManager" selected="应用程序.Test">
+    <configuration name="FactoryLoaderTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.kamo.factoryloader_test.FactoryLoaderTest" />
+      <module name="KamoTest" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="env_test.mian.*" />
+          <option name="PATTERN" value="cn.kamo.factoryloader_test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,12 +148,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListenerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="listener_test.com.test.main.ListenerTest" />
-      <module name="kaframe" />
+    <configuration name="ProxyTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.kamo.proxytest.ProxyTest" />
+      <module name="KamoTest" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="listener_test.com.test.listener.*" />
+          <option name="PATTERN" value="cn.kamo.proxytest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -167,19 +161,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="server" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="proxy_test.Test" />
+      <module name="kaframe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="proxy_test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Mian" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ioc_test.Mian" />
+    <configuration name="converter_registry_test.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="converter_registry_test.Test" />
       <module name="kaframe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ioc_test.config.*" />
+          <option name="PATTERN" value="converter_registry_test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -188,19 +188,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="应用程序.EnvTest" />
+      <item itemvalue="应用程序.Test" />
+      <item itemvalue="应用程序.converter_registry_test.Test" />
+      <item itemvalue="应用程序.FactoryLoaderTest" />
+      <item itemvalue="应用程序.ProxyTest" />
       <item itemvalue="应用程序.KamoApplicationBootstrap" />
-      <item itemvalue="应用程序.Main" />
-      <item itemvalue="应用程序.Mian" />
-      <item itemvalue="应用程序.ListenerTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.ListenerTest" />
-        <item itemvalue="应用程序.EnvTest" />
+        <item itemvalue="应用程序.Test" />
+        <item itemvalue="应用程序.converter_registry_test.Test" />
         <item itemvalue="应用程序.KamoApplicationBootstrap" />
-        <item itemvalue="应用程序.Main" />
-        <item itemvalue="应用程序.Mian" />
+        <item itemvalue="应用程序.FactoryLoaderTest" />
+        <item itemvalue="应用程序.ProxyTest" />
       </list>
     </recent_temporary>
   </component>
@@ -269,7 +269,20 @@
       <workItem from="1662055047725" duration="31039000" />
       <workItem from="1662168595746" duration="57083000" />
       <workItem from="1662279557354" duration="8791000" />
-      <workItem from="1662294207905" duration="17961000" />
+      <workItem from="1662294207905" duration="20419000" />
+      <workItem from="1662369548518" duration="4951000" />
+      <workItem from="1662438286917" duration="2322000" />
+      <workItem from="1662515195458" duration="2166000" />
+      <workItem from="1662533552091" duration="824000" />
+      <workItem from="1662945339167" duration="10077000" />
+      <workItem from="1662991221382" duration="11409000" />
+      <workItem from="1663033967237" duration="10866000" />
+      <workItem from="1663075446349" duration="4010000" />
+      <workItem from="1663122495525" duration="1443000" />
+      <workItem from="1663134154548" duration="4800000" />
+      <workItem from="1663202138726" duration="8196000" />
+      <workItem from="1663220476559" duration="21453000" />
+      <workItem from="1663255790333" duration="15333000" />
     </task>
     <task id="LOCAL-00001" summary="55">
       <created>1657590233333</created>
@@ -418,7 +431,28 @@
       <option name="project" value="LOCAL" />
       <updated>1662283517694</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="实现了注解形式注册的监听器的方法形参自适应功能">
+      <created>1662359467804</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1662359467804</updated>
+    </task>
+    <task id="LOCAL-00023" summary="实现了基于类的代理功能,优化整体架构与方法名">
+      <created>1663257040319</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1663257040319</updated>
+    </task>
+    <task id="LOCAL-00024" summary="优化代理的实现">
+      <created>1663258932029</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1663258932029</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,7 +527,10 @@
     <MESSAGE value="大更新" />
     <MESSAGE value="更新了监听器和json数据序列化和反序列化功能，销毁和初始化注解的支持&#10;优化整体结构" />
     <MESSAGE value="更新了监听器和json数据序列化和反序列化功能，优化整体结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新了监听器和json数据序列化和反序列化功能，优化整体结构" />
+    <MESSAGE value="实现了注解形式注册的监听器的方法形参自适应功能" />
+    <MESSAGE value="实现了基于类的代理功能,优化整体架构与方法名" />
+    <MESSAGE value="优化代理的实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化代理的实现" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -510,13 +547,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/kamo/context/DefaultBeanFactory.java</url>
-          <line>417</line>
+          <line>410</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerAdapter.java</url>
+          <url>file://$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerMethodAdapter.java</url>
           <line>58</line>
           <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/kamo/context/LazedProxy.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="143" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/../KamoTest/src/cn/kamo/proxytest/ProxyTest.java</url>
+          <line>19</line>
+          <properties class="cn.kamo.proxytest.ProxyTest" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

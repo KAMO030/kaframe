@@ -1,6 +1,8 @@
 package com.kamo.context;
 
 import com.kamo.context.annotation.Order;
+import com.kamo.context.converter.Converter;
+import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 import com.kamo.context.factory.*;
 import com.kamo.util.AnnotationUtils;
@@ -44,7 +46,9 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
         if (BeanPostProcessor.class.isAssignableFrom(beanClass)) {
             beanPostProcessors.add(beanFactory.getBean(beanName));
         }
-
+        if (Converter.class.isAssignableFrom(beanClass)) {
+            ConverterRegistry.registerConverter(beanFactory.getBean(beanName));
+        }
     }
 
     @Override
@@ -70,10 +74,7 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
     }
 
 
-    @Override
-    public BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException {
-        return registry.getBeanDefinition(beanName);
-    }
+
 
 
     @Override

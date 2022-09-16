@@ -11,7 +11,7 @@ public interface ConfigurableListableBeanFactory {
     BeanDefinition registerProcessor(Class configClass);
 
     void register(Class... beanClass);
-    BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;
+
 
     List<BeanFactoryPostProcessor> getBeanFactoryPostProcessors();
 

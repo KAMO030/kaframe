@@ -1,15 +1,16 @@
 package com.kamo.context.converter;
 
+import com.kamo.context.BeanFactory;
 import com.kamo.context.exception.BeansException;
+import com.kamo.context.factory.BeanFactoryPostProcessor;
 import com.kamo.context.factory.BeanPostProcessor;
+import com.kamo.context.factory.ConfigurableListableBeanFactory;
 
-public class ConverterRegistryProcessor implements BeanPostProcessor {
+public class ConverterRegistryProcessor implements BeanFactoryPostProcessor {
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof Converter) {
-            ConverterRegistry.registerConverter((Converter) bean);
-        }
-        return bean;
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
     }
+
+
 
 }

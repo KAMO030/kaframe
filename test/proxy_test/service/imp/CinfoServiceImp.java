@@ -3,19 +3,17 @@ package proxy_test.service.imp;
 
 import com.kamo.context.annotation.Autowired;
 import com.kamo.context.annotation.Component;
-import com.kamo.context.listener.ApplicationEvent;
-import com.kamo.context.listener.ApplicationListener;
-import com.kamo.context.listener.impl.ContextRefreshedEvent;
-import proxy_test.service.CinfoService;
 
 @Component
-public class CinfoServiceImp implements CinfoService, ApplicationListener<ContextRefreshedEvent> {
+public class CinfoServiceImp {
     @Autowired
-    private CinfoService cinfoServiceImp;
+    private CinfoServiceImp cinfoServiceImp;
 
+    public int init;
     public String service(String service) {
         System.out.println(this);
-        System.out.println(cinfoServiceImp);
+        init =1;
+        System.out.println(this.getIndex());
         System.out.println("执行了service方法:" + service);
         return cinfoServiceImp.service1("222");
     }
@@ -27,8 +25,9 @@ public class CinfoServiceImp implements CinfoService, ApplicationListener<Contex
     }
 
 
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println(event.getApplicationContext());
+    public String getIndex() {
+        return init+"";
     }
+
+
 }

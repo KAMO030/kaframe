@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
  * @param <R> 需要转换到的类型
  */
 @FunctionalInterface
-public interface Converter<T,R>  {
+public interface Converter<T,R> extends ApplicationProcessor  {
     R convert(T value);
     default Class<R> getType(){
         Type[] types =  this.getClass().getGenericInterfaces();
