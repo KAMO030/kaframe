@@ -2,8 +2,8 @@ package basedao_test;
 
 import basedao_test.pojo.Cinfo;
 import basedao_test.service.CinfoService;
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.annotation.Autowired;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
+import com.kamo.bean.annotation.Autowired;
 
 //basedao和BFactoryBean演示demo
 

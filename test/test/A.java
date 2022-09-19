@@ -1,8 +1,8 @@
 package test;
 
-import com.kamo.context.annotation.Bean;
-import com.kamo.context.annotation.ComponentScan;
-import com.kamo.context.annotation.Configuration;
+import com.kamo.bean.annotation.Bean;
+import com.kamo.bean.annotation.ComponentScan;
+import com.kamo.bean.annotation.Configuration;
 import com.kamo.datasource.IzumiDataSourceFactory;
 import com.kamo.jdbc.basedao.BaseDaoFactory;
 import com.kamo.proxy.annotation.EnableProxy;

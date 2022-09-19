@@ -1,6 +1,6 @@
 package com.kamo.jdbc.mapper_support.annotation;
 
-import com.kamo.util.AliasFor;
+import com.kamo.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

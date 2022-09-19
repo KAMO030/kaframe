@@ -1,11 +1,11 @@
 package com.kamo.jdbc;
 
+import com.kamo.context.converter.Converter;
+import com.kamo.core.util.AnnotationUtils;
+import com.kamo.core.util.BeanUtils;
 import com.kamo.jdbc.mapper_support.annotation.NameType;
 import com.kamo.jdbc.mapper_support.annotation.TableField;
 import com.kamo.jdbc.mapper_support.annotation.TableName;
-import com.kamo.util.BeanUtil;
-import com.kamo.context.converter.Converter;
-import com.kamo.util.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -84,7 +84,7 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
         try {
             propertyField.set(entity, resultSet.getObject(columnName));
         } catch (IllegalAccessException ex) {
-            propertyField.set(entity, resultSet.getObject(BeanUtil.toBeanName(columnName)));
+            propertyField.set(entity, resultSet.getObject(BeanUtils.toBeanName(columnName)));
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -111,7 +111,7 @@ public class BeanPropertyRowMapper<T> implements RowMapper<T> {
                 try {
                     //通过BeanUtil工具类将字段名转换成一定规则的名字在去找
                     //U_ID->uId  (把字符全转为小写,把下划线去掉并把下划线后的一个字母转为大写)
-                    field = type.getDeclaredField(BeanUtil.toBeanName(columnName));
+                    field = type.getDeclaredField(BeanUtils.toBeanName(columnName));
                 } catch (NoSuchFieldException ex) {
                     //如果还是找不到,则打印异常
                     //并继续寻找映射

@@ -1,8 +1,10 @@
 package ioc_test.service.imp;
 
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Bean;
+import com.kamo.bean.annotation.Component;
 import com.kamo.context.condition.Condition;
-import com.kamo.context.annotation.*;
-import com.kamo.util.AnnotationMetadata;
+import com.kamo.core.support.AnnotationMetadata;
 import ioc_test.dao.CinfoDao;
 import ioc_test.service.CinfoService;
 

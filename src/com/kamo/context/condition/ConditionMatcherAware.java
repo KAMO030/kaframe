@@ -1,6 +1,6 @@
 package com.kamo.context.condition;
 
-import com.kamo.context.Aware;
+import com.kamo.context.factory.Aware;
 
 public interface ConditionMatcherAware extends Aware {
     void setConditionMatcher(ConditionMatcher conditionMatcher);

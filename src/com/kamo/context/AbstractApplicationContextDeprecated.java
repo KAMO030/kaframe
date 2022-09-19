@@ -1,5 +1,8 @@
 package com.kamo.context;
 
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.context.factory.BeanDefinitionRegistry;
+
 @Deprecated
 
 public abstract class AbstractApplicationContextDeprecated implements ApplicationContext, BeanDefinitionRegistry {

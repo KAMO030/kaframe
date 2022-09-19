@@ -1,8 +1,8 @@
 package com.kamo.jdbc.mapper_support;
 
 
-import com.kamo.context.FactoryBean;
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.context.factory.FactoryBean;
 
 public class MapperSupportFactoryBean implements FactoryBean {
 

@@ -1,7 +1,5 @@
 package com.kamo.context.factory;
 
-import com.kamo.context.Aware;
-
 public interface ClassLoadAware  extends Aware {
     void setClassLoad(ClassLoader classLoader);
     @Override

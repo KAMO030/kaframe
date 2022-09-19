@@ -1,6 +1,6 @@
 package com.kamo.jdbc.mapper_support.annotation;
 
-import com.kamo.context.annotation.Import;
+import com.kamo.bean.annotation.Import;
 import com.kamo.jdbc.mapper_support.MapperSupportImport;
 
 import java.lang.annotation.ElementType;

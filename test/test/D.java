@@ -1,7 +1,7 @@
 package test;
 
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.factory.InitializingBean;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.InitializingBean;
 
 //@Component
 public class D implements B,InitializingBean {

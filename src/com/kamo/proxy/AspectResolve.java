@@ -1,6 +1,6 @@
 package com.kamo.proxy;
 
-import com.kamo.context.Resolver;
+import com.kamo.context.factory.Resolver;
 import com.kamo.proxy.annotation.After;
 import com.kamo.proxy.annotation.Before;
 import com.kamo.proxy.impl.AfterPoint;

@@ -1,8 +1,8 @@
 package proxy_test.service.imp;
 
 
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.Component;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Component;
 
 @Component
 public class CinfoServiceImp {

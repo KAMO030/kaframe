@@ -1,7 +1,7 @@
 package com.kamo.context_rpc;
 
-import com.kamo.context.annotation.AbstractScanner;
-import com.kamo.context.annotation.Service;
+import com.kamo.bean.annotation.Service;
+import com.kamo.context.annotation.support.AbstractScanner;
 
 public class ReferenceScanner extends AbstractScanner {
 

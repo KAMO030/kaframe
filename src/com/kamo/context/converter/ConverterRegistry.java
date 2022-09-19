@@ -1,7 +1,7 @@
 package com.kamo.context.converter;
 
 
-import com.kamo.util.ReflectUtil;
+import com.kamo.core.util.ReflectUtils;
 import javafx.util.converter.DateStringConverter;
 
 import java.lang.reflect.Array;
@@ -81,7 +81,7 @@ public final class ConverterRegistry {
     }
 
     public static <T, R> R doConvert(T target, Class<R> returnType, Class<T> targetType) {
-        if (ReflectUtil.isPrimitive(returnType)) {
+        if (ReflectUtils.isPrimitive(returnType)) {
             try {
                 return (R) (returnType.equals(String.class) ?
                         target.toString() :
@@ -90,8 +90,8 @@ public final class ConverterRegistry {
                 e.printStackTrace();
             }
         }
-        returnType = ReflectUtil.getWrapperClass(returnType);
-        targetType = ReflectUtil.getWrapperClass(targetType);
+        returnType = ReflectUtils.getWrapperClass(returnType);
+        targetType = ReflectUtils.getWrapperClass(targetType);
         Converter<T, R> converter = getConverter(returnType, targetType);
         if (converter != null) {
            return converter.convert(target);

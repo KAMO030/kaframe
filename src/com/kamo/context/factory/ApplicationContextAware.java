@@ -1,9 +1,5 @@
 package com.kamo.context.factory;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.Aware;
-import com.kamo.context.listener.ApplicationEventMulticaster;
-
 public interface ApplicationContextAware  extends Aware {
     void setApplicationContext(ApplicationContext applicationContext);
     @Override

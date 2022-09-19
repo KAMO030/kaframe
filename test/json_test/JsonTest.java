@@ -1,13 +1,11 @@
 package json_test;
 
 
-import com.kamo.util.JsonParser;
+import com.kamo.core.util.JsonParser;
 import json_test.pojo.Human;
 import json_test.pojo.Student;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class JsonTest {

@@ -1,10 +1,10 @@
 package com.kamo.context.condition.impl;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
 import com.kamo.context.condition.Condition;
-import com.kamo.util.AnnotationMetadata;
-import com.kamo.util.ReflectUtil;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.core.support.AnnotationMetadata;
+import com.kamo.core.util.ReflectUtils;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ConditionOnBean implements Condition {
         List<Class> classList = new ArrayList<>(Arrays.asList(beanClasses));
         for (int i = 0; i < beanTypes.length; i++) {
             try {
-                classList.add(ReflectUtil.loadClass(classLoader, beanTypes[i]));
+                classList.add(ReflectUtils.loadClass(classLoader, beanTypes[i]));
             }catch (Exception e){
                 if (!isMiss){
                     return false;

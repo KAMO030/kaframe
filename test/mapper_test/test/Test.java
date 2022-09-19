@@ -1,8 +1,8 @@
 package mapper_test.test;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.annotation.Autowired;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
+import com.kamo.bean.annotation.Autowired;
 import mapper_test.test.service.CinfoService;
 
 import java.util.*;

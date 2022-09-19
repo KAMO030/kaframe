@@ -1,12 +1,12 @@
 package com.kamo.jdbc.mapper_support.annotation;
 
-import com.kamo.util.BeanUtil;
 import com.kamo.context.converter.Converter;
+import com.kamo.core.util.BeanUtils;
 
 public enum NameType {
 
 
-    SAME((name)-> name),SNAKE_CASE((name)-> BeanUtil.toTableName((String) name));
+    SAME((name)-> name),SNAKE_CASE((name)-> BeanUtils.toTableName((String) name));
     private final Converter<String,String> converter;
 
     NameType(Converter<String,String> converter) {

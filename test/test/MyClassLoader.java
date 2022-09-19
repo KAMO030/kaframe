@@ -2,8 +2,8 @@ package test;
 
 
 import basedao_test.dao.CinfoDao;
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.Component;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Component;
 
 
 @Component

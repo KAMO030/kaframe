@@ -1,7 +1,6 @@
 package com.kamo.context.listener;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.Aware;
+import com.kamo.context.factory.Aware;
 import com.kamo.context.listener.impl.DefaultEventMulticaster;
 
 public interface ApplicationEventMulticasterAware  extends Aware {

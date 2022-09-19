@@ -1,10 +1,9 @@
 package com.kamo.jdbc.basedao;
 
+import com.kamo.core.util.ReflectUtils;
 import com.kamo.jdbc.BeanPropertyRowMapper;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.jdbc.SingleColumnRowMapper;
-import com.kamo.util.AnnotationUtils;
-import com.kamo.util.ReflectUtil;
 
 @Deprecated
 
@@ -36,7 +35,7 @@ public class SqlStatement {
         //如果此sql是查询sql
         if (this.isQuery) {
             //判断返回类型是不是八大原始型或其包装类,如果是则采用简单映射器,否则才用Bean的属性映射器
-            this.mapper = ReflectUtil.isPrimitive(returnType)?
+            this.mapper = ReflectUtils.isPrimitive(returnType)?
                     new SingleColumnRowMapper(returnType):
                     new BeanPropertyRowMapper<>(returnType);
         }

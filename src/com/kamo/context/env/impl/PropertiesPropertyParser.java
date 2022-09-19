@@ -1,7 +1,7 @@
 package com.kamo.context.env.impl;
 
 
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
 import com.kamo.context.env.Environment;
 import com.kamo.context.env.PropertyParser;
 

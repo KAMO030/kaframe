@@ -1,12 +1,10 @@
 package com.kamo.transaction.support;
 
 
-import com.kamo.context.BeanDefinition;
-import com.kamo.context.BeanFactory;
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.exception.BeansException;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.context.factory.BeanFactory;
 import com.kamo.context.factory.BeanInstanceProcessor;
-import com.kamo.context.factory.BeanPostProcessor;
 import com.kamo.proxy.Advisor;
 import com.kamo.proxy.AdvisorRegister;
 import com.kamo.transaction.TransactionManager;

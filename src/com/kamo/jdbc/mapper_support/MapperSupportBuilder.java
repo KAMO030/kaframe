@@ -1,11 +1,11 @@
 package com.kamo.jdbc.mapper_support;
 
+import com.kamo.context.converter.Converter;
+import com.kamo.core.util.AnnotationUtils;
 import com.kamo.jdbc.BeanPropertyRowMapper;
 import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.jdbc.mapper_support.annotation.*;
-import com.kamo.context.converter.Converter;
-import com.kamo.util.AnnotationUtils;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;

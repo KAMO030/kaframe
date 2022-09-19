@@ -1,8 +1,8 @@
 package com.kamo.context_rpc;
 
-import com.kamo.context.annotation.Component;
-import com.kamo.context.annotation.Service;
-import com.kamo.util.AliasFor;
+import com.kamo.bean.annotation.Component;
+import com.kamo.bean.annotation.Service;
+import com.kamo.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

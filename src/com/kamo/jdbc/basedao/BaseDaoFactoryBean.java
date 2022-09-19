@@ -1,6 +1,6 @@
 package com.kamo.jdbc.basedao;
 
-import com.kamo.context.FactoryBean;
+import com.kamo.context.factory.FactoryBean;
 
 import javax.sql.DataSource;
 @Deprecated

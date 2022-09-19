@@ -1,10 +1,7 @@
 package proxy_test;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.listener.ApplicationEvent;
-import com.kamo.context.listener.impl.ContextRefreshedListenerMethodAdapter;
-import proxy_test.service.CinfoService;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
 import proxy_test.service.imp.CinfoServiceImp;
 
 

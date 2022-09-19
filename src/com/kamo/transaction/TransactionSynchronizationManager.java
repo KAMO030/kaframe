@@ -3,7 +3,10 @@ package com.kamo.transaction;
 
 import com.kamo.transaction.support.TransactionObject;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Objects;
 
 public class TransactionSynchronizationManager {
     private static final ThreadLocal<Map<Object, Object>> resources = new ThreadLocal();

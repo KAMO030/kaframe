@@ -1,12 +1,12 @@
 package com.kamo.jdbc.mapper_support;
 
 
+import com.kamo.core.util.ReflectUtils;
 import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
-import com.kamo.util.BeanUtil;
-import com.kamo.util.ReflectUtil;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -135,19 +135,44 @@ public class MapperSupportHandler implements InvocationHandler {
             return sql;
         }
         for (Object arg : args) {
-            if (ReflectUtil.isPrimitive(arg.getClass())) {
+            if (ReflectUtils.isPrimitive(arg.getClass())) {
                 params.add(arg);
             }else {
                 if (sql.matches("(.*)\\$\\{(.*)\\}(.*)")){
                     int stratIndex = sql.indexOf("${") + 2;
                     int endIndex = sql.indexOf("}", stratIndex);
                     String $auto = sql.substring(stratIndex, endIndex);
-                    $auto = BeanUtil.autoStitchingSql(arg, $auto, params);
+                    $auto = autoStitchingSql(arg, $auto, params);
                     sql = sql.substring(0, stratIndex - 2) + $auto + sql.substring(endIndex + 1);
                 }
             }
         }
         return sql;
     }
-
+    private   String autoStitchingSql(Object entity, String refer, List args) {
+        String stitchingSql = "";
+        if (entity == null) {
+            return "";
+        }
+        Class<?> entityClass = entity.getClass();
+        Field[] entityFields = entityClass.getDeclaredFields();
+        try {
+            for (Field entityField : entityFields) {
+                Object value = null;
+                String columnName = entityField.getName();
+                entityField.setAccessible(true);
+                value = entityField.get(entity);
+                if (value != null) {
+                    stitchingSql += refer.replace("$", columnName);
+                    if (refer.indexOf("like") != -1) {
+                        value = "%" + value + "%";
+                    }
+                    args.add(value);
+                }
+            }
+            return stitchingSql;
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

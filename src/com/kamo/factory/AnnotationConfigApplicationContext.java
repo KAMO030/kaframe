@@ -5,7 +5,7 @@ package com.kamo.factory;
 
 
 
-import com.kamo.context.annotation.Import;
+import com.kamo.bean.annotation.Import;
 import com.kamo.proxy.TransactionProxy;
 import com.kamo.transaction.support.DataSourceTransManager;
 

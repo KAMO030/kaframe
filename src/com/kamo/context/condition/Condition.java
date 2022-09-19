@@ -1,6 +1,6 @@
 package com.kamo.context.condition;
 
-import com.kamo.util.AnnotationMetadata;
+import com.kamo.core.support.AnnotationMetadata;
 
 import java.lang.reflect.AnnotatedElement;
 

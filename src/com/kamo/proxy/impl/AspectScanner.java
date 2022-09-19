@@ -1,7 +1,7 @@
 package com.kamo.proxy.impl;
 
-import com.kamo.context.annotation.AbstractScanner;
 import com.kamo.context.annotation.Scanner;
+import com.kamo.context.annotation.support.AbstractScanner;
 import com.kamo.proxy.AspectResolve;
 import com.kamo.proxy.annotation.Aspect;
 

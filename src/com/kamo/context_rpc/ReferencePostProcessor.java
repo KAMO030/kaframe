@@ -1,12 +1,12 @@
 package com.kamo.context_rpc;
 
+import com.kamo.bean.support.Property;
 import com.kamo.cloud.Protocol;
 import com.kamo.cloud.ProtocolFactory;
 import com.kamo.cloud.RpcProxyFactory;
 import com.kamo.cloud.URL;
-import com.kamo.context.BeanDefinition;
-import com.kamo.context.Property;
 import com.kamo.context.exception.BeansException;
+import com.kamo.bean.BeanDefinition;
 import com.kamo.context.factory.BeanInstanceProcessor;
 import com.kamo.context.factory.BeanPostProcessor;
 

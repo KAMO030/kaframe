@@ -1,6 +1,6 @@
 package com.kamo.proxy.annotation;
 
-import com.kamo.context.annotation.Import;
+import com.kamo.bean.annotation.Import;
 import com.kamo.proxy.impl.ProxyBeanPostProcessor;
 import com.kamo.proxy.impl.ProxyScannerPostProcessor;
 

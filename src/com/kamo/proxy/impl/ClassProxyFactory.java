@@ -1,6 +1,6 @@
 package com.kamo.proxy.impl;
 
-import com.kamo.cglib.ProxyClass;
+import com.kamo.core.cglib.ProxyClass;
 import com.kamo.proxy.Advisor;
 import com.kamo.proxy.AdvisorRegister;
 import com.kamo.proxy.ProxyFactory;
@@ -8,7 +8,6 @@ import com.kamo.proxy.TargetSource;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.List;
 
 public class ClassProxyFactory implements InvocationHandler, ProxyFactory {

@@ -1,10 +1,9 @@
 package ioc_test.dao.imp;
 
 import basedao_test.pojo.Cinfo;
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.Component;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Component;
 
-import com.kamo.context.annotation.Lazy;
 import ioc_test.dao.CinfoDao;
 @Component
 //@Lazy

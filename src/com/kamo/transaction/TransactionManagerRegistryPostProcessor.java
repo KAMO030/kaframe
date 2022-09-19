@@ -1,13 +1,13 @@
 package com.kamo.transaction;
 
-import com.kamo.context.BeanDefinition;
-import com.kamo.context.BeanDefinitionBuilder;
-import com.kamo.context.BeanDefinitionRegistry;
-import com.kamo.context.annotation.BeanDefinitionImportRegistry;
+import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.context.annotation.support.BeanDefinitionImportRegistry;
 import com.kamo.context.exception.BeansException;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.context.factory.BeanDefinitionRegistry;
 import com.kamo.context.factory.BeanDefinitionRegistryPostProcessor;
+import com.kamo.core.support.AnnotationMetadata;
 import com.kamo.transaction.support.DataSourceTransManager;
-import com.kamo.util.AnnotationMetadata;
 
 import java.beans.Introspector;
 

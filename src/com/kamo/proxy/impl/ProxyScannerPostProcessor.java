@@ -1,10 +1,9 @@
 package com.kamo.proxy.impl;
 
-import com.kamo.context.BeanDefinitionRegistry;
-import com.kamo.context.annotation.BeanDefinitionImportRegistry;
+import com.kamo.context.annotation.support.BeanDefinitionImportRegistry;
 import com.kamo.context.exception.BeansException;
-import com.kamo.context.factory.ClassLoadAware;
-import com.kamo.util.AnnotationMetadata;
+import com.kamo.context.factory.BeanDefinitionRegistry;
+import com.kamo.core.support.AnnotationMetadata;
 
 public class ProxyScannerPostProcessor extends BeanDefinitionImportRegistry  {
 

@@ -1,6 +1,6 @@
 package com.kamo.jdbc.basedao;
 
-import com.kamo.util.Resource;
+import com.kamo.core.util.ResourceUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -53,7 +53,7 @@ public class BaseDaoParser  {
         }else {
             properties  = new Properties();
             try {
-                properties.load(Resource.getResourceAsReader(className.replace('.', '/')+ "Mapper.properties"));
+                properties.load(ResourceUtils.getResourceAsReader(className.replace('.', '/')+ "Mapper.properties"));
             } catch (IOException e) {
                 throw new NullPointerException("找不到:"+className+" 接口的映射Sql文件" );
             }

@@ -1,6 +1,6 @@
 package com.kamo.context.factory;
 
-import com.kamo.context.BeanDefinition;
+import com.kamo.bean.BeanDefinition;
 
 public interface BeanInstanceProcessor extends ApplicationProcessor {
 

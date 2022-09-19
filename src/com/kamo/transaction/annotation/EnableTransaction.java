@@ -1,6 +1,6 @@
 package com.kamo.transaction.annotation;
 
-import com.kamo.context.annotation.Import;
+import com.kamo.bean.annotation.Import;
 import com.kamo.proxy.impl.ProxyBeanPostProcessor;
 import com.kamo.transaction.TransactionManagerRegistryPostProcessor;
 import com.kamo.transaction.support.TransactionManagerBeanPostProcessor;

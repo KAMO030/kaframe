@@ -1,14 +1,10 @@
 package rpc_test.cloud.provider;
 
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.annotation.ComponentScan;
-import com.kamo.context.annotation.Configuration;
-import com.kamo.context.annotation.Import;
-import com.kamo.context_rpc.ReferencePostProcessor;
-import rpc_test.cloud.common.service.TestService;
-import rpc_test.cloud.provider.serviceimp.TestServiceImp;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
+import com.kamo.bean.annotation.ComponentScan;
+import com.kamo.bean.annotation.Configuration;
 
 @Configuration
 @ComponentScan("rpc_test.cloud.provider.serviceimp")

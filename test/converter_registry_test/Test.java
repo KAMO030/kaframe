@@ -1,7 +1,8 @@
 package converter_registry_test;
 
-import com.kamo.context.ApplicationContext;
-import com.kamo.context.annotation.*;
+import com.kamo.bean.annotation.*;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
 import com.kamo.context.converter.Converter;
 import test.pojo.Ctype;
 

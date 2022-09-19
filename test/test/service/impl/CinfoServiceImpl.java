@@ -1,7 +1,7 @@
 package test.service.impl;
 
 
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
 import mapper_test.test.mapper.CinfoMapper;
 import mapper_test.test.service.CinfoService;
 

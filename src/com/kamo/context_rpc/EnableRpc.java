@@ -1,6 +1,6 @@
 package com.kamo.context_rpc;
 
-import com.kamo.context.annotation.Import;
+import com.kamo.bean.annotation.Import;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

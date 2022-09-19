@@ -1,6 +1,8 @@
 package com.kamo.context;
 
-import com.kamo.util.ReflectUtil;
+import com.kamo.core.util.ClassUtils;
+import com.kamo.core.util.ListUtils;
+import com.kamo.core.util.ReflectUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,30 +11,41 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class FactoryLoader {
-    private static Map<String,List<String>> FACTORY_CACHE ;
+    private static Map<String, List<String>> FACTORY_CACHE;
     private static final String FACTORY_PATH = "META-INF/kamo.factories";
-    private FactoryLoader(){};
 
-    public static <T> Class<T>[] load(Class<T> factoryClass){
-        return load(factoryClass,Thread.currentThread().getContextClassLoader());
+    private FactoryLoader() {
     }
-    public static <T> Class<T>[] load(Class<T> factoryClass, ClassLoader contextClassLoader){
-        String className = factoryClass.getName();
+
+    public static Class[] load(Class factoryClass) {
+        return load(factoryClass, ClassUtils.getDefaultClassLoader());
+    }
+
+    public static Class[] load(Class factoryClass, ClassLoader classLoader) {
+        return load(factoryClass.getName(), classLoader);
+    }
+
+    public static Class[] load(String factoryClassName) {
+        return load(factoryClassName,  ClassUtils.getDefaultClassLoader());
+    }
+
+    public static Class[] load(String factoryClassName, ClassLoader classLoader) {
+
         if (FACTORY_CACHE == null) {
             try {
-                loadCache(contextClassLoader);
+                loadCache(classLoader);
             } catch (IOException e) {
                 e.printStackTrace();
                 return new Class[0];
             }
         }
-        if (!FACTORY_CACHE.containsKey(className)) {
+        if (!FACTORY_CACHE.containsKey(factoryClassName)) {
             return new Class[0];
         }
-        List<String> classNames = FACTORY_CACHE.get(className);
-        List<Class<T>> classList= new ArrayList<>();
+        List<String> classNames = FACTORY_CACHE.get(factoryClassName);
+        List<Class> classList = new ArrayList<>();
         for (String name : classNames) {
-            classList.add(ReflectUtil.loadClass(contextClassLoader,name)) ;
+            classList.add(ReflectUtils.loadClass(classLoader, name));
         }
         return classList.toArray(new Class[0]);
     }
@@ -46,26 +59,23 @@ public final class FactoryLoader {
         //去重
         for (String interfacesName : FACTORY_CACHE.keySet()) {
             List<String> oldList = FACTORY_CACHE.get(interfacesName);
-            List<String> newList = new ArrayList<>(new HashSet<>(oldList));
-            FACTORY_CACHE.replace(interfacesName,oldList,newList);
+            List<String> newList = ListUtils.deduplication(oldList);
+            FACTORY_CACHE.replace(interfacesName, oldList, newList);
         }
     }
 
     private static void doLoad(URL factoryURL) throws IOException {
         Properties properties = new Properties();
-        try (InputStream inputStream = factoryURL.openStream()){
+        try (InputStream inputStream = factoryURL.openStream()) {
             properties.load(inputStream);
             Set<String> interfacesNames = properties.stringPropertyNames();
             for (String interfacesName : interfacesNames) {
                 String[] factoryNameArray = properties.getProperty(interfacesName).split(",");
-                List<String> factoryNames = new ArrayList<>();
-                for (String factoryName : factoryNameArray) {
-                    factoryNames.add(factoryName.trim());
-                }
+                List<String> factoryNames = ReflectUtils.array2List(factoryNameArray);
                 if (FACTORY_CACHE.containsKey(interfacesName)) {
                     FACTORY_CACHE.get(interfacesName).addAll(factoryNames);
-                }else {
-                    FACTORY_CACHE.put(interfacesName,factoryNames);
+                } else {
+                    FACTORY_CACHE.put(interfacesName, factoryNames);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.kamo.idal;
 
-import com.kamo.util.Resource;
+import com.kamo.core.util.ResourceUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -26,7 +26,7 @@ abstract class MapperFactory {
         mapper.setResource(path);
         try {
             documentBuilder = builderFactory.newDocumentBuilder();
-            doc = documentBuilder.parse(Resource.getResourceAsStream(path));
+            doc = documentBuilder.parse(ResourceUtils.getResourceAsStream(path));
             Element mapperEle = (Element) doc.getElementsByTagName("mapper").item(0);
             mapper.setMapperClass(mapperEle.getAttributeNode("namespace").getValue());
             mapper.setSelectMap(creatSelectMap(doc.getElementsByTagName("select")));

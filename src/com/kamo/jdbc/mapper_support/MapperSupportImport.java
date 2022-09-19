@@ -1,9 +1,9 @@
 package com.kamo.jdbc.mapper_support;
 
-import com.kamo.context.BeanDefinition;
-import com.kamo.context.BeanDefinitionBuilder;
-import com.kamo.context.BeanDefinitionRegistry;
+import com.kamo.bean.support.BeanDefinitionBuilder;
 import com.kamo.context.exception.BeansException;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.context.factory.BeanDefinitionRegistry;
 import com.kamo.context.factory.BeanDefinitionRegistryPostProcessor;
 
 public class MapperSupportImport implements BeanDefinitionRegistryPostProcessor {

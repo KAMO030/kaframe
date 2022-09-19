@@ -1,11 +1,9 @@
 package ioc_test;
 
 
-import com.kamo.context.annotation.AnnotationConfigApplicationContext;
-import com.kamo.context.annotation.ComponentScan;
-import com.kamo.context.annotation.Configuration;
-import com.kamo.context.listener.annotation.Listener;
-import com.kamo.context.listener.impl.ContextRefreshedEvent;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
+import com.kamo.bean.annotation.ComponentScan;
+import com.kamo.bean.annotation.Configuration;
 import ioc_test.service.CinfoService;
 
 @Configuration

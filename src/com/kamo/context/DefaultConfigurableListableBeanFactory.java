@@ -1,16 +1,15 @@
 package com.kamo.context;
 
-import com.kamo.context.annotation.Order;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.bean.annotation.Order;
 import com.kamo.context.converter.Converter;
 import com.kamo.context.converter.ConverterRegistry;
-import com.kamo.context.exception.NoSuchBeanDefinitionException;
 import com.kamo.context.factory.*;
-import com.kamo.util.AnnotationUtils;
-import org.jetbrains.annotations.NotNull;
+import com.kamo.core.util.AnnotationUtils;
 
 import java.beans.Introspector;
 import java.util.*;
-
+@Deprecated
 public class DefaultConfigurableListableBeanFactory implements ConfigurableListableBeanFactory {
     protected final List<BeanFactoryPostProcessor> beanFactoryPostProcessors;
     protected final Set<BeanInstanceProcessor> beanInstanceProcessors;
@@ -66,29 +65,29 @@ public class DefaultConfigurableListableBeanFactory implements ConfigurableLista
 
 
 
-    @Override
-    public void register(Class... beanClases) {
-        for (Class beanClass : beanClases) {
-            registerProcessor(beanClass);
-        }
-    }
+//    @Override
+//    public void register(Class... beanClases) {
+//        for (Class beanClass : beanClases) {
+//            registerProcessor(beanClass);
+//        }
+//    }
 
 
 
 
 
-    @Override
-    public List<BeanFactoryPostProcessor> getBeanFactoryPostProcessors() {
-        return beanFactoryPostProcessors;
-    }
-    @Override
-    public Set<BeanInstanceProcessor> getBeanInstanceProcessors() {
-        return beanInstanceProcessors;
-    }
-    @Override
-    public Set<BeanPostProcessor> getBeanPostProcessors() {
-        return beanPostProcessors;
-    }
+//    @Override
+//    public List<BeanFactoryPostProcessor> getBeanFactoryPostProcessors() {
+//        return beanFactoryPostProcessors;
+//    }
+//    @Override
+//    public Set<BeanInstanceProcessor> getBeanInstanceProcessors() {
+//        return beanInstanceProcessors;
+//    }
+//    @Override
+//    public Set<BeanPostProcessor> getBeanPostProcessors() {
+//        return beanPostProcessors;
+//    }
 
 
 

@@ -1,6 +1,6 @@
 package com.kamo.transaction.support;
 
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
 import com.kamo.jdbc.DataSourceUtils;
 import com.kamo.transaction.TransactionDefinition;
 import com.kamo.transaction.TransactionException;

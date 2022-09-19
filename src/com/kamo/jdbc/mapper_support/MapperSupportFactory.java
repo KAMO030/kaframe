@@ -2,7 +2,7 @@ package com.kamo.jdbc.mapper_support;
 
 
 
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Method;

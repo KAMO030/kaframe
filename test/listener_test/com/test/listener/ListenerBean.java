@@ -1,6 +1,9 @@
 package listener_test.com.test.listener;
 
-import com.kamo.context.annotation.*;
+import com.kamo.bean.annotation.Arg;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Component;
+import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
 import com.kamo.context.listener.ApplicationEventPublisher;
 import com.kamo.context.listener.annotation.Listener;
 import com.kamo.context.listener.impl.ContextRefreshedEvent;

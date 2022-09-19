@@ -3,8 +3,8 @@ package basedao_test.service.imp;
 import basedao_test.dao.CinfoDao;
 import basedao_test.pojo.Cinfo;
 import basedao_test.service.CinfoService;
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.Component;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Component;
 import com.kamo.transaction.annotation.Transactional;
 
 import java.util.List;

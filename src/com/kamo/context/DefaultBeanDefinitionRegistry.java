@@ -1,7 +1,11 @@
 package com.kamo.context;
 
+import com.kamo.bean.support.BeanDefinitionBuilder;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.context.factory.BeanDefinitionRegistry;
+import com.kamo.context.factory.FactoryBean;
 
 import java.beans.Introspector;
 import java.util.Map;

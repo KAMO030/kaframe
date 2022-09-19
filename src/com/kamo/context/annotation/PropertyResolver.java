@@ -1,6 +1,6 @@
 package com.kamo.context.annotation;
 
-import com.kamo.context.Resolver;
+import com.kamo.context.factory.Resolver;
 
 import java.lang.reflect.AnnotatedElement;
 

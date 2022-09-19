@@ -1,6 +1,6 @@
 package test;
 
-import com.kamo.context.BeanDefinition;
+import com.kamo.bean.BeanDefinition;
 import com.kamo.context.factory.BeanInstanceProcessor;
 
 public class Test1 implements BeanInstanceProcessor {

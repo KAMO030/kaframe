@@ -1,6 +1,6 @@
 package com.kamo.context.env;
 
-public class PropertySource<T> {
+public abstract class PropertySource<T> {
     protected String name;
    protected T source;
 

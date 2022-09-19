@@ -1,8 +1,8 @@
 package converter_registry_test;
 
-import com.kamo.context.annotation.Arg;
-import com.kamo.context.annotation.Bean;
-import com.kamo.context.annotation.Configuration;
+import com.kamo.bean.annotation.Arg;
+import com.kamo.bean.annotation.Bean;
+import com.kamo.bean.annotation.Configuration;
 import test.pojo.Ctype;
 
 @Configuration

@@ -1,6 +1,6 @@
 package basedao_test;
 
-import com.kamo.context.annotation.*;
+import com.kamo.bean.annotation.*;
 import com.kamo.datasource.IzumiDataSourceFactory;
 import com.kamo.jdbc.basedao.BaseDaoFactoryBean;
 import com.kamo.proxy.annotation.EnableProxy;

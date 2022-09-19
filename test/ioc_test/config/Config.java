@@ -1,9 +1,7 @@
 package ioc_test.config;
 
-import com.kamo.context.annotation.Bean;
-import com.kamo.context.annotation.ComponentScan;
+import com.kamo.bean.annotation.Bean;
 import com.kamo.context.condition.annotation.Conditional;
-import com.kamo.context.annotation.Configuration;
 import ioc_test.dao.imp.CinfoDao1;
 import ioc_test.service.imp.CinfoServiceImp;
 

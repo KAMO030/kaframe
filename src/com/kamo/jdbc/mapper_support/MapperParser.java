@@ -1,12 +1,12 @@
 package com.kamo.jdbc.mapper_support;
 
+import com.kamo.core.util.ReflectUtils;
+import com.kamo.core.util.ResourceUtils;
 import com.kamo.jdbc.BeanPropertyRowMapper;
 import com.kamo.jdbc.ColumnMapRowMapper;
 import com.kamo.jdbc.RowMapper;
 import com.kamo.jdbc.SingleColumnRowMapper;
 import com.kamo.jdbc.mapper_support.annotation.SQL;
-import com.kamo.util.ReflectUtil;
-import com.kamo.util.Resource;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -54,7 +54,7 @@ public class MapperParser {
         if (isQuery) {
             //判断返回类型是不是八大原始型或其包装类,如果是则采用简单映射器,否则才用Bean的属性映射器
             rowMapper =
-                    ReflectUtil.isPrimitive(returnType) ?
+                    ReflectUtils.isPrimitive(returnType) ?
                             new SingleColumnRowMapper(returnType) :
                             Map.class.isAssignableFrom(returnType) ?
                                     new ColumnMapRowMapper() :
@@ -70,7 +70,7 @@ public class MapperParser {
         } else {
             properties = new Properties();
             try {
-                properties.load(Resource.getResourceAsReader(className.replace('.', '/') + ".properties"));
+                properties.load(ResourceUtils.getResourceAsReader(className.replace('.', '/') + ".properties"));
             } catch (Exception e) {
                 throw new RuntimeException("找不到: " + className + " 接口的映射Sql文件 ");
             }

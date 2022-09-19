@@ -1,13 +1,15 @@
 package com.kamo.context.condition.impl;
 
-import com.kamo.context.*;
-import com.kamo.context.annotation.Autowired;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.support.BeanDefinitionBuilder;
 import com.kamo.context.condition.Condition;
 import com.kamo.context.condition.ConditionMatcher;
 import com.kamo.context.condition.annotation.Conditional;
+import com.kamo.context.factory.ApplicationContext;
 import com.kamo.context.factory.ApplicationContextAware;
-import com.kamo.util.AnnotationMetadata;
-import com.kamo.util.AnnotationUtils;
+import com.kamo.bean.BeanDefinition;
+import com.kamo.core.support.AnnotationMetadata;
+import com.kamo.core.util.AnnotationUtils;
 
 import java.lang.reflect.AnnotatedElement;
 

@@ -1,8 +1,8 @@
 package com.kamo.jdbc.basedao;
 
+import com.kamo.core.util.BeanUtils;
 import com.kamo.jdbc.JdbcTemplate;
 import com.kamo.jdbc.RowMapper;
-import com.kamo.util.BeanUtil;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
@@ -80,7 +80,7 @@ public class BaseDaoHandler implements InvocationHandler {
             int stratIndex = sql.indexOf("${") + 2;
             int endIndex = sql.indexOf("}", stratIndex);
             String $auto = sql.substring(stratIndex, endIndex);
-            $auto = BeanUtil.autoStitchingSql(args[argIndex++], $auto, params);
+//            $auto = BeanUtils.autoStitchingSql(args[argIndex++], $auto, params);
             sql = sql.substring(0, stratIndex - 2) + $auto + sql.substring(endIndex + 1);
         }
         int row = jdbcTemplate.update(sql, params.toArray());
@@ -103,7 +103,7 @@ public class BaseDaoHandler implements InvocationHandler {
             int stratIndex = sql.indexOf("${") + 2;
             int endIndex = sql.indexOf("}", stratIndex);
             String $auto = sql.substring(stratIndex, endIndex);
-            $auto = BeanUtil.autoStitchingSql(args[argIndex++], $auto, params);
+//            $auto = BeanUtils.autoStitchingSql(args[argIndex++], $auto, params);
             sql = sql.substring(0, stratIndex - 2) + $auto + sql.substring(endIndex + 1);
         }
         RowMapper rowMapper = sqlStatement.getRowMapper();

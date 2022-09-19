@@ -1,7 +1,7 @@
 package com.kamo.idal;
 
+import com.kamo.core.util.BeanUtils;
 import com.kamo.jdbc.RowMapper;
-import com.kamo.util.BeanUtil;
 
 import java.lang.reflect.Field;
 import java.sql.JDBCType;
@@ -28,7 +28,7 @@ public class ResultMap<T> implements RowMapper<T> {
         String name;
         for (Field ff : fields){
             name = ff.getName();
-            resultMap.put(BeanUtil.toTableName(name),name);
+            resultMap.put(BeanUtils.toTableName(name),name);
         }
     }
 

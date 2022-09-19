@@ -1,7 +1,7 @@
 package com.kamo.jdbc;
 
 
-import com.kamo.util.BeanUtil;
+import com.kamo.core.util.BeanUtils;
 
 import java.lang.reflect.Field;
 import java.sql.JDBCType;
@@ -47,7 +47,7 @@ public class DefaultRowMapper<T> implements RowMapper {
         }
         for (String columName : metaDataMap.keySet()) {
             for (int i = 0; i < fields.length; i++) {
-                if (fields[i].getName().equals(BeanUtil.toBeanName(columName))) {
+                if (fields[i].getName().equals(BeanUtils.toBeanName(columName))) {
                     fields[i].setAccessible(true);
                     try {
                         if (JDBCType.valueOf(metaDataMap.get(columName)).equals(JDBCType.VARCHAR)) {

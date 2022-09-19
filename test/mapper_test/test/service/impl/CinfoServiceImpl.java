@@ -1,7 +1,7 @@
 package mapper_test.test.service.impl;
 
-import com.kamo.context.annotation.Autowired;
-import com.kamo.context.annotation.Service;
+import com.kamo.bean.annotation.Autowired;
+import com.kamo.bean.annotation.Service;
 import com.kamo.transaction.annotation.Propagation;
 import com.kamo.transaction.annotation.Transactional;
 import mapper_test.test.mapper.CinfoMapper;
