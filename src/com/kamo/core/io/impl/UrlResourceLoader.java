@@ -1,6 +1,8 @@
-package com.kamo.core.io;
+package com.kamo.core.io.impl;
 
 
+import com.kamo.core.io.ResourceHolder;
+import com.kamo.core.io.ResourceLoader;
 import com.kamo.core.util.StringUtils;
 
 import java.net.MalformedURLException;

@@ -7,6 +7,8 @@ import com.kamo.context.listener.ApplicationEvent;
 import com.kamo.context.listener.ApplicationEventMulticaster;
 import com.kamo.context.listener.impl.ContextRefreshedEvent;
 import com.kamo.context.listener.impl.DefaultEventMulticaster;
+import com.kamo.core.io.impl.ResourceLoaderManager;
+import com.kamo.core.util.ClassUtils;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class GenericApplicationContext extends AbstractConfigurableListableBeanF
 
         eventMulticaster = new DefaultEventMulticaster();
 
-        addSingletonBeans(this, eventMulticaster, Thread.currentThread().getContextClassLoader());
+        addSingletonBeans(this, eventMulticaster, ClassUtils.getDefaultClassLoader(),new ResourceLoaderManager());
     }
 
     public void refresh() {
@@ -43,7 +45,7 @@ public class GenericApplicationContext extends AbstractConfigurableListableBeanF
     }
 
     public void registerBeanFactoryPostProcessorBeanDefinitions() {
-        register(FactoryLoader.load(ApplicationProcessor.class));
+        register(FactoryLoader.load(ApplicationProcessor.class) );
     }
 
 

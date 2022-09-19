@@ -1,6 +1,7 @@
-package com.kamo.core.io;
+package com.kamo.core.io.impl;
 
 
+import com.kamo.core.io.ResourceHolder;
 import com.kamo.core.util.ClassUtils;
 
 import java.io.FileNotFoundException;

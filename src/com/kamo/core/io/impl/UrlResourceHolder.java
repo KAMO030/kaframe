@@ -1,5 +1,7 @@
-package com.kamo.core.io;
+package com.kamo.core.io.impl;
 
+
+import com.kamo.core.io.ResourceHolder;
 
 import java.io.IOException;
 import java.io.InputStream;

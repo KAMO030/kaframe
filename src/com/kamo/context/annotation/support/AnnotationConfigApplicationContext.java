@@ -20,7 +20,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
         refresh();
     }
     public AnnotationConfigApplicationContext(ClassLoader classLoader, String... basePackages) {
-        this();
+        super(classLoader);
+        init();
         scan(basePackages);
         refresh();
     }
