@@ -7,7 +7,7 @@ import com.kamo.context.listener.impl.ApplicationListenerInstanceProcessor;
 
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
     private  AnnotatedBeanDefinitionReader reader;
-
+    private AnnotationConditionMatcher matcher;
     private  ClassPathBeanDefinitionScanner scanner;
 
     public AnnotationConfigApplicationContext() {
@@ -37,17 +37,15 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
         refresh();
     }
     private void init(){
-        reader = new AnnotatedBeanDefinitionReader(this);
-        scanner = new ClassPathBeanDefinitionScanner(this);
+        matcher = new AnnotationConditionMatcher(this);
+        reader = new AnnotatedBeanDefinitionReader(this,matcher);
+        scanner = new ClassPathBeanDefinitionScanner(matcher,this);
     }
     @Override
     public void registerBeanFactoryPostProcessorBeanDefinitions() {
         super.registerBeanFactoryPostProcessorBeanDefinitions();
         register(
-                ConfigurationRegistryPostProcessor.class,
-                AutowiredArgsInstanceProcessor.class,
-                ApplicationListenerInstanceProcessor.class,
-                AnnotationConditionMatcher.class
+                ApplicationListenerInstanceProcessor.class
         );
     }
 

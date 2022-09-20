@@ -11,6 +11,7 @@ import com.kamo.core.util.ReflectUtils;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -19,18 +20,19 @@ import java.lang.reflect.Parameter;
 public class AutowiredPropertyResolver extends AbstractPropertyResolver {
 
 
-    private BeanDefinition beanDefinitio;
+    private BeanDefinition beanDefinition;
 
     public AutowiredPropertyResolver(BeanDefinition beanDefinition) {
-        this.beanDefinitio = beanDefinition;
+        this.beanDefinition = beanDefinition;
 
     }
 
     @Override
     public void parse() {
-        Class beanClass = beanDefinitio.getBeanClass();
+        Class beanClass = beanDefinition.getBeanClass();
         parseField(beanClass);
         parseMethod(beanClass);
+        parseConstructor(beanClass);
     }
 
     private void parseMethod(Class beanClass) {
@@ -63,7 +65,7 @@ public class AutowiredPropertyResolver extends AbstractPropertyResolver {
         property.setName(propertyDescriptor.getName());
         property.setType(parameter.getType());
         property.setLazed(AnnotationUtils.isAnnotationPresent(writeMethod, Lazy.class));
-        beanDefinitio.addProperty(property);
+        beanDefinition.addProperty(property);
     }
 
     private void parseField(Class beanClass) {
@@ -94,8 +96,18 @@ public class AutowiredPropertyResolver extends AbstractPropertyResolver {
         property.setType(field.getType());
         property.setName(field.getName());
         property.setLazed(AnnotationUtils.isAnnotationPresent(field,Lazy.class));
-        beanDefinitio.addProperty(property);
+        beanDefinition.addProperty(property);
     }
 
+
+    private void parseConstructor(Class beanClass) {
+        for (Constructor constructor : beanClass.getConstructors()) {
+            if (AnnotationUtils.isAnnotationPresent(constructor, Autowired.class)) {
+                Parameter[] parameters = constructor.getParameters();
+                beanDefinition.setArguments(parameters);
+                break;
+            }
+        }
+    }
 
 }

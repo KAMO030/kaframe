@@ -1,7 +1,6 @@
 package env_test.mian;
 
 import com.kamo.context.env.impl.DefaultEnvironment;
-import com.kamo.context.env.impl.PropertiesPropertyParser;
 
 public class EnvTest {
     public static void main(String[] args) throws Exception {

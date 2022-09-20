@@ -3,7 +3,9 @@ package com.kamo.context;
 import com.kamo.bean.BeanDefinition;
 import com.kamo.bean.InitializingBean;
 import com.kamo.bean.support.Arguments;
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
+import com.kamo.context.annotation.PropertySetter;
+import com.kamo.context.annotation.support.DefaultPropertySetter;
 import com.kamo.context.converter.Converter;
 import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.context.exception.BeanDefinitionStoreException;
@@ -25,13 +27,14 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry implements BeanFactory {
-    protected final BeanMatcher exileBeanMatcher;
-    protected final Map<String, Object> singletonBeans;
+    private final BeanMatcher exileBeanMatcher;
+    private final Map<String, Object> singletonBeans;
 
+    private final PropertySetter propertySetter;
 
     protected ClassLoader classLoader;
-    protected final Map<String, Object> exileBeans;
-    protected final Map<Class, Object> factoryBeans;
+    private final Map<String, Object> exileBeans;
+    private final Map<Class, Object> factoryBeans;
 
 
     public AbstractBeanFactory() {
@@ -39,7 +42,7 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
     }
 
     public AbstractBeanFactory(ClassLoader classLoader) {
-
+        propertySetter = new DefaultPropertySetter(this);
         singletonBeans = new ConcurrentHashMap<>();
         exileBeans = new ConcurrentHashMap<>();
         exileBeanMatcher = new BeanMatcher(exileBeans);
@@ -78,6 +81,8 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
                 applyBeanInstanceAfterProcessor(beanName, beanDefinition, bean);
 
                 bean = applyBeanPostProcessorBefore(bean, beanName);
+
+                this.propertySetter.setBeanProperty(beanDefinition,bean);
 
                 if (bean instanceof InitializingBean) {
                     ((InitializingBean) bean).afterPropertiesSet();
@@ -182,7 +187,7 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
         if (this.containsBeanDefinition(name)) {
             return;
         }
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(bean.getClass());
+        BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(bean.getClass());
         this.registerBeanDefinition(name, beanDefinition);
     }
 
@@ -246,7 +251,7 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
         throw new BeansException("");
     }
 
-    @Override
+
     public boolean isUsing(Class type) {
         return exileBeanMatcher.match(type);
     }

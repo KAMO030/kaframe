@@ -2,11 +2,10 @@ package com.kamo.context.annotation.support;
 
 import com.kamo.bean.annotation.Autowired;
 import com.kamo.bean.annotation.PropertySource;
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.context.exception.BeansException;
 import com.kamo.bean.BeanDefinition;
 import com.kamo.context.factory.BeanDefinitionRegistry;
-import com.kamo.context.factory.ClassLoadAware;
 import com.kamo.core.io.ResourceLoader;
 import com.kamo.core.support.AnnotationMetadata;
 
@@ -53,10 +52,10 @@ public class PropertySourceConfig extends BeanDefinitionImportRegistry  {
 
     private void regisBean(String path, Properties properties,BeanDefinitionRegistry registry) {
         for (String keyName : properties.stringPropertyNames()) {
-            BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(String.class,()->properties.getProperty(keyName));
+            BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(String.class,()->properties.getProperty(keyName));
             registry.registerBeanDefinition(keyName, beanDefinition);
         }
-        BeanDefinition propertyDefinition = BeanDefinitionBuilder.getBeanDefinition(Properties.class,()->properties);
+        BeanDefinition propertyDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(Properties.class,()->properties);
         registry.registerBeanDefinition(path, propertyDefinition);
     }
 

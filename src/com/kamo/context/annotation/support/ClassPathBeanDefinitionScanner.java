@@ -20,9 +20,6 @@ public class ClassPathBeanDefinitionScanner extends AbstractScanner {
         this.conditionMatcher = conditionMatcher;
         this.context = context;
     }
-    public ClassPathBeanDefinitionScanner(ApplicationContext context) {
-        this(new AnnotationConditionMatcher(context),context);
-    }
 
 
 

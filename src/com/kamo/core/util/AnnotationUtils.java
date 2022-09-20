@@ -71,7 +71,7 @@ public final class AnnotationUtils {
     /**
      * 递归过滤条件
      */
-    public static boolean annotationFilter(Class<? extends Annotation> type) {
+    private static boolean annotationFilter(Class<? extends Annotation> type) {
         return type.equals(Documented.class) || type.equals(Target.class) || type.equals(Retention.class);
     }
 

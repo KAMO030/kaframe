@@ -6,28 +6,22 @@ import com.kamo.bean.annotation.Scope;
 import com.kamo.context.annotation.support.AnnotationBeanDefinition;
 import com.kamo.context.annotation.support.AutowiredPropertyResolver;
 import com.kamo.bean.BeanDefinition;
+import com.kamo.context.exception.BeansException;
 import com.kamo.core.util.AnnotationUtils;
 import com.kamo.core.util.ReflectUtils;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
-public class BeanDefinitionBuilder {
-    public static BeanDefinition getBeanDefinition(Class beanClass){
-        return getBeanDefinition(beanClass,null);
-    }
+public class AnnotationBeanDefinitionBuilder {
     public static BeanDefinition getBeanDefinition(Class beanClass,Supplier instanceSupplier){
         BeanDefinition beanDefinition = new AnnotationBeanDefinition();
-        String scope = beanClass.isAnnotationPresent(Scope.class)?
-                        Scope.SINGLETON.equalsIgnoreCase(((Scope)beanClass.getAnnotation(Scope.class)).value())?
-                                Scope.SINGLETON:
-                                Scope.PROTOTYPE:
-                        Scope.SINGLETON;
+        setScope(beanDefinition,beanClass);
         beanDefinition.setBeanClass(beanClass);
-        beanDefinition.setScope(scope);
         beanDefinition.setInstanceSupplier(instanceSupplier);
         beanDefinition.setLazyInit(beanClass.isAnnotationPresent(Lazy.class));
         new AutowiredPropertyResolver(beanDefinition).parse();
@@ -35,9 +29,9 @@ public class BeanDefinitionBuilder {
 
         return beanDefinition;
     }
-
     public static BeanDefinition getBeanDefinition(Method beanMethod,Supplier instanceSupplier){
         BeanDefinition beanDefinition = new MethodBeanDefinition(beanMethod);
+        setScope(beanDefinition,beanMethod);
         beanDefinition.setBeanClass(beanMethod.getReturnType());
         beanDefinition.setLazyInit(beanMethod.isAnnotationPresent(Lazy.class));
         beanDefinition.setScope(beanMethod.isAnnotationPresent(Scope.class) ?beanMethod.getAnnotation(Scope.class).value() :Scope.SINGLETON);
@@ -51,14 +45,26 @@ public class BeanDefinitionBuilder {
         return beanDefinition;
     }
 
+    private static void setScope(BeanDefinition beanDefinition, AnnotatedElement element){
+        String scope = AnnotationUtils.getValue(element,Scope.class,Scope.SINGLETON);
+        if (scope.equalsIgnoreCase(Scope.SINGLETON)) {
+            beanDefinition.setScope(Scope.SINGLETON);
+        }else if (scope.equalsIgnoreCase(Scope.PROTOTYPE)){
+            beanDefinition.setScope(Scope.PROTOTYPE);
+        }else {
+            throw  new BeansException();
+        }
+    }
     private static void parseLifeMethod(BeanDefinition beanDefinition, Class beanClass) {
         AtomicReference<String> destroy = new AtomicReference<>();
         AtomicReference<String> postConstruct = new AtomicReference<>();
         ReflectUtils.forEachMethod(beanClass, method -> {
             if (AnnotationUtils.isAnnotationPresent(method, Destroy.class)) {
                 destroy.set(method.getName());
+                return true;
             }else if (AnnotationUtils.isAnnotationPresent(method, PostConstruct.class)){
                 postConstruct.set(method.getName());
+                return true;
             }
             return false;
         });
@@ -72,7 +78,11 @@ public class BeanDefinitionBuilder {
             beanDefinition.setInitMethodName(initMethodName);
         }
     }
+
     public static BeanDefinition getBeanDefinition(Method beanMethod){
        return getBeanDefinition(beanMethod,null);
+    }
+    public static BeanDefinition getBeanDefinition(Class beanClass){
+        return getBeanDefinition(beanClass,null);
     }
 }

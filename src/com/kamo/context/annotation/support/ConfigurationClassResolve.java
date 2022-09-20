@@ -2,7 +2,7 @@ package com.kamo.context.annotation.support;
 
 import com.kamo.bean.annotation.Bean;
 import com.kamo.bean.annotation.ComponentScan;
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.context.condition.ConditionMatcher;
 import com.kamo.context.factory.ApplicationContext;
 import com.kamo.bean.BeanDefinition;
@@ -57,7 +57,7 @@ public class ConfigurationClassResolve implements Resolver {
             if (method.isAnnotationPresent(Bean.class)&&methodMatcher.isMeeConditions(method)) {
                 String name = method.getAnnotation(Bean.class).name();
                 name = name.equals("") ? method.getName() : name;
-                BeanDefinition methodBeanDefinition = BeanDefinitionBuilder.getBeanDefinition(method,()-> context.getBean(configBeanClass));
+                BeanDefinition methodBeanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(method,()-> context.getBean(configBeanClass));
                 context.registerBeanDefinition(name,methodBeanDefinition);
             }
         }

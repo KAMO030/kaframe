@@ -1,28 +1,23 @@
 package com.kamo.context.condition.impl;
 
-import com.kamo.bean.annotation.Autowired;
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.context.condition.Condition;
 import com.kamo.context.condition.ConditionMatcher;
 import com.kamo.context.condition.annotation.Conditional;
 import com.kamo.context.factory.ApplicationContext;
-import com.kamo.context.factory.ApplicationContextAware;
 import com.kamo.bean.BeanDefinition;
 import com.kamo.core.support.AnnotationMetadata;
 import com.kamo.core.util.AnnotationUtils;
 
 import java.lang.reflect.AnnotatedElement;
 
-public class AnnotationConditionMatcher implements ConditionMatcher, ApplicationContextAware {
-    @Autowired
+public class AnnotationConditionMatcher implements ConditionMatcher {
     private ApplicationContext applicationContext;
 
     public AnnotationConditionMatcher(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    public AnnotationConditionMatcher() {
-    }
 
     public boolean isMeeConditions(AnnotatedElement element) {
         if (!AnnotationUtils.isAnnotationPresent(element,Conditional.class)){
@@ -42,7 +37,7 @@ public class AnnotationConditionMatcher implements ConditionMatcher, Application
     private Condition getConditionBean(Class<? extends Condition> conditionClass) {
         String conditionName = conditionClass.getName();
         if (!applicationContext.containsBeanDefinition(conditionName)) {
-            BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(conditionClass);
+            BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(conditionClass);
             applicationContext.registerBeanDefinition(conditionName,beanDefinition);
         }
         return applicationContext.getBean(conditionName);
@@ -57,8 +52,5 @@ public class AnnotationConditionMatcher implements ConditionMatcher, Application
         throw new IllegalArgumentException("["+obj+"] 参数不是条件匹配器支持类型");
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+
 }

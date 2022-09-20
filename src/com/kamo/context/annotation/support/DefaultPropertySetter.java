@@ -1,31 +1,29 @@
 package com.kamo.context.annotation.support;
 
 import com.kamo.bean.BeanDefinition;
-import com.kamo.bean.annotation.Order;
 import com.kamo.bean.support.Property;
+import com.kamo.context.annotation.PropertySetter;
 import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.context.factory.*;
 import com.kamo.core.support.impl.LazedInvocationHandler;
 import com.kamo.core.util.ProxyUtils;
+
+
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-@Order(2)
-public class PropertySetProcessor implements BeanInstanceProcessor , ApplicationContextAware {
+public class DefaultPropertySetter implements PropertySetter {
     private BeanFactory factory;
 
 
-
-    @Override
-    public Object instanceBefore(String beanName, BeanDefinition beanDefinition) {
-        return null;
+    public DefaultPropertySetter(BeanFactory factory) {
+        this.factory = factory;
     }
 
-    @Override
-    public void instanceAfter(String beanName, BeanDefinition beanDefinition, Object bean) {
+    public void setBeanProperty( BeanDefinition beanDefinition, Object bean) {
         Property[] propertys = beanDefinition.getPropertys();
         Class<?> beanClass = bean.getClass();
         for (Property property : propertys) {
@@ -70,8 +68,5 @@ public class PropertySetProcessor implements BeanInstanceProcessor , Application
         return ProxyUtils.creatProxyInstance(property.getType(),lazedInvocationHandler);
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.factory = applicationContext;
-    }
+
 }

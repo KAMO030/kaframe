@@ -1,17 +1,24 @@
 package com.kamo.context.annotation.support;
 
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.annotation.Configuration;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
+import com.kamo.context.condition.impl.AnnotationConditionMatcher;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.bean.BeanDefinition;
-import com.kamo.context.factory.BeanDefinitionRegistry;
+import com.kamo.context.factory.ApplicationContext;
+import com.kamo.core.util.AnnotationUtils;
 
 import java.beans.Introspector;
 
 public class AnnotatedBeanDefinitionReader {
-    private final BeanDefinitionRegistry registry;
-    public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry) {
-        this.registry = registry;
+    private final ApplicationContext context;
+    private final AnnotationConditionMatcher matcher;
+
+    public AnnotatedBeanDefinitionReader(ApplicationContext context, AnnotationConditionMatcher matcher) {
+        this.context = context;
+        this.matcher = matcher;
     }
+
     public void register(Class<?>... componentClasses) {
         for (Class<?> componentClass : componentClasses) {
             registerBean(componentClass);
@@ -23,12 +30,20 @@ public class AnnotatedBeanDefinitionReader {
     }
 
     private void doRegisterBean(Class<?> beanClass) {
-        BeanDefinition bd = BeanDefinitionBuilder.getBeanDefinition(beanClass);
+        BeanDefinition bd = AnnotationBeanDefinitionBuilder.getBeanDefinition(beanClass);
         try {
-            registry.registerBeanDefinition(Introspector.decapitalize(beanClass.getSimpleName()),bd);
+            context.registerBeanDefinition(Introspector.decapitalize(beanClass.getSimpleName()),bd);
+            if (isConfigurationClass(bd)) {
+                AnnotationConfigParser.parseConfiguration(context,matcher,bd);
+            }
         } catch (BeanDefinitionStoreException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(beanClass+  " is AlreadyRegistered ",e);
         }
+    }
+    protected boolean isConfigurationClass(BeanDefinition beanDefinition) {
+        Class beanClass = beanDefinition.getBeanClass();
+        return matcher.isMeeConditions(beanClass)
+                && AnnotationUtils.isAnnotationPresent(beanClass, Configuration.class);
     }
 
 }

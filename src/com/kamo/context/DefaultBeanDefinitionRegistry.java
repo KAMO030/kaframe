@@ -1,6 +1,6 @@
 package com.kamo.context;
 
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.context.exception.BeanDefinitionStoreException;
 import com.kamo.context.exception.NoSuchBeanDefinitionException;
 import com.kamo.bean.BeanDefinition;
@@ -35,7 +35,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry {
 
     @Override
     public BeanDefinition registerBeanDefinition(String beanName, Class beanClass) {
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(beanClass);
+        BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(beanClass);
         registerBeanDefinition(beanName, beanDefinition);
         return beanDefinition;
     }

@@ -35,13 +35,13 @@ public class MapperSupportFactory {
             return (T) mapperSupportMap.get(mapperClass);
         }
         //如果没有缓存则新建一个mapper
-        T mapper = createmapper(mapperClass);
+        T mapper = createMapper(mapperClass);
         //将新建的mapper存入缓存,并返回
         mapperSupportMap.put(mapperClass, (MapperSupport) mapper);
         return mapper;
     }
 
-    private <T> T createmapper(Class<? extends MapperSupport> mapperClass) {
+    private <T> T createMapper(Class<? extends MapperSupport> mapperClass) {
         //先解析传进来的mapper类型,获得句柄和方法的映射Map
         Map<Method, SqlStatement> sqlStatementMap = MapperParser.parse(mapperClass);
         Class<T> entityClass = (Class) ((ParameterizedType) mapperClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];

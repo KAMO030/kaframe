@@ -1,7 +1,7 @@
 package com.kamo.context.annotation.support;
 
 import com.kamo.bean.annotation.Import;
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.bean.support.Property;
 import com.kamo.context.condition.ConditionMatcher;
 import com.kamo.context.factory.ApplicationProcessor;
@@ -45,7 +45,7 @@ public class ConfigurationAnnotationResolve implements Resolver {
         for (Class configClass : value) {
             if (isProcessor(configClass)) {
                 String beanName = Introspector.decapitalize(configClass.getSimpleName());
-                BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(configClass);
+                BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(configClass);
                 if (BeanDefinitionImportRegistry.class.isAssignableFrom(configClass)) {
                     Field annotationMetadata = ReflectUtils.getField(BeanDefinitionImportRegistry.class,"annotationMetadata");
                     Property property = new Property(annotationMetadata);

@@ -1,6 +1,6 @@
 package com.kamo.transaction;
 
-import com.kamo.bean.support.BeanDefinitionBuilder;
+import com.kamo.bean.support.AnnotationBeanDefinitionBuilder;
 import com.kamo.context.annotation.support.BeanDefinitionImportRegistry;
 import com.kamo.context.exception.BeansException;
 import com.kamo.bean.BeanDefinition;
@@ -19,7 +19,7 @@ public class TransactionManagerRegistryPostProcessor extends BeanDefinitionImpor
         if (!annotation) {
             return;
         }
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.getBeanDefinition(DataSourceTransManager.class);
+        BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(DataSourceTransManager.class);
         String name = Introspector.decapitalize(DataSourceTransManager.class.getSimpleName());
         registry.registerBeanDefinition(name,beanDefinition);
     }

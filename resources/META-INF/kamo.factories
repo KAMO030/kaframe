@@ -1,3 +1,2 @@
 com.kamo.context.factory.ApplicationProcessor=\
-com.kamo.context.annotation.support.PropertySetProcessor,\
 com.kamo.context.converter.ConverterRegistryProcessor

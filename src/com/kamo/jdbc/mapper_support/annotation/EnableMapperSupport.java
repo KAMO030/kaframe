@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import({MapperSupportImport.class})
 public @interface EnableMapperSupport {
-    String[] value()default {};
+
 }
