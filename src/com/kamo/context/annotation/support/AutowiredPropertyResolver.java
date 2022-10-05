@@ -69,7 +69,7 @@ public class AutowiredPropertyResolver extends AbstractPropertyResolver {
     }
 
     private void parseField(Class beanClass) {
-        ReflectUtils.forEachField(beanClass, field -> {
+        ReflectUtils.forEachField(beanClass,  field -> {
             if (needParse(field)) {
                 doParseField(field);
             }

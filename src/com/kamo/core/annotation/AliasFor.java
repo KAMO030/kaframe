@@ -7,8 +7,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface AliasFor {
 
-    String value() default "";
-
     String attribute() default "";
 
     Class<? extends Annotation> annotation();

@@ -4,7 +4,6 @@ package com.kamo.core.util;
 import com.kamo.core.support.AnnotationMetadata;
 import com.kamo.core.support.impl.AnnotationConvertHandler;
 import com.kamo.core.support.impl.StandardAnnotationMetadata;
-import com.sun.net.httpserver.HttpServer;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
@@ -51,7 +50,7 @@ public final class AnnotationUtils {
         return getAnnotation(element, element, annotationType);
     }
 
-    protected static <R extends Annotation> R getAnnotation(AnnotatedElement element, AnnotatedElement oldElement, Class<R> annotationType) {
+    private static <R extends Annotation> R getAnnotation(AnnotatedElement element, AnnotatedElement oldElement, Class<R> annotationType) {
         if (element.isAnnotationPresent(annotationType)) {
             return doGetAnnotation(element, oldElement, annotationType);
         }
@@ -103,7 +102,7 @@ public final class AnnotationUtils {
         return element.equals(oldElement) ?
                 element.getAnnotation(annotationType) :
                 (R) Proxy.newProxyInstance(AnnotationUtils.class.getClassLoader(), new Class[]{annotationType},
-                        new AnnotationConvertHandler(element, oldElement, annotationType));
+                        new AnnotationConvertHandler<>(element, oldElement, annotationType));
     }
 
     public static <R extends Annotation> AnnotationMetadata<R> getAnnotationMetadata(AnnotatedElement element, Class<R> annotationType) {
@@ -111,12 +110,12 @@ public final class AnnotationUtils {
     }
 
 
-    protected static <R extends Annotation> AnnotationMetadata<R> getAnnotationMetadata(AnnotatedElement element, AnnotatedElement oldElement, Class<R> annotationType) {
+    private static <R extends Annotation> AnnotationMetadata<R> getAnnotationMetadata(AnnotatedElement element, AnnotatedElement oldElement, Class<R> annotationType) {
         if (element.isAnnotationPresent(annotationType)) {
             R meta = doGetAnnotation(element, oldElement, annotationType);
             StandardAnnotationMetadata<R> standardAnnotationMetadata = new StandardAnnotationMetadata<>(meta, annotationType, oldElement);
             if (!element.equals(oldElement)) {
-                Class srcAnnotationType = ((Class) element).asSubclass(Annotation.class);
+                Class<Annotation> srcAnnotationType = ((Class) element).asSubclass(Annotation.class);
                 standardAnnotationMetadata.setSrcAnnotation(AnnotationUtils.getAnnotation(oldElement, srcAnnotationType));
             }
             return standardAnnotationMetadata;
@@ -138,14 +137,14 @@ public final class AnnotationUtils {
         return getAnnotationMetadatas(element, element, annotationType, new ArrayList<>());
     }
 
-    protected static <R extends Annotation> List<AnnotationMetadata<R>> getAnnotationMetadatas(AnnotatedElement element, AnnotatedElement oldElement,
-                                                                                               Class<R> annotationType, List<AnnotationMetadata<R>> list) {
+    private static <R extends Annotation> List<AnnotationMetadata<R>> getAnnotationMetadatas(AnnotatedElement element, AnnotatedElement oldElement,
+                                                                                             Class<R> annotationType, List<AnnotationMetadata<R>> list) {
         if (element.isAnnotationPresent(annotationType)) {
             R meta = doGetAnnotation(element, oldElement, annotationType);
             StandardAnnotationMetadata<R> standardAnnotationMetadata = new StandardAnnotationMetadata<>(meta, annotationType, oldElement);
             if (!element.equals(oldElement)) {
-                Class srcAnnotationType = ((Class) element).asSubclass(Annotation.class);
-                standardAnnotationMetadata.setSrcAnnotation(AnnotationUtils.getAnnotation(oldElement, srcAnnotationType));
+                Class<Annotation> srcAnnotationType = ((Class) element).asSubclass(Annotation.class);
+                standardAnnotationMetadata.setSrcAnnotation(getAnnotation(oldElement, srcAnnotationType));
             }
             list.add(standardAnnotationMetadata);
         }
@@ -155,8 +154,8 @@ public final class AnnotationUtils {
             if (annotationFilter(type)) {
                 continue;
             }
-            if (AnnotationUtils.isAnnotationPresent(type, annotationType)) {
-                AnnotationUtils.getAnnotationMetadatas(type, element, annotationType, list);
+            if (isAnnotationPresent(type, annotationType)) {
+                getAnnotationMetadatas(type, element, annotationType, list);
             }
         }
         return list;
@@ -164,7 +163,7 @@ public final class AnnotationUtils {
 
     public static <T extends Annotation> void getAnnotationAndHandle(Class<T> type, Method[] methods, Consumer<T> handler) {
         for (Method method : methods) {
-            T annotation = AnnotationUtils.getAnnotation(method, type);
+            T annotation = getAnnotation(method, type);
             if (annotation == null) {
                 continue;
             }
@@ -173,21 +172,22 @@ public final class AnnotationUtils {
     }
 
     public static <T> T getValue(AnnotatedElement element, Class<? extends Annotation> annotationType, T defaultValue) {
-        return getValue(element,annotationType, "value", defaultValue);
+        return getValue(element, annotationType, "value", defaultValue);
     }
 
     public static <T> T getValue(AnnotatedElement element, Class<? extends Annotation> annotationType, String methodName, T defaultValue) {
-        if (!element.isAnnotationPresent(annotationType)) {
+        Annotation annotation = getAnnotation(element, annotationType);
+        if (annotation == null) {
             return defaultValue;
         }
-        Annotation annotation = element.getAnnotation(annotationType);
         try {
-            T value = (T)annotationType.getMethod(methodName).invoke(annotation,new Object[0]);
+            Method annotationMethod = annotationType.getMethod(methodName);
+            T value = (T) ReflectUtils.invokeMethod(annotationMethod, annotation);
             if (value instanceof String && value.equals("")) {
                 return defaultValue;
             }
             return value;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return defaultValue;
         }

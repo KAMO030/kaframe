@@ -29,7 +29,7 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry {
                 factoryBeans.put(beanClass, beanDefinition);
             }
         } else {
-            throw new BeanDefinitionStoreException();
+            throw new BeanDefinitionStoreException("beanName : "+beanName+  " is AlreadyRegistered ");
         }
     }
 

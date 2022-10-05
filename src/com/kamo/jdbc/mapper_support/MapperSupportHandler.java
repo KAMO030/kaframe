@@ -60,13 +60,37 @@ public class MapperSupportHandler implements InvocationHandler {
         //通过当前正在执行的方法对象从map缓存中get到具体的sqlStatement对象
         SqlStatement sqlStatement = sqlStatements.get(method);
         if (sqlStatement == null) {
-            throw new NoSuchMethodException("没有找到: "+mapperClass+" 中 "+method.getName()+" 方法的Sql映射");
+            throw new NoSuchMethodException(method + " : 不存在映射");
+        }
+        if (sqlStatement.isDynamic()) {
+            return doDynamicSql(sqlStatement, method, args);
         }
         //通过sqlStatement判断此方法是查询还是更新
         return sqlStatement.isQuery() ? doQuery(sqlStatement, args) :
                 doUpdate(sqlStatement, args);
     }
 
+    private Object doDynamicSql(SqlStatement sqlStatement, Method method, Object[] args) {
+        List params = new ArrayList<>(Arrays.asList(args));
+        List newParams = new ArrayList<>();
+        params.add(newParams);
+
+        String dynamicSql = sqlStatement.getDynamicSql(params.toArray());
+
+        if (sqlStatement.isFirstDynamic()) {
+            MapperParser.doParseBySql(sqlStatement, method, dynamicSql);
+        }
+
+        if (sqlStatement.isQuery()) {
+            RowMapper rowMapper = sqlStatement.getRowMapper();
+            List resultList = this.mapperSupport.query(dynamicSql, rowMapper, newParams.toArray());
+            return sqlStatement.isDefaultReturnType() ?
+                    doQueryForList(dynamicSql, rowMapper, resultList) :
+                    doQueryForObject(dynamicSql, rowMapper, resultList);
+        }
+        int row = this.mapperSupport.update(dynamicSql, newParams.toArray());
+        return sqlStatement.isDefaultReturnType() ? row : row > 0;
+    }
     /**
      * 执行更新
      * @param sqlStatement 当前执行的方法对应的sql描述对象
@@ -108,27 +132,9 @@ public class MapperSupportHandler implements InvocationHandler {
     }
 
     private <T> List<T> doQueryForList(String sql, RowMapper<T> rowMapper, List paramsList) {
-        IPage<T> page = PageHelper.getPage();
-        if (page!=null&&page.getCurrentPage()!=null&&page.getPageSize()!=null) {
-            int select = sql.indexOf("select");
-            int from = sql.indexOf("from");
-            Object[] params = paramsList.toArray();
-            String countSql = sql.replace(sql.substring(select+7,from-1),"COUNT(*)")  ;
-            Integer totalCount = jdbcTemplate.queryForObject(countSql,Integer.class,params);
-            page.setTotalCount(totalCount);
-            sql+=" limit ?,? ";
-            paramsList.add(page.getStartPage());
-            paramsList.add(page.getPageSize());
-            params = paramsList.toArray();
-            List resultList = mapperSupport.query(sql, rowMapper, params);
-            page.setDataList(resultList);
-            PageHelper.removePage();
-            return page;
-        }else {
-            Object[] params = paramsList.toArray();
-            List<T> resultList = mapperSupport.query(sql, rowMapper, params);
-            return resultList;
-        }
+        Object[] params = paramsList.toArray();
+        List<T> resultList = this.mapperSupport.query(sql, rowMapper, params);
+        return resultList;
     }
     private String autoStitchingSql(String sql , List params, Object...args){
         if(args==null||args.length == 0){

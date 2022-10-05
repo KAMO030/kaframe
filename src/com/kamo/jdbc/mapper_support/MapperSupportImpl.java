@@ -175,12 +175,10 @@ public class MapperSupportImpl<T> implements MapperSupport<T> {
     }
 
     @Override
-    public List<T> queryByLimitAndEntity(Integer startPage, Integer pageSize, T equalEntity, T likeEntity) {
+    public List<T> queryByLimitAndEntity(Integer currentPage, Integer pageSize, T equalEntity, T likeEntity) {
         String sql = "SELECT * FROM " + this.tableName + " where 1=1 ";
-        if (equalEntity == null && likeEntity == null) {
-            return startPage != null && pageSize != null ?
-                    this.query(sql + " LIMIT ?,?", startPage, pageSize) :
-                    this.query(sql);
+        if (currentPage != null && pageSize != null) {
+            PageHelper.setPage(currentPage,pageSize);
         }
         List args = new ArrayList();
         if (equalEntity != null) {
@@ -188,11 +186,6 @@ public class MapperSupportImpl<T> implements MapperSupport<T> {
         }
         if (likeEntity != null) {
             sql += autoStitchingSql(likeEntity, "and $ like ? ", args);
-        }
-        if (startPage != null && pageSize != null) {
-            sql += " LIMIT ?,?";
-            args.add(startPage);
-            args.add(pageSize);
         }
         return this.query(sql, args.toArray());
     }
@@ -275,7 +268,7 @@ public class MapperSupportImpl<T> implements MapperSupport<T> {
     @Override
     public Integer count() {
         String sql = "SELECT COUNT(*) FROM  " + this.tableName;
-        System.out.println("SQL: " + sql);
+        printLog(sql,new Object[]{});
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
@@ -294,17 +287,44 @@ public class MapperSupportImpl<T> implements MapperSupport<T> {
 
     @Override
     public List<T> query(String sql, RowMapper<T> rowMapper, Object... params) {
+        IPage<T> page = PageHelper.getPage();
+        if (page != null && page.getCurrentPage() != null && page.getPageSize() != null) {
+            int select = sql.indexOf("select");
+            if(select==-1){
+                select = sql.indexOf("SELECT");
+            }
+            int from = sql.indexOf("from");
+            if(from==-1){
+                from = sql.indexOf("FROM");
+            }
+            String countSql = sql.replace(sql.substring(select + 7, from - 1), "COUNT(*)");
+            printLog(countSql,params);
+            Integer totalCount = jdbcTemplate.queryForObject(countSql, Integer.class, params);
+            page.setTotalCount(totalCount);
+            sql += " limit ?,? ";
+            List paramsList = new ArrayList<>(Arrays.asList(params));
+            paramsList.add(page.getStartPage());
+            paramsList.add(page.getPageSize());
+            params = paramsList.toArray();
+            printLog(sql,params);
+            List resultList = jdbcTemplate.query(sql, rowMapper, params);
+            page.setDataList(resultList);
+            PageHelper.removePage();
+            return page;
+        } else {
+            printLog(sql,params);
+            List<T> resultList = jdbcTemplate.query(sql, rowMapper, params);
+            return resultList;
+        }
+    }
+    private void printLog(String sql,Object...params){
         System.out.println("SQL: " + sql);
         System.out.println("ARGS: " + Arrays.toString(params));
-        return params == null ?
-                jdbcTemplate.query(sql, rowMapper) :
-                jdbcTemplate.query(sql, rowMapper, params);
     }
 
     @Override
     public int update(String sql, Object... params) {
-        System.out.println("SQL: " + sql);
-        System.out.println("ARGS: " + Arrays.toString(params));
+        printLog(sql,params);
         return params == null ?
                 jdbcTemplate.update(sql) :
                 jdbcTemplate.update(sql, params);

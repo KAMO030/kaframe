@@ -7,7 +7,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class ReflectUtils {
     private ReflectUtils() {
@@ -121,12 +121,13 @@ public final class ReflectUtils {
                 parameterTypes[i] = args[i].getClass();
             }
         }
-        Method method = getMethod(instance.getClass(), methodeName, parameterTypes);
-        return invokeMethod(method, instance, args);
-
-
+        return invokeMethod(instance,methodeName, parameterTypes,args);
     }
-
+    public static Object invokeMethod(Object instance, String methodeName,Class[] parameterTypes, Object... args) {
+        Class instanceClass = Objects.isNull(instance)? null : instance.getClass();
+        Method method =  getMethod(instanceClass, methodeName, parameterTypes);
+        return invokeMethod(method, instance, args);
+    }
     public static Object getFieldValue(Field field, Object instance) {
         try {
             Objects.requireNonNull(field);
@@ -165,10 +166,33 @@ public final class ReflectUtils {
             throw new ReflectException(e);
         }
     }
-    public static <T> T newInstance(Class<T> type,Class[]argTypes,Object... args) {
-        Constructor<T>  constructor = ReflectUtils.getConstructor(type, argTypes);
+    public static <T> T newInstance(Class<T> type, Object... args) {
+        return newInstance(type,null,args);
+    }
+    public static <T> T newInstance(Class<T> type, Class[] argTypes, Object... args) {
+        if (needAutoParserTypes(argTypes,args)) {
+            argTypes = getComponentTypes(args);
+        }
+
+        Constructor<T> constructor = ReflectUtils.getConstructor(type, argTypes);
         return newInstance(constructor, args);
     }
+    public static boolean needAutoParserTypes(Class[] argTypes, Object... args){
+        return (args != null && args.length != 0) && (argTypes == null || argTypes.length != args.length);
+    }
+
+    public static Class[] getComponentTypes(Object... args) {
+        if (args == null || args.length == 0) {
+            return new Class[0];
+        }
+
+        Class[] classes = new Class[args.length];
+        for (int i = 0; i < classes.length; i++) {
+            classes[i] = args[i].getClass();
+        }
+        return classes;
+    }
+
     public static Method getMethod(Class type, String methodName, boolean isSearchSuper, Class... parameterTypes) {
         try {
             return type.getDeclaredMethod(methodName, parameterTypes);
@@ -227,12 +251,12 @@ public final class ReflectUtils {
         return getField(type, fieldName, false);
     }
 
-    public static void forEachField(Class type, Function<Field, Boolean> function) {
+    public static void forEachField(Class type, Predicate<Field> predicate) {
         forEachSuperclass(type, c -> {
             Field[] fields = c.getDeclaredFields();
             boolean isBreak = false;
             for (Field field : fields) {
-                isBreak = function.apply(field);
+                isBreak = predicate.test(field);
                 if (isBreak) {
                     break;
                 }
@@ -241,12 +265,12 @@ public final class ReflectUtils {
         });
     }
 
-    public static void forEachMethod(Class type, Function<Method, Boolean> function) {
+    public static void forEachMethod(Class type, Predicate<Method> predicate) {
         forEachSuperclass(type, c -> {
             Method[] methods = c.getDeclaredMethods();
             boolean isBreak = false;
             for (Method method : methods) {
-                isBreak = function.apply(method);
+                isBreak = predicate.test(method);
                 if (isBreak) {
                     break;
                 }
@@ -255,17 +279,17 @@ public final class ReflectUtils {
         });
     }
 
-    public static void forEachSuperclass(Class type, Function<Class, Boolean> function) {
+    public static void forEachSuperclass(Class type, Predicate<Class> predicate) {
         Objects.requireNonNull(type);
         do {
 
-            if (function.apply(type)) {
+            if (predicate.test(type)) {
                 break;
             }
         } while ((type = type.getSuperclass()) != Object.class && type != null);
     }
 
-    public static<T>  Constructor<T>  getConstructor(Class<T> targetClass, Class... parameterTypes) {
+    public static <T> Constructor<T> getConstructor(Class<T> targetClass, Class... parameterTypes) {
         try {
             return targetClass.getDeclaredConstructor(parameterTypes);
         } catch (NoSuchMethodException e) {
@@ -328,20 +352,5 @@ public final class ReflectUtils {
         return Map.class.isAssignableFrom(type);
     }
 
-    public static Class loadClass(ClassLoader classLoader, String beanType) {
-        try {
-            return classLoader.loadClass(beanType);
-        } catch (ClassNotFoundException e) {
-            throw new ReflectException(e);
-        }
-    }
 
-
-    public static <T> List<T> array2List(T[] array) {
-        List<T> list = new ArrayList<>(array.length);
-        forEachArray(array,component->{
-            list.add(component);
-        });
-        return list;
-    }
 }

@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface SQL {
     String value() default "";
+    String dynamicSqlStaticMethodName() default "";
+    Class dynamicSqlMethodClass() default SQL.class;
 }

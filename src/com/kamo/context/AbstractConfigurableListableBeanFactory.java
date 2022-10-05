@@ -1,11 +1,12 @@
 package com.kamo.context;
 
 import com.kamo.bean.BeanDefinition;
-import com.kamo.bean.annotation.Order;
+import com.kamo.core.annotation.Order;
 import com.kamo.context.converter.Converter;
 import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.context.factory.*;
-import com.kamo.core.util.AnnotationUtils;
+import com.kamo.core.support.impl.AnnotationOrderComparator;
+
 import com.kamo.core.util.ListUtils;
 
 import java.beans.Introspector;
@@ -60,9 +61,9 @@ public class AbstractConfigurableListableBeanFactory extends AbstractBeanFactory
     }
 
     protected void invokeBeanFactoryPostProcessors() {
-        ApplicationProcessorComparable applicationProcessorComparable = new ApplicationProcessorComparable();
+
         int size = beanFactoryPostProcessors.size();
-        beanFactoryPostProcessors.sort(applicationProcessorComparable);
+        AnnotationOrderComparator.sort(beanFactoryPostProcessors);
         for (int i = 0; i < size; i++) {
             if (beanFactoryPostProcessors.get(i) instanceof BeanDefinitionRegistryPostProcessor) {
                 ((BeanDefinitionRegistryPostProcessor) beanFactoryPostProcessors.get(i))
@@ -82,8 +83,8 @@ public class AbstractConfigurableListableBeanFactory extends AbstractBeanFactory
         this.beanInstanceProcessors = ListUtils.deduplication(this.beanInstanceProcessors);
         this.beanPostProcessors = ListUtils.deduplication(this.beanPostProcessors);
         //重排序
-        beanInstanceProcessors.sort(applicationProcessorComparable);
-        beanPostProcessors.sort(applicationProcessorComparable);
+        AnnotationOrderComparator.sort(beanInstanceProcessors);
+        AnnotationOrderComparator.sort(beanPostProcessors);
     }
 
     @Override
@@ -120,27 +121,5 @@ public class AbstractConfigurableListableBeanFactory extends AbstractBeanFactory
         }
         this.registerProcessor(processorName, beanDefinition);
         return beanDefinition;
-    }
-
-
-
-
-
-
-
-
-
-    private class ApplicationProcessorComparable implements Comparator<ApplicationProcessor> {
-
-
-        @Override
-        public int compare(ApplicationProcessor o1, ApplicationProcessor o2) {
-            Class o1Class = o1.getClass();
-            Class o2Class = o2.getClass();
-            Integer o1Int = AnnotationUtils.getValue(o1Class, Order.class,Integer.MAX_VALUE-1);
-            Integer o2Int = AnnotationUtils.getValue(o2Class, Order.class,Integer.MAX_VALUE-1);
-
-            return o1Int-o2Int;
-        }
     }
 }

@@ -187,7 +187,7 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
         if (this.containsBeanDefinition(name)) {
             return;
         }
-        BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getBeanDefinition(bean.getClass());
+        BeanDefinition beanDefinition = AnnotationBeanDefinitionBuilder.getEmptyBeanDefinition(bean.getClass());
         this.registerBeanDefinition(name, beanDefinition);
     }
 
@@ -292,7 +292,7 @@ public abstract class AbstractBeanFactory extends DefaultBeanDefinitionRegistry 
         String[] matchNames = getBeanNamesByType(requiredType);
         String name = requiredType.getName();
         if (matchNames.length > 1) {
-            throw new BeanDefinitionStoreException("存在多个类型为: " + name + " 的 Bean");
+            throw new BeanDefinitionStoreException("存在多个类型为: " + name + " 的 bean: " + Arrays.toString(matchNames) );
         } else if (matchNames.length == 0) {
             T bean = getBeanByFactory(Introspector.decapitalize(name), requiredType);
             if (bean != null) {

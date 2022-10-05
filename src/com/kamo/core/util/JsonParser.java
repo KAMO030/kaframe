@@ -29,7 +29,7 @@ public class JsonParser {
     }
     private static String do2JSONParser(Class type, Object object){
         StringJoiner joiner = new StringJoiner(",", "{", "}");
-        ReflectUtils.forEachField(type, field -> {
+        ReflectUtils.forEachField(type,  field -> {
             if (Modifier.isTransient(field.getModifiers())) {
                 return false;
             }

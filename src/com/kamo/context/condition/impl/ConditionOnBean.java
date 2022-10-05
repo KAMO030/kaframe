@@ -4,9 +4,10 @@ import com.kamo.bean.annotation.Autowired;
 import com.kamo.context.condition.Condition;
 import com.kamo.context.factory.ApplicationContext;
 import com.kamo.core.support.AnnotationMetadata;
-import com.kamo.core.util.ReflectUtils;
+import com.kamo.core.util.ClassUtils;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +24,17 @@ public class ConditionOnBean implements Condition {
         final String[] beanNames = (String[]) metadata.getSrcAnnotationValue("beanNames");
         final String[] beanTypes = (String[]) metadata.getSrcAnnotationValue("beanTypes");
         final Class[] beanClasses = (Class[]) metadata.getSrcAnnotationValue("beanClasses");
+
+        if (isDefaultMatch(beanNames, beanTypes, beanClasses)) {
+            return doDefaultMatch(isMiss,element);
+        }
+
         List<Class> classList = new ArrayList<>(Arrays.asList(beanClasses));
         for (int i = 0; i < beanTypes.length; i++) {
             try {
-                classList.add(ReflectUtils.loadClass(classLoader, beanTypes[i]));
-            }catch (Exception e){
-                if (!isMiss){
+                classList.add(ClassUtils.loadClass(classLoader, beanTypes[i]));
+            } catch (Exception e) {
+                if (!isMiss) {
                     return false;
                 }
             }
@@ -72,5 +78,21 @@ public class ConditionOnBean implements Condition {
 //                return false;
 //            }
 //        }
+    }
+
+    private boolean doDefaultMatch(boolean isMiss, AnnotatedElement element) {
+        Class beanClass = null;
+        if (element instanceof Class) {
+            beanClass = (Class) element;
+        }else if (element instanceof Method) {
+            beanClass = ((Method) element).getReturnType();
+        }else {
+            return false;
+        }
+        return isMiss !=  applicationContext.containsBeanDefinition(beanClass);
+    }
+
+    private boolean isDefaultMatch(String[] beanNames, String[] beanTypes, Class[] beanClasses) {
+        return beanNames.length == 0 && beanTypes.length == 0 && beanClasses.length == 0;
     }
 }

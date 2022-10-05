@@ -1,4 +1,4 @@
-package com.kamo.bean.annotation;
+package com.kamo.core.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

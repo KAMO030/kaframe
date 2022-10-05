@@ -3,8 +3,13 @@ package mapper_test.test;
 import com.kamo.context.factory.ApplicationContext;
 import com.kamo.context.annotation.support.AnnotationConfigApplicationContext;
 import com.kamo.bean.annotation.Autowired;
+import com.kamo.jdbc.mapper_support.IPage;
+import com.kamo.jdbc.mapper_support.PageHelper;
+import mapper_test.test.mapper.CinfoMapper;
 import mapper_test.test.service.CinfoService;
+import mapper_test.test.vo.CinfoVO;
 
+import javax.imageio.IIOParam;
 import java.util.*;
 
 public class Test {
@@ -13,11 +18,12 @@ public class Test {
      private static List<String> name;
     public static void main(String[] args) throws NoSuchFieldException {
         ApplicationContext context = new AnnotationConfigApplicationContext(Test.class,Config.class);
-        CinfoService service = context.getBean("cinfoServiceImpl");
+//        CinfoService service = context.getBean("cinfoServiceImpl");
 //        service.service();
-//        CinfoMapper bean = context.getBean(CinfoMapper.class);
-////        PageHelper.setPage(444,2);
-//        List<CinfoVO> iPage =  bean.findAllCinfoVOByList();
+        CinfoMapper bean = context.getBean(CinfoMapper.class);
+        PageHelper.setPage(444,2);
+        Boolean iPage =  bean.updateCinfoRBoolean("123", "c001");
+        System.out.println(iPage);
 //        CinfoVO cinfoVO = iPage.get(0);
 //        iPage.forEach(c-> System.out.println(c));
 //        System.out.println(iPage);
@@ -55,4 +61,10 @@ public class Test {
 //        System.out.println(bean.findCinfoOnecName());
 
     }
+    private static String test(String cNo, String cId,List parms){
+        String sql = "update cinfo set cNo=? where cId = ?";
+        parms.add(cNo);
+        parms.add(cId);
+        return sql;
+    };
 }

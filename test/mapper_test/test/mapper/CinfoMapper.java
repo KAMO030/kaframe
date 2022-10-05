@@ -2,6 +2,7 @@ package mapper_test.test.mapper;
 
 import com.kamo.jdbc.mapper_support.MapperSupport;
 import com.kamo.jdbc.mapper_support.annotation.SQL;
+import mapper_test.test.Test;
 import mapper_test.test.pojo.Cinfo;
 import mapper_test.test.pojo.Ctype;
 import mapper_test.test.vo.CinfoVO;
@@ -24,11 +25,13 @@ public interface CinfoMapper extends MapperSupport<Cinfo> {
     CinfoVO findCinfoVOByCondition(Cinfo cinfo , String cNo, Ctype ctype);
     @SQL("update cinfo set cNo=? where 1=1 ${ and $ = ? }")
     Integer updateCinfoRInteger(String cNo,Cinfo cinfo);
-    @SQL("update cinfo set cNo=? where cId = ?")
+    @SQL(dynamicSqlStaticMethodName = "test",dynamicSqlMethodClass = Test.class)
     Boolean updateCinfoRBoolean(String cNo, String cId);
 
     @SQL("select cName from cinfo")
     List<String> findCinfoAllcName();
     @SQL("select cName from cinfo")
     String findCinfoOnecName();
+
+
 }

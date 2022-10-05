@@ -29,6 +29,13 @@ public class AnnotationBeanDefinitionBuilder {
 
         return beanDefinition;
     }
+    public static BeanDefinition getEmptyBeanDefinition(Class beanClass){
+        BeanDefinition beanDefinition = new GenericBeanDefinition();
+        beanDefinition.setBeanClass(beanClass);
+        beanDefinition.setScope(Scope.SINGLETON);
+
+        return beanDefinition;
+    }
     public static BeanDefinition getBeanDefinition(Method beanMethod,Supplier instanceSupplier){
         BeanDefinition beanDefinition = new MethodBeanDefinition(beanMethod);
         setScope(beanDefinition,beanMethod);

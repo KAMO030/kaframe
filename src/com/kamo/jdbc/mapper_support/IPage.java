@@ -137,7 +137,7 @@ public class IPage<T> implements List<T> {
                 ", pageSize=" + pageSize +
                 ", totalPage=" + totalPage +
                 ", totalCount=" + totalCount +
-                "dataList=" + dataList +
+                ", dataList=" + dataList +
                 ", pageNumbers=" + Arrays.toString(pageNumbers) +
                 '}';
     }

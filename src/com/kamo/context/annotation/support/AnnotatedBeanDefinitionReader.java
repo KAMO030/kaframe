@@ -37,7 +37,7 @@ public class AnnotatedBeanDefinitionReader {
                 AnnotationConfigParser.parseConfiguration(context,matcher,bd);
             }
         } catch (BeanDefinitionStoreException e) {
-            throw new RuntimeException(beanClass+  " is AlreadyRegistered ",e);
+            throw new BeanDefinitionStoreException("beanClass : "+beanClass+  " is AlreadyRegistered ",e);
         }
     }
     protected boolean isConfigurationClass(BeanDefinition beanDefinition) {

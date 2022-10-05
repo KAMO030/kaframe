@@ -16,7 +16,7 @@ public final class AnnotationConfigParser {
     public static void parseConfiguration(ApplicationContext context, ConditionMatcher conditionMatcher, BeanDefinition configBeanDefinition) {
         Class configClass = configBeanDefinition.getBeanClass();
         Configuration annotation = AnnotationUtils.getAnnotation(configClass, Configuration.class);
-        if (annotation.isProxyMethod()) {
+        if (annotation.proxyBeanMethods()) {
             crateProxyClass(context, configBeanDefinition);
         }
         new ConfigurationClassResolve(context, conditionMatcher, configClass)

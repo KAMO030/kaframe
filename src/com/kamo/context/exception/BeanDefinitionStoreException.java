@@ -5,5 +5,10 @@ public class BeanDefinitionStoreException extends BeansException {
         super(message);
     }
     public BeanDefinitionStoreException() {
+        super();
+    }
+
+    public BeanDefinitionStoreException(String message, BeanDefinitionStoreException e) {
+        super(message, e);
     }
 }

@@ -10,6 +10,7 @@ import com.kamo.context.listener.impl.DefaultEventMulticaster;
 import com.kamo.core.io.impl.ResourceLoaderManager;
 import com.kamo.core.util.ClassUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GenericApplicationContext extends AbstractConfigurableListableBeanFactory implements ApplicationContext {
@@ -45,7 +46,8 @@ public class GenericApplicationContext extends AbstractConfigurableListableBeanF
     }
 
     public void registerBeanFactoryPostProcessorBeanDefinitions() {
-        register(FactoryLoader.load(ApplicationProcessor.class) );
+        Class[] factoryClasses = FactoryLoader.load(ApplicationProcessor.class).getFactoryClasses();
+        register(factoryClasses);
     }
 
 

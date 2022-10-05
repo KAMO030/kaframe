@@ -1,7 +1,7 @@
 package com.kamo.context;
 
 import com.kamo.bean.BeanDefinition;
-import com.kamo.bean.annotation.Order;
+import com.kamo.core.annotation.Order;
 import com.kamo.context.converter.Converter;
 import com.kamo.context.converter.ConverterRegistry;
 import com.kamo.context.factory.*;

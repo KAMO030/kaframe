@@ -52,7 +52,7 @@ public class ApplicationListenerMethodAdapter<E extends ApplicationEvent> implem
                 name = argName.equals("") ? name : argName;
             }
             String finalName = name;
-            ReflectUtils.forEachField(eventType, field -> {
+            ReflectUtils.forEachField(eventType,  field -> {
                 Class<?> fieldType =  field.getType();
                 String fieldName = field.getName();
                 //如果自定义了名字，将只会按名字去找

@@ -5,32 +5,50 @@
       <artifact name="kaframe:jar" />
     </artifacts-to-build>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="优化类路径架构">
-      <change afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/PropertySetter.java" afterDir="false" />
+    <list default="true" id="1296610e-6e58-4817-a657-c30597eda450" name="变更" comment="优化架构">
+      <change afterPath="$PROJECT_DIR$/src/com/kamo/core/cglib/ProxyClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/kamo/core/support/impl/AnnotationOrderComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/kamo/core/support/impl/OrderComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/kamo.factories" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/kamo.factories" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/bean/support/BeanDefinitionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/bean/support/AnnotationBeanDefinitionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/bean/annotation/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/bean/annotation/Configuration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/bean/annotation/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/annotation/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/bean/support/AnnotationBeanDefinitionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/bean/support/AnnotationBeanDefinitionBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/context/AbstractBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/AbstractBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/AbstractConfigurableListableBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/AbstractConfigurableListableBeanFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanDefinitionRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanDefinitionRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/DefaultConfigurableListableBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/FactoryLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/FactoryLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/GenericApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/GenericApplicationContext.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotatedBeanDefinitionReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotatedBeanDefinitionReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotationConfigApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotationConfigApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AutowiredArgsInstanceProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotationConfigParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotationConfigParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AutowiredPropertyResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/AutowiredPropertyResolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ClassPathBeanDefinitionScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ClassPathBeanDefinitionScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ConfigurationAnnotationResolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ConfigurationAnnotationResolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ConfigurationClassResolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/ConfigurationClassResolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/PropertySetProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/DefaultPropertySetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/PropertySourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/annotation/support/PropertySourceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/condition/impl/AnnotationConditionMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/condition/impl/AnnotationConditionMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/factory/BeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/factory/BeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/condition/impl/ConditionOnBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/condition/impl/ConditionOnBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/converter/ConverterRegistryProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/converter/ConverterRegistryProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/exception/BeanDefinitionStoreException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/exception/BeanDefinitionStoreException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerMethodAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/context/listener/impl/ApplicationListenerMethodAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/annotation/AliasFor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/annotation/AliasFor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/cglib/MethodProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/cglib/MethodProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/cglib/ProxyClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/cglib/ProxyClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/kamo/core/util/AnnotationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/util/AnnotationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportImport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportImport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/annotation/EnableMapperSupport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/annotation/EnableMapperSupport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionManagerRegistryPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/transaction/TransactionManagerRegistryPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/env_test/mian/EnvTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/env_test/mian/EnvTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/util/ClassUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/util/ClassUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/util/JsonParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/util/JsonParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/util/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/util/ListUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/core/util/ReflectUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/core/util/ReflectUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/IPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/IPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/SqlStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/SqlStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/annotation/SQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/annotation/SQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mapper_test/test/mapper/CinfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/mapper_test/test/mapper/CinfoMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +62,9 @@
         <option value="Tag Library Descriptor" />
         <option value="Enum" />
         <option value="Kotlin Annotation" />
+        <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -66,6 +84,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/jre/lib/plugin.jar!/sun/plugin/javascript/ReflectUtil.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/jre/lib/rt.jar!/sun/reflect/misc/ReflectUtil.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/src.zip!/java/lang/Comparable.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/src.zip!/java/lang/String.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/src.zip!/java/util/Collections.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_241/src.zip!/java/util/concurrent/locks/Condition.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -90,14 +111,19 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/KAMO-NO-NP/IdeaProjects/kaframe/src/com/kamo/core/io&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KAMO-NO-NP/IdeaProjects/boot&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Java&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;927fe3cfa0232866dca5d42c3799e7e2&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -109,11 +135,11 @@
       <recent name="com.kamo.context.env.impl" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\boot" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\web-mvc\src\main\resources" />
+      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\web-mvc\src\main\java\com\kamo\web" />
       <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\src\com\kamo\core\io" />
       <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\KamoTest\resources\META-INF" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\resources\META-INF\services" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\out\production\kaframe" />
-      <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\out\production" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\KAMO-NO-NP\IdeaProjects\kaframe\resources\META-INF" />
@@ -131,7 +157,20 @@
       <recent name="visitor_test.com.impl" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.KamoApplicationBootstrap">
+  <component name="RunManager" selected="应用程序.cn.kamo.web_test.WebTest">
+    <configuration name="ConditionTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.kamo.condition_test.ConditionTest" />
+      <module name="KamoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.kamo.condition_test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FactoryLoaderTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cn.kamo.factoryloader_test.FactoryLoaderTest" />
       <module name="KamoTest" />
@@ -145,38 +184,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HttpTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cn.kamo.http.HttpTest" />
-      <module name="KamoTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cn.kamo.http.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KamoApplicationBootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cn.kamo.test.KamoApplicationBootstrap" />
-      <module name="KamoTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cn.kamo.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="proxy_test.Test" />
+      <option name="MAIN_CLASS_NAME" value="mapper_test.test.Test" />
       <module name="kaframe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="proxy_test.*" />
+          <option name="PATTERN" value="mapper_test.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -184,12 +197,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="converter_registry_test.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="converter_registry_test.Test" />
-      <module name="kaframe" />
+    <configuration name="WebTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.kamo.WebTest" />
+      <module name="web-mvc" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="converter_registry_test.*" />
+          <option name="PATTERN" value="com.kamo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cn.kamo.web_test.WebTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.kamo.web_test.WebTest" />
+      <module name="KamoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.kamo.web_test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -198,19 +224,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="应用程序.HttpTest" />
-      <item itemvalue="应用程序.Test" />
-      <item itemvalue="应用程序.converter_registry_test.Test" />
+      <item itemvalue="应用程序.cn.kamo.web_test.WebTest" />
+      <item itemvalue="应用程序.WebTest" />
       <item itemvalue="应用程序.FactoryLoaderTest" />
-      <item itemvalue="应用程序.KamoApplicationBootstrap" />
+      <item itemvalue="应用程序.ConditionTest" />
+      <item itemvalue="应用程序.Test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.KamoApplicationBootstrap" />
-        <item itemvalue="应用程序.HttpTest" />
+        <item itemvalue="应用程序.cn.kamo.web_test.WebTest" />
+        <item itemvalue="应用程序.WebTest" />
         <item itemvalue="应用程序.FactoryLoaderTest" />
         <item itemvalue="应用程序.Test" />
-        <item itemvalue="应用程序.converter_registry_test.Test" />
+        <item itemvalue="应用程序.ConditionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -301,7 +327,21 @@
       <workItem from="1663553903079" duration="4993000" />
       <workItem from="1663571614577" duration="23997000" />
       <workItem from="1663634200392" duration="1972000" />
-      <workItem from="1663639203500" duration="11366000" />
+      <workItem from="1663639203500" duration="12053000" />
+      <workItem from="1663809815132" duration="55000" />
+      <workItem from="1663809884201" duration="59000" />
+      <workItem from="1663809957498" duration="209000" />
+      <workItem from="1663810250621" duration="725000" />
+      <workItem from="1663826236495" duration="28585000" />
+      <workItem from="1663986569406" duration="1927000" />
+      <workItem from="1664021751281" duration="1403000" />
+      <workItem from="1664422649804" duration="17000" />
+      <workItem from="1664424976895" duration="972000" />
+      <workItem from="1664431681771" duration="11194000" />
+      <workItem from="1664465276944" duration="1248000" />
+      <workItem from="1664781359067" duration="5697000" />
+      <workItem from="1664951127651" duration="24263000" />
+      <workItem from="1664986911404" duration="775000" />
     </task>
     <task id="LOCAL-00001" summary="55">
       <created>1657590233333</created>
@@ -492,7 +532,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663595040600</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="优化架构">
+      <created>1663676040797</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1663676040797</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.0" />
     <MESSAGE value="1.1" />
     <MESSAGE value="1.2" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;1.2" />
@@ -571,20 +617,21 @@
     <MESSAGE value="优化代理的实现" />
     <MESSAGE value="优化整体架构，对于增强器增加了排序功能" />
     <MESSAGE value="优化类路径架构" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化类路径架构" />
+    <MESSAGE value="优化架构" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化架构" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/kamo/context/annotation/support/AnnotationConfigApplicationContext.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="155" />
+          <url>file://$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperSupportHandler.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/../KamoTest/src/cn/kamo/http/HttpTest.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="157" />
+          <url>file://$PROJECT_DIR$/src/com/kamo/jdbc/mapper_support/MapperParser.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/../KamoTest/src/cn/kamo/test/mapper/UserMapper.java</url>
@@ -593,6 +640,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/../KamoTest/src/cn/kamo/window/WindowTest.java</url>
+          <line>11</line>
+          <properties class="cn.kamo.window.WindowTest" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

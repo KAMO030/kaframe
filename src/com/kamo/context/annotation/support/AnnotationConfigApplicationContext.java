@@ -26,13 +26,12 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
         refresh();
     }
     public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
-        // 构造DefaultListableBeanFactory、AnnotatedBeanDefinitionReader、ClassPathBeanDefinitionScanner
-        this();
+        init();
         register(componentClasses);
         refresh();
     }
     public AnnotationConfigApplicationContext(String... basePackages) {
-        this();
+        init();
         scan(basePackages);
         refresh();
     }
